@@ -18,6 +18,7 @@ const sectionRouter = require("./routes/sections/section.router");
 const postsRouter = require("./routes/posts/posts.router");
 const feedbackRouter = require("./routes/feedbacks.router");
 
+// API Routers
 app.use("/auth/login", loginRouter);
 app.use("/auth/signup", signupRouter);
 app.use("/profile-feeds", profileFeedsRouter);

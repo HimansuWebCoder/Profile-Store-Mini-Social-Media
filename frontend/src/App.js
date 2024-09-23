@@ -1,9 +1,21 @@
-import "./App.css";
+import { useState, useEffect } from "react";
 
 function App() {
+  const [skill, setSkill] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8000/profile-admin/add-section/skills")
+      .then((res) => res.json())
+      .then((skills) => {
+        // console.log(skills);
+        setSkill(skills);
+      });
+  }, []);
   return (
     <div className="App">
-      <h1>Welcome to Profile-store-React App Himansu Welcome back again</h1>
+      {skill.map((item) => (
+        <p>{item.skill}</p>
+      ))}
     </div>
   );
 }

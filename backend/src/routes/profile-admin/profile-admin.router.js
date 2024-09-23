@@ -4,9 +4,16 @@ const {
 	editProfilePhoto,
 	getProfileInfo,
 	editProfileInfo,
+	getProfiles,
 } = require("../../controllers/profile-admin/profile-admin.controller");
 const db = require("../../config/db");
 const profileAdminRouter = express.Router();
+
+// GET profiles details
+
+profileAdminRouter.get("/profiles", (req, res) => {
+	getProfiles(req, res, db);
+});
 
 // GET profile-photo
 profileAdminRouter.get("/profilePhotoId/profile-photo", (req, res) => {
