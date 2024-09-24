@@ -1,6 +1,6 @@
 # Profile_Store_Mini_Social_Media
 
-** Brief Project Description**
+**Brief Project Description**
 
 -   I created a Profile Store mini social media site wher user can create profiles and share post with others,
     post images, videos, blogs, and create a online presence in this social media and chat with other user
