@@ -1,4 +1,4 @@
-# Full-Stack Profile Store
+# Profile_Store_Minid_Social_Media
 
 ** Brief Project Description**
 
