@@ -1,4 +1,4 @@
-const db = require("../../config/db");
+const db = require("../../../config/db");
 
 function getExperiences(req, res, db) {
 	res.send("get experiences");

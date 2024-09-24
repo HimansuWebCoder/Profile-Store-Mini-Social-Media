@@ -1,4 +1,4 @@
-const db = require("../../config/db");
+const db = require("../../../config/db");
 
 function getLanguages(req, res, db) {
 	res.send("get Languages");

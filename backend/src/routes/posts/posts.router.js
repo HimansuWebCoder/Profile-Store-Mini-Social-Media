@@ -30,6 +30,7 @@ const {
 const {
 	getLikes,
 	editLike,
+	postLike,
 } = require("../../controllers/posts/likes.controller");
 
 const {
@@ -59,12 +60,12 @@ postsRouter.post("/images", (req, res) => {
 });
 
 // UPDATE Image
-postsRouter.put("/images/imageId/editImage", (req, res) => {
+postsRouter.put("/images/:imageId/editImage", (req, res) => {
 	editImage(req, res, db);
 });
 
 // DELETE Image
-postsRouter.delete("/images/imageId/deleteImage", (req, res) => {
+postsRouter.delete("/images/:imageId/deleteImage", (req, res) => {
 	deleteImage(req, res, db);
 });
 // --------------------- Image posts API End-Points END -------------------
@@ -103,12 +104,12 @@ postsRouter.post("/docs", (req, res) => {
 });
 
 // UPDATE Doc
-postsRouter.put("/docs/docId/editDoc", (req, res) => {
+postsRouter.put("/docs/:docId/editDoc", (req, res) => {
 	editDoc(req, res, db);
 });
 
 // DELETE Doc
-postsRouter.delete("/docs/docId/deleteDoc", (req, res) => {
+postsRouter.delete("/docs/:docId/deleteDoc", (req, res) => {
 	deleteDoc(req, res, db);
 });
 // --------------------- Doc posts API End-Points END -------------------
@@ -125,12 +126,12 @@ postsRouter.post("/blogs", (req, res) => {
 });
 
 // UPDATE Blog
-postsRouter.put("/blogs/blogId/editBlog", (req, res) => {
+postsRouter.put("/blogs/:blogId/editBlog", (req, res) => {
 	editBlog(req, res, db);
 });
 
 // DELETE Blog
-postsRouter.delete("/blogs/blogId/deleteBlog", (req, res) => {
+postsRouter.delete("/blogs/:blogId/deleteBlog", (req, res) => {
 	deleteBlog(req, res, db);
 });
 // --------------------- Blog posts API End-Points END -------------------
@@ -141,8 +142,13 @@ postsRouter.get("/likes", (req, res) => {
 	getLikes(req, res, db);
 });
 
+// POST Like
+postsRouter.post("/likes", (req, res) => {
+	postLike(req, res, db);
+});
+
 // UPDATE Likes
-postsRouter.put("/likes/likeId/editLike", (req, res) => {
+postsRouter.put("/likes/:likeId/editLike", (req, res) => {
 	editLike(req, res, db);
 });
 // --------------------- Like posts API End-Points END -------------------
@@ -159,12 +165,12 @@ postsRouter.post("/comments", (req, res) => {
 });
 
 // UPDATE Comment
-postsRouter.put("/comments/commentId/editComment", (req, res) => {
+postsRouter.put("/comments/:commentId/editComment", (req, res) => {
 	editComment(req, res, db);
 });
 
 // DELETE Comment
-postsRouter.delete("/comments/commentId/deleteComment", (req, res) => {
+postsRouter.delete("/comments/:commentId/deleteComment", (req, res) => {
 	deleteBlog(req, res, db);
 });
 // --------------------- Comment posts API End-Points END -------------------
@@ -181,7 +187,7 @@ postsRouter.post("/save-posts", (req, res) => {
 });
 
 // DELETE save-posts
-postsRouter.delete("/save-posts/savePostId/deleteSavedPost", (req, res) => {
+postsRouter.delete("/save-posts/:savePostId/deleteSavedPost", (req, res) => {
 	deleteSavedPost(req, res, db);
 });
 // --------------------- Save-posts API End-Points END -------------------

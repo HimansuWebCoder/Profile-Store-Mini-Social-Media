@@ -1,7 +1,8 @@
 const db = require("../../config/db");
 
 function getProfileFeeds(req, res, db) {
-	res.send("profile-feeds");
+	// res.send("profile-feeds");
+	db("profile_feeds");
 }
 
 function getProfileFeedsPost(req, res, db) {
