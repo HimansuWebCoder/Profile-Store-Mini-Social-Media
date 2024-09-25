@@ -2,35 +2,35 @@ const db = require("../../../config/db");
 
 // GET Skills
 function getSkills(req, res, db) {
-	// 	db.select("*")
-	// 		.from("skills")
-	// 		.then((skillsData) => {
-	// 			if (skillsData.length > 0) {
-	// 				// either > 0 or !== 0
-	// 				return res.status(200).json(skillsData);
-	// 			} else {
-	// 				return res.status(404).json({ Error: "skillsData not found" });
-	// 			}
-	// 		})
-	// 		.catch((err) => {
-	// 			console.error(`Failed to retrieved data from Database: ${err}`);
-	// 			return res.status(500).json({ Error: "Internal Server Error" });
-	// 		});
-
-	db("skills")
-		.join("profiles", "skills.profile_id", "profiles.id")
-		.select("*")
+	db.select("*")
+		.from("skills")
 		.then((skillsData) => {
-			if (skillsData.length !== 0) {
+			if (skillsData.length > 0) {
+				// either > 0 or !== 0
 				return res.status(200).json(skillsData);
 			} else {
-				return res.status(404).json({ Error: "skills data not found" });
+				return res.status(404).json({ Error: "skillsData not found" });
 			}
 		})
-		.catch((error) => {
-			console.error(`Failed to retrieved data from Database: ${error}`);
+		.catch((err) => {
+			console.error(`Failed to retrieved data from Database: ${err}`);
 			return res.status(500).json({ Error: "Internal Server Error" });
 		});
+
+	// db("skills")
+	// 	.join("profiles", "skills.profile_id", "profiles.id")
+	// 	.select("*")
+	// 	.then((skillsData) => {
+	// 		if (skillsData.length !== 0) {
+	// 			return res.status(200).json(skillsData);
+	// 		} else {
+	// 			return res.status(404).json({ Error: "skills data not found" });
+	// 		}
+	// 	})
+	// 	.catch((error) => {
+	// 		console.error(`Failed to retrieved data from Database: ${error}`);
+	// 		return res.status(500).json({ Error: "Internal Server Error" });
+	// 	});
 }
 
 // POST Skills

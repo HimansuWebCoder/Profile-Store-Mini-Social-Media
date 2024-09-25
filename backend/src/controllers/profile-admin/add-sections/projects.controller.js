@@ -64,7 +64,10 @@ function editProject(req, res, db) {
 		.returning("*")
 		.then((projectUrls) => {
 			if (projectUrls.length > 0) {
-				return res.status(200).json(projectUrls);
+				return res.status(200).json({
+					message: "project updated successfully",
+					data: projectUrls,
+				});
 			} else {
 				return res.status(404).json({
 					message: "project URL not found",

@@ -161,7 +161,7 @@ addSectionRouter.post("/profile_links", (req, res) => {
 
 // UPDATE user's profile link
 addSectionRouter.put(
-	"/profile_links/:profileLinkId/editProfileLink",
+	"/profile_links/:profileLinkId/editProfile_link",
 	(req, res) => {
 		editProfileLink(req, res, db);
 	},
@@ -169,7 +169,7 @@ addSectionRouter.put(
 
 // DELETE user's profile link
 addSectionRouter.delete(
-	"/profile_links/:profileLinkId/deleteProfileLink",
+	"/profile_links/:profileLinkId/deleteProfile_link",
 	(req, res) => {
 		deleteProfileLink(req, res, db);
 	},

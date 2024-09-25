@@ -36,6 +36,7 @@ function postProfileLink(req, res, db) {
 		youtube_link,
 		facebook_link,
 		profileId,
+		profileInfoId,
 	} = req.body;
 
 	db.insert({
@@ -47,6 +48,7 @@ function postProfileLink(req, res, db) {
 		youtube_url: youtube_link,
 		facebook_url: facebook_link,
 		profile_id: profileId,
+		profile_info_id: profileInfoId,
 	})
 		.into("profile_links")
 		.returning("*")
