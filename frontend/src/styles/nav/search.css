@@ -1,0 +1,12 @@
+.search_input_container {
+	width: 300px;
+	height: auto;
+	background: yellow;
+	padding: 10px;
+}
+
+#search_input {
+	width: 90%;
+	height: auto;
+	padding: 10px;
+}
