@@ -1,5 +1,13 @@
 const db = require("../../config/db");
 
+function getProfiles(req, res, db) {
+	db.select("*")
+		.from("profiles")
+		.then((data) => {
+			return res.json(data);
+		});
+}
+
 // GET Profile's Photo
 function getProfilePhoto(req, res, db) {
 	// db("profile_photo")
@@ -12,17 +20,19 @@ function getProfilePhoto(req, res, db) {
 		.then((data) => {
 			if (data.length !== 0) {
 				// either > 0 or !== 0
-				res.status(200).json(data);
+				return res.status(200).json(data);
 			} else {
-				res.status(404).json({ status: "profile photo not found" });
+				return res
+					.status(404)
+					.json({ Error: "profile photo not found" });
 			}
 		})
-		.catch((err) => {
+		.catch((error) => {
 			console.error(
-				`Error happend retrieved profile_photo from DB: ${err}`,
+				`Error happend retrieved profile_photo from DB: ${error}`,
 			);
-			res.status(500).json({
-				error: "Error occurred retrieved profile_photo data from DB",
+			return res.status(500).json({
+				Error: "Internal Server Error",
 			});
 		});
 
@@ -31,40 +41,43 @@ function getProfilePhoto(req, res, db) {
 	// 		.select("*")
 	// 		.then((data) => {
 	// 			if (data.length !== 0) {
-	// 				res.status(200).json(data);
+	// 				return res.status(200).json(data);
 	// 			} else {
-	// 				res.status(404).json({ status: "profile photo not found" });
+	// 				return res.status(404).json({ Error: "profile photo not found" });
 	// 			}
 	// 		})
-	// 		.catch((err) => {
-	// 			console.error(`Failed to retrieve Data: ${err}`);
-	// 			res.status(500).json({ error: "Failed to retrieve data" });
+	// 		.catch((error) => {
+	// 			console.error(`Failed to retrieve Data: ${error}`);
+	// 			return res.status(500).json({ error: "Internal Server Error" });
 	// 		});
 }
 
 // UPDATE Profile's Photo
 function editProfilePhoto(req, res, db) {
-	const { image } = req.body;
-	const id = req.params.profilePhotoId;
+	// const id = req.params.profilePhotoId;
+	const { profilePhotoId } = req.params;
+	const { image, profileId } = req.body;
 
-	if (!image) {
-		res.status(400).json({ error: "image is required" });
+	if (!image || !profileId) {
+		return res
+			.status(400)
+			.json({ Error: "image or profileId is required" });
 	}
 
 	db("profile_photo")
-		.where({ id: id })
+		.where({ id: profilePhotoId, profile_id: profileId })
 		.update({ image: image })
 		.returning("*")
 		.then((data) => {
 			if (data.length > 0) {
 				// or data.length !== 0 must not be zero either > 0 or !== 0
-				res.status(200).json({
+				return res.status(200).json({
 					message: "Profile photo updated successfully",
 					data: data,
 				});
 			} else {
-				res.status(404).json({
-					error: "Profile photo not found to update",
+				return res.status(404).json({
+					Error: "Profile photo not found to update",
 				});
 			}
 		})
@@ -72,8 +85,8 @@ function editProfilePhoto(req, res, db) {
 			console.error(
 				`Error occurred updating image in profile_photo from DB: ${error}`,
 			);
-			res.status(409).json({
-				error: "Conflict during update",
+			return res.status(500).json({
+				Error: "Internal Server Error",
 			});
 		});
 }
@@ -85,19 +98,19 @@ function getProfileInfo(req, res, db) {
 		.then((profileInfoData) => {
 			if (profileInfoData.length !== 0) {
 				// or > 0
-				res.status(200).json(profileInfoData);
+				return res.status(200).json(profileInfoData);
 			} else {
-				res.status(404).json({
-					error: "profile information data not found",
+				return res.status(404).json({
+					Error: "profile information data not found",
 				});
 			}
 		})
-		.catch((err) => {
+		.catch((error) => {
 			console.error(
-				`Error occurred retrieved data from profile_info: ${err}`,
+				`Error occurred retrieved data from profile_info: ${error}`,
 			);
-			res.status(500).json({
-				error: "Error occurred retrieved data from profile_info",
+			return res.status(500).json({
+				Error: "Internal Server Error",
 			});
 		});
 }
@@ -108,7 +121,7 @@ function editProfileInfo(req, res, db) {
 	const id = req.params.profileInfoId;
 
 	if (!name || !headline) {
-		res.status(400).json({ error: "name & headline are needed" });
+		return res.status(400).json({ Error: "name & headline are needed" });
 	}
 
 	db("profile_info")
@@ -116,20 +129,20 @@ function editProfileInfo(req, res, db) {
 		.where({ id: id })
 		.then((profileInfoData) => {
 			if (profileInfoData.length > 0) {
-				res.status(200).json({
+				return res.status(200).json({
 					message: "profile information data successfully updated",
 					data: profileInfoData,
 				});
 			} else {
-				res.status(404).json({
-					error: "profile info not found to update",
+				return res.status(404).json({
+					Error: "profile info not found to update",
 				});
 			}
 		})
 		.catch((error) => {
 			console.error(`error in profile_info update data: ${error}`);
-			res.status(409).json({
-				error: "Conflict during update",
+			return res.status(500).json({
+				Error: "Internal Server Error",
 			});
 		});
 }
@@ -139,4 +152,5 @@ module.exports = {
 	editProfilePhoto,
 	getProfileInfo,
 	editProfileInfo,
+	getProfiles,
 };

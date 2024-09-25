@@ -138,36 +138,42 @@ addSectionRouter.delete("/languages/:languageId/deleteLanguage", (req, res) => {
 // ---------------- User's About API End-Points START -------------------------
 // GET user's About
 addSectionRouter.get("/about", (req, res) => {
-	getLanguages(req, res, db);
+	getAboutProfile(req, res, db);
 });
 
-// UPDATE user's about
+// UPDATE user's About
 addSectionRouter.put("/about/:aboutId/editAbout", (req, res) => {
-	editLanguage(req, res, db);
+	editAboutProfile(req, res, db);
 });
 
 // ---------------- User's About API End-Points END --------------------------
 
 // ---------------- User's Profile_links API End-Points START -------------------------
-// GET user's Languages
-addSectionRouter.get("/languages", (req, res) => {
-	getLanguages(req, res, db);
+// GET user's Profile links
+addSectionRouter.get("/profile_links", (req, res) => {
+	getProfileLinks(req, res, db);
 });
 
-// POST user's Languages
-addSectionRouter.post("/languages", (req, res) => {
-	postLanguage(req, res, db);
+// POST user's profile link
+addSectionRouter.post("/profile_links", (req, res) => {
+	postProfileLink(req, res, db);
 });
 
-// UPDATE user's Languages
-addSectionRouter.put("/languages/:languageId/editLanguage", (req, res) => {
-	editLanguage(req, res, db);
-});
+// UPDATE user's profile link
+addSectionRouter.put(
+	"/profile_links/:profileLinkId/editProfileLink",
+	(req, res) => {
+		editProfileLink(req, res, db);
+	},
+);
 
-// DELETE user's Languages
-addSectionRouter.delete("/languages/:languageId/deleteLanguage", (req, res) => {
-	deleteLanguage(req, res, db);
-});
+// DELETE user's profile link
+addSectionRouter.delete(
+	"/profile_links/:profileLinkId/deleteProfileLink",
+	(req, res) => {
+		deleteProfileLink(req, res, db);
+	},
+);
 // ---------------- User's Profile_links API End-Points END --------------------------
 
 module.exports = addSectionRouter;

@@ -4,6 +4,7 @@ const {
 	editProfilePhoto,
 	getProfileInfo,
 	editProfileInfo,
+	getProfiles,
 } = require("../../controllers/profile-admin/profile-admin.controller");
 const db = require("../../config/db");
 const profileAdminRouter = express.Router();
@@ -27,13 +28,19 @@ profileAdminRouter.get("/profile_info", (req, res) => {
 });
 
 // UPDATE profile-photo
-profileAdminRouter.put("/:profilePhotoId/profile_photo", (req, res) => {
-	editProfilePhoto(req, res, db);
-});
+profileAdminRouter.put(
+	"/profile_photo/:profilePhotoId/editProfile_photo",
+	(req, res) => {
+		editProfilePhoto(req, res, db);
+	},
+);
 
 // UPDATE profile-info
-profileAdminRouter.put("/:profileInfoId/profile_info", (req, res) => {
-	editProfileInfo(req, res, db);
-});
+profileAdminRouter.put(
+	"/profile_info/:profileInfoId/editProfile_info",
+	(req, res) => {
+		editProfileInfo(req, res, db);
+	},
+);
 
 module.exports = profileAdminRouter;

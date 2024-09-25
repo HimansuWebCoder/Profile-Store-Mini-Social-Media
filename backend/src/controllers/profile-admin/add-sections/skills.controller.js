@@ -7,14 +7,14 @@ function getSkills(req, res, db) {
 	// 		.then((skillsData) => {
 	// 			if (skillsData.length > 0) {
 	// 				// either > 0 or !== 0
-	// 				res.status(200).json(skillsData);
+	// 				return res.status(200).json(skillsData);
 	// 			} else {
-	// 				res.status(404).json({ error: "skillsData not found" });
+	// 				return res.status(404).json({ Error: "skillsData not found" });
 	// 			}
 	// 		})
 	// 		.catch((err) => {
 	// 			console.error(`Failed to retrieved data from Database: ${err}`);
-	// 			res.status(500).json({ error: "Unexpected Error happend" });
+	// 			return res.status(500).json({ Error: "Internal Server Error" });
 	// 		});
 
 	db("skills")
@@ -22,14 +22,14 @@ function getSkills(req, res, db) {
 		.select("*")
 		.then((skillsData) => {
 			if (skillsData.length !== 0) {
-				res.status(200).json(skillsData);
+				return res.status(200).json(skillsData);
 			} else {
-				res.status(404).json({ status: "skills data not found" });
+				return res.status(404).json({ Error: "skills data not found" });
 			}
 		})
-		.catch((err) => {
-			console.error(`Failed to retrieved data from Database: ${err}`);
-			res.status(500).json({ error: "Unexpected Error happend" });
+		.catch((error) => {
+			console.error(`Failed to retrieved data from Database: ${error}`);
+			return res.status(500).json({ Error: "Internal Server Error" });
 		});
 }
 
@@ -43,30 +43,26 @@ function postSkill(req, res, db) {
 	// }
 
 	if (!skillName || !profileId) {
-		res.status(400).json({ error: "skillName & profileId must required" });
+		return res
+			.status(400)
+			.json({ Error: "skillName & profileId must required" });
 	}
 
 	db.insert({ skill: skillName, profile_id: profileId })
 		.into("skills")
 		.returning("*")
 		.then((skill) => {
-			if (skill.length > 0) {
-				res.status(201).json({
-					message: "Skills created successfully",
-					data: skill,
-				});
-			} else {
-				res.status(400).json({
-					error: "Bad request for post skills",
-				});
-			}
+			return res.status(201).json({
+				message: "Skills created successfully",
+				data: skill,
+			});
 		})
-		.catch((err) => {
+		.catch((error) => {
 			console.error(
-				`Failed to Insert skill to skills table in DB: ${err}`,
+				`Failed to Insert skill to skills table in DB: ${error}`,
 			);
-			res.status(409).json({
-				error: "Conflict during post",
+			return res.status(500).json({
+				Error: "Internal Server Error",
 			});
 		});
 }
@@ -78,7 +74,9 @@ function editSkill(req, res, db) {
 	const id = req.params.skillId;
 
 	if (!skillName) {
-		res.status(400).json({ error: "skillName and profileId must needed" });
+		return res
+			.status(400)
+			.json({ Error: "skillName and profileId must needed" });
 	}
 
 	db("skills")
@@ -89,20 +87,20 @@ function editSkill(req, res, db) {
 		.returning("*")
 		.then((skillsData) => {
 			if (skillsData.length !== 0) {
-				res.status(200).json({
+				return res.status(200).json({
 					message: "skills update successfully",
 					data: skillsData,
 				});
 			} else {
-				res.status(404).json({
-					error: "Skills not found for update",
+				return res.status(404).json({
+					Error: "Skills not found for update",
 				});
 			}
 		})
-		.catch((err) => {
-			console.error(`Failed to update skills into DB: ${err}`);
-			res.status(409).json({
-				error: "Conflict during update",
+		.catch((error) => {
+			console.error(`Failed to update skills into DB: ${error}`);
+			return res.status(500).json({
+				Error: "Internal Server Error",
 			});
 		});
 }
@@ -119,16 +117,16 @@ function deleteSkill(req, res, db) {
 			// res.json({ result: `Successfully Deleted: ${result[0]}` });
 			if (deletedSkill.length === 0) {
 				// or result.length > 0
-				res.status(404).json({ error: "Skill does not exist" });
+				return res.status(404).json({ Error: "Skill does not exist" });
 			} else {
-				res.status(200).json({
+				return res.status(200).json({
 					message: "Skill Deleted Successfully",
 				});
 			}
 		})
 		.catch((err) => {
 			console.error(`Failed to delete skill: ${err}`);
-			res.status(500).json({
+			return res.status(500).json({
 				error: "Internal Server Error",
 			});
 		});
