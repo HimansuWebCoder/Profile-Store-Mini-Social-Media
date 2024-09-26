@@ -19,19 +19,9 @@ app.use(bodyParserMiddleware);
 app.use(corsMiddleware);
 
 // Import Routes
-// const loginRouter = require("./routes/auth/login.router");
-// const signupRouter = require("./routes/auth/signup.router");
-// const profileFeedsRouter = require("./routes/profile-feeds.router");
-const feedbackRouter = require("./routes/feedbacks.router");
-
 const apiRouter = require("./routes/api/api.router");
 
-app.use("/api", apiRouter);
-
 // API Routers
-// app.use("/auth/api/login", loginRouter);
-// app.use("/auth/api/signup", signupRouter);
-// app.use("/api/profile-feeds", profileFeedsRouter);
-app.use("/api/user-feedbacks", feedbackRouter);
+app.use("/api", apiRouter);
 
 module.exports = app;

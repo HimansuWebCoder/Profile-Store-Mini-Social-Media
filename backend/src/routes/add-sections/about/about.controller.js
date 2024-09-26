@@ -1,4 +1,8 @@
 const db = require("../../../config/db");
+const {
+	getAboutModel,
+	editAboutModel,
+} = require("../../../models/about.model");
 
 // GET about info of profile
 function getAboutProfile(req, res) {
@@ -17,9 +21,7 @@ function getAboutProfile(req, res) {
 	// 		return res.status(500).json({ Error: "Internal Server Error" });
 	// 	});
 
-	db("about")
-		.join("profiles", "about.profile_id", "profiles.id")
-		.select("*")
+	getAboutModel()
 		.then((aboutData) => {
 			if (aboutData.length !== 0) {
 				return res.status(200).json(aboutData);
@@ -45,10 +47,7 @@ function editAboutProfile(req, res) {
 			.json({ Error: "description or profileId must needed" });
 	}
 
-	db("about")
-		.where({ id: aboutId, profile_id: profileId })
-		.update({ description }) // this is because description : description is same so only one we can give one, or if your req value is different you must give otherwise get error
-		.returning("*")
+	editAboutModel()
 		.then((descriptionData) => {
 			if (descriptionData.length > 0) {
 				return res.status(200).json({
