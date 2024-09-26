@@ -1,19 +1,19 @@
 const db = require("../../../config/db");
 
 function getLanguages(req, res, db) {
-	res.send("get Languages");
+	res.json({ message: "Language Page" });
 }
 
 function postLanguage(req, res, db) {
-	res.send("post Language");
+	res.json("post Language");
 }
 
 function editLanguage(req, res, db) {
-	res.send("edit Language");
+	res.json("edit Language");
 }
 
 function deleteLanguage(req, res, db) {
-	res.send("delete Language");
+	res.json("delete Language");
 }
 
 module.exports = {

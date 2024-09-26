@@ -13,6 +13,15 @@ import Layout from "./containers/Layout";
 import "./styles/containers/app_container.css";
 
 function App() {
+  // let isLoggedIn = true;
+  // let content;
+
+  // if (isLoggedIn) {
+  //   content = <Login />;
+  // } else {
+  //   content = <Signup />;
+  // }
+
   return (
     <div className="app_container">
       <BrowserRouter>
@@ -21,12 +30,13 @@ function App() {
             {/*<Route index element={<ProfileNavContainer />} />*/}
             <Route path="/profile-admin" element={<ProfileAdmin />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/feedbacks" element={<Feedbacks />} />
           </Route>
+          <Route path="/login" element={<Login />} />
         </Routes>
         {/*<FilterContainer />*/}
         {/*<ProfileFeedsContainer />*/}
+        {/*{content}*/}
       </BrowserRouter>
     </div>
   );

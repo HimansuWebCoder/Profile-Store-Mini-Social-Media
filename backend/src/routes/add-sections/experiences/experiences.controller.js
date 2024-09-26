@@ -1,19 +1,19 @@
 const db = require("../../../config/db");
 
 function getExperiences(req, res, db) {
-	res.send("get experiences");
+	res.json({ Error: "experiences not found" });
 }
 
 function postExperience(req, res, db) {
-	res.send("post experiences");
+	res.json("post experiences");
 }
 
 function editExperience(req, res, db) {
-	res.send("edit experience");
+	res.json("edit experience");
 }
 
 function deleteExperience(req, res, db) {
-	res.send("delete experience");
+	res.json("delete experience");
 }
 
 module.exports = {

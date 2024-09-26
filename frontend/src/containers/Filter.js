@@ -4,10 +4,10 @@ import "../styles/containers/filter_container.css";
 function FilterContainer() {
 	return (
 		<div className="profile_filter_container">
-			<Link className="link" to="/signup">
+			<Link className="link" to="/">
 				Posts
 			</Link>
-			<Link className="link" to="/login">
+			<Link className="link" to="/">
 				Profiles
 			</Link>
 		</div>

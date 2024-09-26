@@ -5,7 +5,8 @@ import Filter from "../containers/Filter";
 function ProfileAdmin() {
 	return (
 		<div className="profile_admin_container">
-			<Link to="/">Home</Link>
+			{/*<Link to="/">Home</Link>*/}
+			<h1>I am profile admin </h1>
 		</div>
 	);
 }

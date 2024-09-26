@@ -28,25 +28,25 @@ function postProfileLink(req, res, db) {
 	// res.send("post link");
 	// const { portfolio_link, github_link, linkedin_link, twitter_link, instagram_link, youtube_link, facebook_link } = req.body;
 	const {
-		portfolio_link,
-		github_link,
-		linkedin_link,
-		twitter_link,
-		instagram_link,
-		youtube_link,
-		facebook_link,
+		portfolioUrl,
+		githubUrl,
+		linkedinUrl,
+		twitterUrl,
+		instagramUrl,
+		youtubeUrl,
+		facebookUrl,
 		profileId,
 		profileInfoId,
 	} = req.body;
 
 	db.insert({
-		portfolio_url: portfolio_link,
-		github_url: github_link,
-		linkedin_url: linkedin_link,
-		twitter_url: twitter_link,
-		instagram_url: instagram_link,
-		youtube_url: youtube_link,
-		facebook_url: facebook_link,
+		portfolio_url: portfolioUrl,
+		github_url: githubUrl,
+		linkedin_url: linkedinUrl,
+		twitter_url: twitterUrl,
+		instagram_url: instagramUrl,
+		youtube_url: youtubeUrl,
+		facebook_url: facebookUrl,
 		profile_id: profileId,
 		profile_info_id: profileInfoId,
 	})
@@ -69,13 +69,13 @@ function postProfileLink(req, res, db) {
 function editProfileLink(req, res, db) {
 	// res.send("edit link");
 	const {
-		portfolio_link,
-		github_link,
-		linkedin_link,
-		twitter_link,
-		instagram_link,
-		youtube_link,
-		facebook_link,
+		portfolioUrl,
+		githubUrl,
+		linkedinUrl,
+		twitterUrl,
+		instagramUrl,
+		youtubeUrl,
+		facebookUrl,
 		profileId,
 	} = req.body;
 
@@ -87,13 +87,13 @@ function editProfileLink(req, res, db) {
 			profile_id: profileId,
 		})
 		.update({
-			portfolio_url: portfolio_link,
-			github_url: github_link,
-			linkedin_url: linkedin_link,
-			twitter_url: twitter_link,
-			instagram_url: instagram_link,
-			youtube_url: youtube_link,
-			facebook_url: facebook_link,
+			portfolio_url: portfolioUrl,
+			github_url: githubUrl,
+			linkedin_url: linkedinUrl,
+			twitter_url: twitterUrl,
+			instagram_url: instagramUrl,
+			youtube_url: youtubeUrl,
+			facebook_url: facebookUrl,
 		})
 		.returning("*")
 		.then((profileLinks) => {
