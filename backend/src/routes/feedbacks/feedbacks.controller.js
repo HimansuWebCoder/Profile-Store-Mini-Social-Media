@@ -1,11 +1,11 @@
-const db = require("../config/db");
+const db = require("../../config/db");
 
 function getFeedbacks(req, res, db) {
-	res.send("get feedbacks");
+	res.json("get feedbacks");
 }
 
 function postFeedbacks(req, res, db) {
-	res.send("post feedbacks");
+	res.json("post feedbacks");
 }
 
 module.exports = {
