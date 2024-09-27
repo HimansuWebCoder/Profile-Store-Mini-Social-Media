@@ -4,6 +4,8 @@ const {
 	editAboutModel,
 } = require("../../../models/about.model");
 
+const validateData = require("../../../validations.about.validation");
+
 // GET about info of profile
 function getAboutProfile(req, res) {
 	// res.send("about");
