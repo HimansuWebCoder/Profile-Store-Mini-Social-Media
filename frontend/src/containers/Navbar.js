@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom";
 
-import Navbar from "../components/navigation-bar/Navbar";
-import Logo from "../components/navigation-bar/nav-components/Logo";
-import Setting from "../components/navigation-bar/nav-components/Setting";
-import Mode from "../components/navigation-bar/nav-components/System_mode";
-import "../styles/containers/profile_nav_container.css";
+import Navbar from "../components/Navigation";
+import Logo from "../components/Logo";
+import Setting from "../components/Setting";
+import Mode from "../components/Mode";
 
-function ProfileNavContainer() {
+function NavContainer() {
 	return (
 		<div className="profile_container">
 			<Logo />
@@ -17,4 +16,4 @@ function ProfileNavContainer() {
 	);
 }
 
-export default ProfileNavContainer;
+export default NavContainer;
