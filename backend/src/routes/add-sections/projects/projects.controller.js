@@ -1,10 +1,13 @@
-const db = require("../../../config/db");
+const {
+	getProjectsModel,
+	postProjectModel,
+	editProjectModel,
+	deleteProjectModel,
+} = require("../../../models/projects.model");
 
 // GET Projects
-function getProjects(req, res, db) {
-	// res.send("get Projects");
-	db.select("*")
-		.from("projects")
+function getProjects(req, res) {
+	getProjectsModel()
 		.then((projects) => {
 			if (projects.length > 0) {
 				return res.status(200).json(projects);
@@ -24,20 +27,19 @@ function getProjects(req, res, db) {
 function postProject(req, res, db) {
 	// res.send("post Project");
 	// const { projectURL } = req.body;
-	const { projectURL, profileId } = req.body; // now I profileId manually but when use session I use this in that case
+	const { project_url, profile_id } = req.body; // now I profileId manually but when use session I use this in that case
 
-	if (!projectURL || !profileId) {
-		return res.status(400).json({
-			Error: "ProjectURL and ProfileID must required",
-		});
-	}
+	// if (!project_url || !profile_id) {
+	// 	return res.status(400).json({
+	// 		Error: "ProjectURL and ProfileID must required",
+	// 	});
+	// }
 
-	db("projects")
-		.insert({ project_url: projectURL, profile_id: profileId })
-		.returning("*")
+	postProjectModel(project_url, profile_id)
 		.then((projectUrls) => {
 			return res.status(201).json({
 				message: "Project_urls created successfully",
+				data: projectUrls,
 			});
 		})
 		.catch((error) => {
@@ -48,20 +50,18 @@ function postProject(req, res, db) {
 
 // UPDATE Project
 function editProject(req, res, db) {
-	// const { projectURL } = req.body;
-	const { projectURL, profileId } = req.body;
-	const { projectId } = req.params;
+	// const { project_id } = req.body;
+	const { project_url, project_id } = req.body;
+	const { id } = req.params;
 
-	if (!projectURL || !profileId) {
+	if (!project_url) {
+		// for now I skip project_id for individual email login user
 		return res
 			.status(400)
 			.json({ Error: "projectURL or profileId must needed" });
 	}
 
-	db("projects")
-		.where({ id: projectId, profile_id: profileId })
-		.update({ project_url: projectURL }) // if both are same like project_url : project_url (req value) so there is no need to separately value given only one value give and that totally fine as destruturing used
-		.returning("*")
+	editProjectModel(id, project_id, project_url)
 		.then((projectUrls) => {
 			if (projectUrls.length > 0) {
 				return res.status(200).json({
@@ -85,12 +85,9 @@ function editProject(req, res, db) {
 
 // DELETE Project
 function deleteProject(req, res, db) {
-	const { projectId } = req.params;
+	const { id } = req.params;
 
-	db("projects")
-		.where({ id: projectId })
-		.del()
-		.returning("*")
+	deleteProjectModel(id)
 		.then((deletedProject) => {
 			if (deletedProject === 0) {
 				return res.status(404).json({ error: "Project doesn't exist" });

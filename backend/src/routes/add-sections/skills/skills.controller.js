@@ -1,9 +1,13 @@
-const db = require("../../../config/db");
+const {
+	getSkillsModel,
+	postSkillModel,
+	editSkillModel,
+	deleteSkillModel,
+} = require("../../../models/skills.model");
 
 // GET Skills
-function getSkills(req, res, db) {
-	db.select("*")
-		.from("skills")
+function getSkills(req, res) {
+	getSkillsModel()
 		.then((skillsData) => {
 			if (skillsData.length > 0) {
 				// either > 0 or !== 0
@@ -34,23 +38,21 @@ function getSkills(req, res, db) {
 }
 
 // POST Skills
-function postSkill(req, res, db) {
-	// const { skillName } = req.body;
-	const { skillName, profileId } = req.body;
+function postSkill(req, res) {
+	// const { skill } = req.body;
+	const { skill, profile_id } = req.body;
 
-	// if (!skillName) {
+	// if (!skill) {
 	// 	res.status(400).json({error: "skillName  must required"});
 	// }
 
-	if (!skillName || !profileId) {
+	if (!skill || !profile_id) {
 		return res
 			.status(400)
 			.json({ Error: "skillName & profileId must required" });
 	}
 
-	db.insert({ skill: skillName, profile_id: profileId })
-		.into("skills")
-		.returning("*")
+	postSkillModel(skill, profile_id)
 		.then((skill) => {
 			return res.status(201).json({
 				message: "Skills created successfully",
@@ -68,7 +70,7 @@ function postSkill(req, res, db) {
 }
 
 // UPDATE Skill
-function editSkill(req, res, db) {
+function editSkill(req, res) {
 	// const { skillName } = req.body;
 	const { skillName, profileId } = req.body;
 	const id = req.params.skillId;
@@ -106,13 +108,10 @@ function editSkill(req, res, db) {
 }
 
 // DELETE Skill
-function deleteSkill(req, res, db) {
-	const { skillId } = req.params;
+function deleteSkill(req, res) {
+	const { id } = req.params;
 
-	db("skills")
-		.where({ id: skillId })
-		.del()
-		.returning("*")
+	deleteSkillModel(id)
 		.then((deletedSkill) => {
 			// res.json({ result: `Successfully Deleted: ${result[0]}` });
 			if (deletedSkill.length === 0) {
