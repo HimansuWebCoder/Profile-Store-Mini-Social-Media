@@ -1,4 +1,4 @@
-# Profile_Store_Mini_Social_Media
+# Profile Store Mini Social Media
 
 **Brief Project Description**
 
