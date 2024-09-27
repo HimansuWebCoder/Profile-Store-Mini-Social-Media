@@ -1,8 +1,10 @@
+import "./Search.css";
+
 function Search() {
 	return (
-		<div className="search_input_container">
-			<input id="search_input" type="text" placeholder="" />
-		</div>
+		// <div className="search-container">
+		<input id="search-input" type="text" placeholder="Search Profiles" />
+		// </div>
 	);
 }
 

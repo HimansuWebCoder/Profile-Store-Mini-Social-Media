@@ -1,5 +1,5 @@
-import Signup from "../components/Signup";
-import Login from "../components/Login";
+import Signup from "../../components/Auth/Signup/Signup";
+import Login from "../../components/Auth/Login/Login";
 
 function LoginPage() {
 	return (

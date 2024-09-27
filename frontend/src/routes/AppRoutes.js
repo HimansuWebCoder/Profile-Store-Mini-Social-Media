@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 
-import Admin from "../pages/Admin";
-import Login from "../pages/Login";
-import Feedbacks from "../pages/Feedbacks";
+import Admin from "../pages/Admin/Admin";
+import Login from "../pages/Auth/Auth";
+import Feedbacks from "../pages/Feedbacks/Feedbacks";
 
 function AppRoutes() {
 	return (

@@ -1,4 +1,4 @@
-import Layout from "../containers/Layout";
+import Layout from "../containers/Layout/Layout";
 
 function AppLayout() {
 	return (

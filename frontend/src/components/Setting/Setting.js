@@ -1,5 +1,11 @@
+import "./Setting.css";
+
 function ProfileSetting() {
-	return <div id="profile_setting_container">Setting</div>;
+	return (
+		<div className="setting-container">
+			<img src="assets/images/setting.png" />
+		</div>
+	);
 }
 
 export default ProfileSetting;

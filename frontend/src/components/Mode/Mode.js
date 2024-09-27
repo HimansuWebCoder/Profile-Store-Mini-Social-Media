@@ -1,5 +1,11 @@
+import "./Mode.css";
+
 function SystemMode() {
-	return <div id="profile_system_mode_container">Mode</div>;
+	return (
+		<div className="mode-container">
+			<img src="assets/images/sun.png" />
+		</div>
+	);
 }
 
 export default SystemMode;
