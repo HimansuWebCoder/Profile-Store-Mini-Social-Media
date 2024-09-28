@@ -14,12 +14,17 @@ function ProfileLinks() {
 			});
 	}, []);
 	return (
-		<div>
+		<div className="link-container">
 			{links.map((linkData) => (
 				<div key={linkData.profileid}>
 					<p> {linkData.linkedin_url}</p>
 					<p> {linkData.github_url}</p>
 					<p> {linkData.instagram_url}</p>
+					<p> {linkData.facebook_url}</p>
+					<p> {linkData.twitter_url}</p>
+					<p> {linkData.youtube_url}</p>
+					<p> {linkData.portfolio_url}</p>
+					<a href={linkData.linkedin_url}>Linkedin</a>
 				</div>
 			))}
 		</div>

@@ -1,7 +1,8 @@
 #profile-info-container {
 	width: 400px;
 	height: auto;
-	background-color: red;
+	/*	background-color: red;*/
 	text-align: center;
 	font-size: 1.5rem;
+	color: white;
 }

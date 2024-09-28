@@ -27,15 +27,16 @@ function getProfileInfo(req, res, db) {
 // UPDATE Profile's Information
 function editProfileInfo(req, res, db) {
 	const { name, headline } = req.body;
-	const id = req.params.profileInfoId;
-
+	const { id } = req.params;
+	console.log(id);
 	if (!name || !headline) {
 		return res.status(400).json({ Error: "name & headline are needed" });
 	}
 
 	db("profile_info")
-		.update({ name: profile_name, headline: profile_headline })
-		.where({ id: id })
+		.update({ name, headline })
+		.where({ id })
+		.returning("*")
 		.then((profileInfoData) => {
 			if (profileInfoData.length > 0) {
 				return res.status(200).json({
