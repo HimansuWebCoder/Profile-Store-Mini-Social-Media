@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+</head>
+<body>
+     <input id="name" type="text" />
+     <input id="heading" type="text" />
+     <button>Update</button>
+     <script>
+     	const btn = document.querySelector("button");
+     	const name = document.querySelector("#name");
+     	const heading = document.querySelector("#heading");
+
+     	// const location = window.location.pathname
+     	console.log(window.location.pathname);
+     	const id = window.location.pathname.split("/")[2]
+     	console.log(id)
+
+      btn.addEventListener("click", () => {      	
+     	fetch(`http://localhost:8000/api/profile-info/${id}`, {
+     		method: "put",
+     		headers: {"Content-Type": "application/json"},
+     		body: JSON.stringify({name: name.value, headline: heading.value})
+     	})
+     	.then(() => {
+     		window.location = "/index"
+     	})
+      })
+                 
+     </script>
+</body>
+</html>

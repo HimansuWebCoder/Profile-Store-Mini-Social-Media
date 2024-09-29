@@ -15,7 +15,7 @@ function ProfileInfo({ setProfileId, location }) {
 					setName(profileInfo[0].name);
 					setHeadline(profileInfo[0].headline);
 					setLoading(false);
-				}, 4000);
+				}, 2000);
 				setProfileId(profileInfo[0].id);
 			})
 			.catch((error) => {

@@ -4,3 +4,27 @@
 	background-color: yellow;
 }
 */
+
+.links {
+	display: inline-block;
+	text-decoration: none;
+	color: white;
+}
+
+.links-container > li {
+	list-style-type: none;
+}
+
+.links-container > li:hover {
+	background: blue;
+}
+
+.links-container > li:focus {
+	background: black;
+	outline: none;
+}
+
+/*.links-container > li:active {
+	background: red;
+}
+*/
