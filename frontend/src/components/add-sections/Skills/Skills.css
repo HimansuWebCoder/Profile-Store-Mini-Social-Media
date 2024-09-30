@@ -1,0 +1,12 @@
+.skill-sub-container {
+	width: 100%;
+	height: auto;
+	margin: auto;
+	background-color: black;
+	color: white;
+	text-align: center;
+	display: flex;
+	justify-content: space-around;
+	align-content: center;
+	align-items: center;
+}

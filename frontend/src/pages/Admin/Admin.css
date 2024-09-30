@@ -4,10 +4,12 @@
 	background-color: white;
 	display: flex;
 	justify-content: center;
+	flex-direction: column;
 }
 
 .admin-assistant-container {
-	max-width: 500px;
+	/*	max-width: 500px;*/
+	flex: 1;
 	height: auto;
 	height: auto;
 	display: flex;
@@ -17,7 +19,8 @@
 }
 
 .sub-admin-container {
-	max-width: 100%;
+	/*	max-width: 100%;*/
+	flex: 1;
 	height: 20px;
 	background-color: grey;
 	margin-bottom: 1px;

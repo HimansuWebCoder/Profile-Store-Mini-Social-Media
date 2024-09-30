@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Outlet, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import ProfilePhoto from "../../components/Profile-photo/ProfilePhoto";
 import ProfileInfo from "../../components/Profile-info/ProfileInfo";
-import { useLocation } from "react-router-dom";
+import Skills from "../../components/add-sections/Skills/Skills";
 import "./Admin.css";
 
 function Admin() {
@@ -60,6 +61,7 @@ function Admin() {
 						alt="post"
 					/>
 				</div>
+				<Skills />
 			</div>
 			<Outlet />
 		</div>
