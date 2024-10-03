@@ -31,8 +31,8 @@ function ProfileInfo({ setProfileId, location }) {
 
 	return (
 		<div id="profile-info-container">
-			<h1>{name}</h1>
-			<h3>{headline}</h3>
+			<h1 className="header">{name}</h1>
+			<h3 className="header">{headline}</h3>
 			<ProfileLinks />
 		</div>
 	);
