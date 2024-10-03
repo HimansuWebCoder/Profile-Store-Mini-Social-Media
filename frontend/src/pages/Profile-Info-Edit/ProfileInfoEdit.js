@@ -56,28 +56,30 @@ function ProfileInfoEdit() {
 
 	return (
 		<div className="profile-info-edit-container">
-			<button onClick={handleNavigate}>Back</button>
-			<form onSubmit={handleSubmit}>
-				<div>
-					<label>Name:</label>
-					<input
-						className="input-form"
-						type="text"
-						value={name}
-						onChange={(e) => setName(e.target.value)}
-					/>
-				</div>
-				<div>
-					<label>Headline:</label>
-					<input
-						className="input-form"
-						type="text"
-						value={headline}
-						onChange={(e) => setHeadline(e.target.value)}
-					/>
-				</div>
-				<button type="submit">Update Profile</button>
-			</form>
+			<div className="edit-sub-container">
+				<button onClick={handleNavigate}>Back</button>
+				<form onSubmit={handleSubmit}>
+					<div>
+						<label>Name:</label>
+						<input
+							className="input-form"
+							type="text"
+							value={name}
+							onChange={(e) => setName(e.target.value)}
+						/>
+					</div>
+					<div>
+						<label>Headline:</label>
+						<input
+							className="input-form"
+							type="text"
+							value={headline}
+							onChange={(e) => setHeadline(e.target.value)}
+						/>
+					</div>
+					<button type="submit">Update Profile</button>
+				</form>
+			</div>
 		</div>
 	);
 }

@@ -1,13 +1,8 @@
 #profile-info-container {
-	width: 100%;
+	max-width: 400px;
 	height: auto;
-	/*	background-color: red;*/
 	text-align: center;
 	font-size: 1.5rem;
 	color: white;
-	word-wrap: break-word;
-}
-
-.header {
-	font-size: 1.8rem;
+	word-break: break-word;
 }

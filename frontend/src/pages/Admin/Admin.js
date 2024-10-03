@@ -13,7 +13,9 @@ function Admin() {
 	return (
 		<div className="admin-container">
 			<div className="admin-sub-container">
-				<div className="sub-admin-container"></div>
+				<div className="sub-admin-container">
+					<Link to="/">Admin</Link>
+				</div>
 				<div className="sub-admin-container editProfilePhoto">
 					<img
 						className="editpencil"
@@ -22,7 +24,8 @@ function Admin() {
 					/>
 				</div>
 				<ProfilePhoto />
-				<div className="sub-admin-container edit">
+				<Outlet />
+				<div className="sub-admin-container editInfo">
 					<Link to={`/admin/profile-info/${profileId}/edit`}>
 						<img
 							className="editpencil"
@@ -62,7 +65,6 @@ function Admin() {
 					/>
 				</div>
 				{/*<Skills />*/}
-				<Outlet />
 			</div>
 		</div>
 	);

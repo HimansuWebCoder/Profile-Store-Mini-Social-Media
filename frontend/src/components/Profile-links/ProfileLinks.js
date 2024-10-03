@@ -14,16 +14,19 @@ function ProfileLinks() {
 			});
 	}, []);
 	return (
-		<div className="link-container">
+		<div className="links-parent-container">
 			{links.map((linkData) => (
-				<ul className="links-container" key={linkData.profileid}>
+				<ul className="links-child-container" key={linkData.profileid}>
 					<li tabindex="0">
 						<a
 							className="links"
 							href={linkData.linkedin_url}
 							target="_blank"
 						>
-							Linkedin
+							<img
+								className="link-icons"
+								src="assets/images/linkedin.png"
+							/>
 						</a>
 					</li>
 					<li tabindex="0">
@@ -32,7 +35,10 @@ function ProfileLinks() {
 							href={linkData.portfolio_url}
 							target="_blank"
 						>
-							Portfolio
+							<img
+								className="link-icons"
+								src="assets/images/portfolio.png"
+							/>
 						</a>
 					</li>
 					<li tabindex="0">
@@ -41,7 +47,10 @@ function ProfileLinks() {
 							href={linkData.github_url}
 							target="_blank"
 						>
-							Github
+							<img
+								className="link-icons"
+								src="assets/images/github.png"
+							/>
 						</a>
 					</li>
 					<li tabindex="0">
@@ -50,7 +59,10 @@ function ProfileLinks() {
 							href={linkData.youtube_url}
 							target="_blank"
 						>
-							Youtube
+							<img
+								className="link-icons"
+								src="assets/images/youtube.png"
+							/>
 						</a>
 					</li>
 					<li tabindex="0">
@@ -59,7 +71,10 @@ function ProfileLinks() {
 							href={linkData.twitter_url}
 							target="_blank"
 						>
-							Twitter
+							<img
+								className="link-icons"
+								src="assets/images/twitter.png"
+							/>
 						</a>
 					</li>
 					<li tabindex="0">
@@ -68,7 +83,10 @@ function ProfileLinks() {
 							href={linkData.facebook_url}
 							target="_blank"
 						>
-							Facebook
+							<img
+								className="link-icons"
+								src="assets/images/facebook.png"
+							/>
 						</a>
 					</li>
 					<li tabindex="0">
@@ -77,7 +95,10 @@ function ProfileLinks() {
 							href={linkData.instagram_url}
 							target="_blank"
 						>
-							Instagram
+							<img
+								className="link-icons"
+								src="assets/images/instagram.png"
+							/>
 						</a>
 					</li>
 				</ul>
