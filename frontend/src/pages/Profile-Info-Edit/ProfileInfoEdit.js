@@ -57,27 +57,31 @@ function ProfileInfoEdit() {
 	return (
 		<div className="profile-info-edit-container">
 			<div className="edit-sub-container">
-				<button onClick={handleNavigate}>Back</button>
-				<form onSubmit={handleSubmit}>
-					<div>
-						<label>Name:</label>
-						<input
-							className="input-form"
-							type="text"
-							value={name}
-							onChange={(e) => setName(e.target.value)}
-						/>
-					</div>
-					<div>
-						<label>Headline:</label>
-						<input
-							className="input-form"
-							type="text"
-							value={headline}
-							onChange={(e) => setHeadline(e.target.value)}
-						/>
-					</div>
-					<button type="submit">Update Profile</button>
+				<div className="redirect-btn-container">
+					<button id="redirect-root-btn" onClick={handleNavigate}>
+						Back
+					</button>
+				</div>
+				<form className="form" onSubmit={handleSubmit}>
+					<label>Name:</label>
+					<input
+						className="input-form"
+						type="text"
+						value={name}
+						onChange={(e) => setName(e.target.value)}
+					/>
+					<br />
+					<label>Headline:</label>
+					<input
+						className="input-form"
+						type="text"
+						value={headline}
+						onChange={(e) => setHeadline(e.target.value)}
+					/>
+
+					<button id="submit-btn" type="submit">
+						Update Profile
+					</button>
 				</form>
 			</div>
 		</div>

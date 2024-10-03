@@ -19,7 +19,7 @@ function Admin() {
 				<div className="sub-admin-container editProfilePhoto">
 					<img
 						className="editpencil"
-						src="assets/images/pencil.png"
+						src="/assets/images/pencil.png"
 						alt="Edit Profile Photo"
 					/>
 				</div>
@@ -29,7 +29,7 @@ function Admin() {
 					<Link to={`/admin/profile-info/${profileId}/edit`}>
 						<img
 							className="editpencil"
-							src="assets/images/pencil.png"
+							src="/assets/images/pencil.png"
 							alt="editinfo"
 						/>
 					</Link>
@@ -44,7 +44,7 @@ function Admin() {
 					<h3>Add-Section</h3>
 					<img
 						className="add-button"
-						src="assets/images/add-button.png"
+						src="/assets/images/add-button.png"
 						alt="section"
 					/>
 				</div>
@@ -52,7 +52,7 @@ function Admin() {
 					<h3>About</h3>
 					<img
 						className="editpencil"
-						src="assets/images/pencil.png"
+						src="/assets/images/pencil.png"
 						alt="about"
 					/>
 				</div>
@@ -60,7 +60,7 @@ function Admin() {
 					<h3>Posts</h3>
 					<img
 						className="add-button"
-						src="assets/images/add-button.png"
+						src="/assets/images/add-button.png"
 						alt="post"
 					/>
 				</div>

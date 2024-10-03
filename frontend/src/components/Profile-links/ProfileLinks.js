@@ -25,7 +25,7 @@ function ProfileLinks() {
 						>
 							<img
 								className="link-icons"
-								src="assets/images/linkedin.png"
+								src="/assets/images/linkedin.png"
 							/>
 						</a>
 					</li>
@@ -37,7 +37,7 @@ function ProfileLinks() {
 						>
 							<img
 								className="link-icons"
-								src="assets/images/portfolio.png"
+								src="/assets/images/portfolio.png"
 							/>
 						</a>
 					</li>
@@ -49,7 +49,7 @@ function ProfileLinks() {
 						>
 							<img
 								className="link-icons"
-								src="assets/images/github.png"
+								src="/assets/images/github.png"
 							/>
 						</a>
 					</li>
@@ -61,7 +61,7 @@ function ProfileLinks() {
 						>
 							<img
 								className="link-icons"
-								src="assets/images/youtube.png"
+								src="/assets/images/youtube.png"
 							/>
 						</a>
 					</li>
@@ -73,7 +73,7 @@ function ProfileLinks() {
 						>
 							<img
 								className="link-icons"
-								src="assets/images/twitter.png"
+								src="/assets/images/twitter.png"
 							/>
 						</a>
 					</li>
@@ -85,7 +85,7 @@ function ProfileLinks() {
 						>
 							<img
 								className="link-icons"
-								src="assets/images/facebook.png"
+								src="/assets/images/facebook.png"
 							/>
 						</a>
 					</li>
@@ -97,7 +97,7 @@ function ProfileLinks() {
 						>
 							<img
 								className="link-icons"
-								src="assets/images/instagram.png"
+								src="/assets/images/instagram.png"
 							/>
 						</a>
 					</li>
