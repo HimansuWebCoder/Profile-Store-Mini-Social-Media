@@ -8,7 +8,7 @@ function ProfileInfo({ setProfileId, location }) {
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		fetch("http://localhost:8000/api/profile-info")
+		fetch("https://profile-store-mini-social-media.onrender.com/api/profile-info")
 			.then((res) => res.json())
 			.then((profileInfo) => {
 				setTimeout(() => {

@@ -32,7 +32,7 @@ function ProfileInfoEdit() {
 	// Handler for updating profile info
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		fetch(`http://localhost:8000/api/profile-info/${id}`, {
+		fetch(`https://profile-store-mini-social-media.onrender.com/api/profile-info/${id}`, {
 			method: "PUT",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ name, headline }),
