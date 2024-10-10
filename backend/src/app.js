@@ -20,17 +20,14 @@ app.use(bodyParserMiddleware);
 app.use(corsMiddleware);
 
 app.use(express.static(path.join(__dirname, "./public")));
-app.get("/*", (req, res) => {
-	res.sendFile(path.join(__dirname, "./public/index.html"));
-});
 
 // Import Routes
 const apiRouter = require("./routes/api/api.router");
 
 // API Routers
 app.use("/api", apiRouter);
-app.get("/update/:id", (req, res) => {
-	res.sendFile(path.join(__dirname, "./update.html"));
+app.get("/*", (req, res) => {
+	res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
 module.exports = app;
