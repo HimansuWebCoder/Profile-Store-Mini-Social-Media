@@ -9,14 +9,14 @@ function AppRoutes() {
 	return (
 		<div className="app_container">
 			<Routes>
-				<Route path="/admin/*" element={<Admin />}>
+				<Route path="admin/*" element={<Admin />}>
 					<Route
 						path="profile-info/:id/edit"
 						element={<ProfileInfoEdit />}
 					/>
 				</Route>
-				<Route path="/login" element={<Login />} />
-				<Route path="/feedbacks" element={<Feedbacks />} />
+				<Route path="login" element={<Login />} />
+				<Route path="feedbacks" element={<Feedbacks />} />
 			</Routes>
 		</div>
 	);

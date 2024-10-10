@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Outlet, Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import ProfilePhoto from "../../components/Profile-photo/ProfilePhoto";
@@ -9,6 +9,10 @@ import "./Admin.css";
 function Admin() {
 	const [profileId, setProfileId] = useState(null);
 	const location = useLocation();
+
+	useEffect(() => {
+		console.log("profileid", profileId);
+	});
 
 	return (
 		<div className="admin-container">

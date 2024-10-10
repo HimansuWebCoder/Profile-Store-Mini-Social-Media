@@ -19,6 +19,11 @@ app.use(
 app.use(bodyParserMiddleware);
 app.use(corsMiddleware);
 
+app.use(express.static(path.join(__dirname, "./public")));
+app.get("/*", (req, res) => {
+	res.sendFile(path.join(__dirname, "./public/index.html"));
+});
+
 // Import Routes
 const apiRouter = require("./routes/api/api.router");
 
@@ -26,10 +31,6 @@ const apiRouter = require("./routes/api/api.router");
 app.use("/api", apiRouter);
 app.get("/update/:id", (req, res) => {
 	res.sendFile(path.join(__dirname, "./update.html"));
-});
-
-app.get("/index", (req, res) => {
-	res.sendFile(path.join(__dirname, "./index.html"));
 });
 
 module.exports = app;

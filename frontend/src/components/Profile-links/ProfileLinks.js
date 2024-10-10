@@ -5,7 +5,9 @@ function ProfileLinks() {
 	const [links, setLinks] = useState([]);
 
 	useEffect(() => {
-		fetch("http://localhost:8000/api/profile-links")
+		fetch(
+			"https://profile-store-mini-social-media.onrender.com/api/profile-links",
+		)
 			.then((res) => res.json())
 			.then((profileLinks) => {
 				console.log(profileLinks);

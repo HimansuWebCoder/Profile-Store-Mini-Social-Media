@@ -1,0 +1,19 @@
+{
+  "name": "profile-store-mini-social-media",
+  "version": "1.0.0",
+  "description": "**Brief Project Description**",
+  "main": "index.js",
+  "scripts": {
+    "install-backend": "npm install --prefix backend",
+    "install-frontend": "npm install --prefix frontend",
+    "install": "npm run install-backend && npm run install-frontend",
+    "backend": "npm run watch --prefix backend",
+    "frontend": "npm start --prefix frontend",
+    "watch": "npm run backend && npm run frontend",
+    "deploy": "npm run build --prefix frontend && npm start --prefix backend",
+    "test": "npm test --prefix backend && npm test --prefix frontend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

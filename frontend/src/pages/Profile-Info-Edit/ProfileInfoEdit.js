@@ -11,8 +11,7 @@ function ProfileInfoEdit() {
 	// const id = 1;
 
 	useEffect(() => {
-		console.log(id);
-		console.log(location);
+		console.log("id", id);
 	}, []);
 
 	// Fetch profile info for the given id
@@ -32,11 +31,14 @@ function ProfileInfoEdit() {
 	// Handler for updating profile info
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		fetch(`https://profile-store-mini-social-media.onrender.com/api/profile-info/${id}`, {
-			method: "PUT",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ name, headline }),
-		})
+		fetch(
+			`https://profile-store-mini-social-media.onrender.com/api/profile-info/${id}`,
+			{
+				method: "PUT",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ name, headline }),
+			},
+		)
 			.then((response) => {
 				if (response.ok) {
 					alert("Profile updated successfully!");
