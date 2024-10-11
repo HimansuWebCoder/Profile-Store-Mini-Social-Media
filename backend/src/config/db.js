@@ -11,8 +11,6 @@ const knex = require("knex");
 // 	},
 // });
 
-require("dotenv").config();
-
 const db = knex({
 	client: "pg",
 	connection: {
