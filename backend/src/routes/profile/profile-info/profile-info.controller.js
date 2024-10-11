@@ -16,7 +16,7 @@ function getProfileInfo(req, res, db) {
 		})
 		.catch((error) => {
 			console.error(
-				`Error occurred retrieved data from profile_info: ${error}`,
+				`Error occurred retrieved data from profile_info: ${error.stack} || ${error}`,
 			);
 			return res.status(500).json({
 				Error: "Internal Server Error",
