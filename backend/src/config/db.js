@@ -14,13 +14,12 @@ const knex = require("knex");
 const db = knex({
 	client: "pg",
 	connection: {
-		connectionString:
-			"postgresql://profilestore_user:seyPY5L6v8tTPkRlIiN1N864qnvExs8c@dpg-cs1tamlds78s73bagit0-a.oregon-postgres.render.com/profilestore",
-		ssl: { rejectUnauthorized: true },
+		connectionString: process.env.DATABASE_URL,
+		ssl: { rejectUnauthorized: false },
 	},
 });
 
 module.exports = db;
-// console.log("DATABASE URL:", process.env.DATABASE_URL);
+console.log("DATABASE URL:", process.env.DATABASE_URL);
 
 // https://todoapp-29o9.onrender.com
