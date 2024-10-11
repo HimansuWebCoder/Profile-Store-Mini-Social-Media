@@ -5,8 +5,9 @@ function getProfileInfo(req, res, db) {
 	db("profile_info")
 		.returning("*")
 		.then((profileInfoData) => {
+			// or > 0
 			if (profileInfoData.length !== 0) {
-				// or > 0
+				console.log(profileInfoData);
 				return res.status(200).json(profileInfoData);
 			} else {
 				return res.status(404).json({
@@ -16,7 +17,7 @@ function getProfileInfo(req, res, db) {
 		})
 		.catch((error) => {
 			console.error(
-				`Error occurred retrieved data from profile_info: ${error.stack} || ${error}`,
+				`Error occurred retrieved data from profile_info: ${error.stack} || ${error.message} ${error}`,
 			);
 			return res.status(500).json({
 				Error: "Internal Server Error",
