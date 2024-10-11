@@ -17,9 +17,9 @@ function Admin() {
 	return (
 		<div className="admin-container">
 			<div className="admin-sub-container">
-				<div className="sub-admin-container">
-					<Link to="/">Admin</Link>
-				</div>
+				<Link id="home-link" to="/">
+					Home
+				</Link>
 				<div className="sub-admin-container editProfilePhoto">
 					<img
 						className="editpencil"

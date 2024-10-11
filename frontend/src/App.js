@@ -4,7 +4,7 @@ import AppRoutes from "./routes/AppRoutes";
 
 function App() {
   return (
-    <div>
+    <div style={{ backgroundColor: "black", height: "100vh" }}>
       <Routes>
         {/* Route for the layout */}
         <Route path="/" element={<AppLayout />} />

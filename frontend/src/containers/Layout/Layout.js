@@ -7,7 +7,12 @@ function Layout() {
 	return (
 		<div className="layout-container">
 			<Navbar />
-			<Link to="/admin">Admin</Link>
+			<Link
+				style={{ color: "white", textDecoration: "none" }}
+				to="/admin"
+			>
+				Admin
+			</Link>
 			<Outlet />
 		</div>
 	);
