@@ -11,6 +11,8 @@ const knex = require("knex");
 // 	},
 // });
 
+require("dotenv").config();
+
 const db = knex({
 	client: "pg",
 	connection: {
@@ -20,5 +22,6 @@ const db = knex({
 });
 
 module.exports = db;
+// console.log("DATABASE URL:", process.env.DATABASE_URL);
 
 // https://todoapp-29o9.onrender.com
