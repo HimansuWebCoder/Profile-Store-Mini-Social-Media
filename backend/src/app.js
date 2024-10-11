@@ -3,6 +3,7 @@ const app = express();
 const session = require("express-session");
 const path = require("path");
 require("dotenv").config();
+const db = require("./config/db");
 
 // Import Middlewares
 const bodyParserMiddleware = require("./middlewares/bodyParserMiddleware");
