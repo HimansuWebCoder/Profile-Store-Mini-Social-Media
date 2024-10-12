@@ -2,9 +2,9 @@ const express = require("express");
 const app = express();
 const session = require("express-session");
 const path = require("path");
-require("dotenv").config();
+// require("dotenv").config();
 // require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
-console.log("database_url", process.env.DATABASE_URL);
+// console.log("database_url", process.env.DATABASE_URL);
 
 // Import Middlewares
 const bodyParserMiddleware = require("./middlewares/bodyParserMiddleware");

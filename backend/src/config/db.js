@@ -22,6 +22,6 @@ const db = knex({
 });
 
 module.exports = db;
-console.log("DATABASE URL:", process.env.DATABASE_URL);
+// console.log("DATABASE URL:", process.env.DATABASE_URL);
 
 // https://todoapp-29o9.onrender.com
