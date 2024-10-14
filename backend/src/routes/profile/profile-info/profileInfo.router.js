@@ -1,9 +1,6 @@
 const express = require("express");
 const db = require("../../../config/db");
-const {
-	getProfileInfo,
-	editProfileInfo,
-} = require("./profile-info.controller");
+const { getProfileInfo, editProfileInfo } = require("./profileInfo.controller");
 const profileInfoRouter = express.Router();
 
 // GET profile-info

@@ -1,9 +1,8 @@
-const db = require("../../../config/db");
+const { profileInfoGetModel } = require("../../../models/profileInfo.model");
 
 // GET Profile's Information
-function getProfileInfo(req, res, db) {
-	db("profile_info")
-		.returning("*")
+function getProfileInfo(req, res) {
+	profileInfoGetModel()
 		.then((profileInfoData) => {
 			// or > 0
 			if (profileInfoData.length !== 0) {

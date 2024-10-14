@@ -7,7 +7,7 @@ const projectsSectionRouter = require("../add-sections/projects/projects.router"
 const skillsSectionRouter = require("../add-sections/skills/skills.router");
 
 const profileRouter = require("../profile/profile/profile.router");
-const profileInfoRouter = require("../profile/profile-info/profile-info.router");
+const profileInfoRouter = require("../profile/profile-info/profileInfo.router");
 const profilePhotoRouter = require("../profile/profile-photo/profile-photo.router");
 
 const apiRouter = express.Router();

@@ -2,7 +2,7 @@ const {
 	getProfileLinksModel,
 	postProfileLinkModel,
 	editProfileLinkModel,
-} = require("../../../models/profile-links.model");
+} = require("../../../models/profileLinks.model");
 
 function getProfileLinks(req, res) {
 	getProfileLinksModel()
