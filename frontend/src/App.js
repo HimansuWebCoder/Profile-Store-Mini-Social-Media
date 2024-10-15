@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import AppLayout from "./routes/AppLayout";
-import AppRoutes from "./routes/AppRoutes";
+import AdminLayout from "./routes/AdminLayout";
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
         <Route path="/" element={<AppLayout />} />
 
         {/* Other routes inside AppRoutes */}
-        <Route path="/*" element={<AppRoutes />} />
+        <Route path="/*" element={<AdminLayout />} />
       </Routes>
     </div>
   );

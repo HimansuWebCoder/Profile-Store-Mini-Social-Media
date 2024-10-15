@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import PopupEdit from "../../components/Popup-edit/PopupEdit";
 import "./ProfileInfoEdit.css";
 
 function ProfileInfoEdit() {
 	const [name, setName] = useState("");
 	const [headline, setHeadline] = useState("");
+	const [isUpdated, setIsUpdated] = useState(false);
+	const [message, setMessage] = useState("");
 	const location = useLocation();
 	const navigate = useNavigate();
 	const id = location.pathname.split("/")[3];
@@ -28,7 +31,6 @@ function ProfileInfoEdit() {
 	// 		});
 	// }, [id]);
 
-	// Handler for updating profile info
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		fetch(
@@ -39,12 +41,16 @@ function ProfileInfoEdit() {
 				body: JSON.stringify({ name, headline }),
 			},
 		)
-			.then((response) => {
-				if (response.ok) {
-					alert("Profile updated successfully!");
-					navigate("/admin", { state: { profileId: id } });
+			.then((res) => res.json())
+			.then((data) => {
+				// alert(data.message);
+				// console.log(data);
+				alert(data.success);
+				setMessage(data.message);
+				if (data.success) {
+					setIsUpdated(true);
 				} else {
-					alert("Failed to update profile.");
+					alert(data.message);
 				}
 			})
 			.catch((error) => {
@@ -58,34 +64,41 @@ function ProfileInfoEdit() {
 
 	return (
 		<div className="profile-info-edit-container">
-			<div className="edit-sub-container">
-				<div className="redirect-btn-container">
-					<button id="redirect-root-btn" onClick={handleNavigate}>
-						Back
-					</button>
-				</div>
-				<form className="form" onSubmit={handleSubmit}>
-					<label>Name:</label>
-					<input
-						className="input-form"
-						type="text"
-						value={name}
-						onChange={(e) => setName(e.target.value)}
-					/>
-					<br />
-					<label>Headline:</label>
-					<input
-						className="input-form"
-						type="text"
-						value={headline}
-						onChange={(e) => setHeadline(e.target.value)}
-					/>
+			{/*<PopupEdit />*/}
+			{isUpdated ? (
+				<PopupEdit msg={message} />
+			) : (
+				<div className="edit-sub-container">
+					<div className="redirect-btn-container">
+						<button id="redirect-root-btn" onClick={handleNavigate}>
+							Back
+						</button>
+					</div>
+					{/*{popupContent}*/}
+					{/*<PopupEdit />*/}
+					<form className="form" onSubmit={handleSubmit}>
+						<label>Name:</label>
+						<input
+							className="input-form"
+							type="text"
+							value={name}
+							onChange={(e) => setName(e.target.value)}
+						/>
+						<br />
+						<label>Headline:</label>
+						<input
+							className="input-form"
+							type="text"
+							value={headline}
+							onChange={(e) => setHeadline(e.target.value)}
+						/>
 
-					<button id="submit-btn" type="submit">
-						Update Profile
-					</button>
-				</form>
-			</div>
+						<button id="submit-btn" type="submit">
+							Update Profile
+						</button>
+					</form>
+				</div>
+			)}
 		</div>
 	);
 }

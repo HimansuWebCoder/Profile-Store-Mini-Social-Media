@@ -1,4 +1,7 @@
-const { profileInfoGetModel } = require("../../../models/profileInfo.model");
+const {
+	profileInfoGetModel,
+	editProfileInfoModel,
+} = require("../../../models/profileInfo.model");
 
 // GET Profile's Information
 function getProfileInfo(req, res) {
@@ -25,7 +28,7 @@ function getProfileInfo(req, res) {
 }
 
 // UPDATE Profile's Information
-function editProfileInfo(req, res, db) {
+function editProfileInfo(req, res) {
 	const { name, headline } = req.body;
 	const { id } = req.params;
 	console.log(id);
@@ -33,18 +36,17 @@ function editProfileInfo(req, res, db) {
 		return res.status(400).json({ Error: "name & headline are needed" });
 	}
 
-	db("profile_info")
-		.update({ name, headline })
-		.where({ id })
-		.returning("*")
+	editProfileInfoModel(id, name, headline)
 		.then((profileInfoData) => {
 			if (profileInfoData.length > 0) {
 				return res.status(200).json({
-					message: "profile information data successfully updated",
+					success: true,
+					message: "profile information data updated successfully",
 					data: profileInfoData,
 				});
 			} else {
 				return res.status(404).json({
+					success: false,
 					Error: "profile info not found to update",
 				});
 			}

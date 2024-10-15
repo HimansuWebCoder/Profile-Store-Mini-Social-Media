@@ -6,7 +6,7 @@ const profileLinksSectionRouter = require("../add-sections/profile-links/profile
 const projectsSectionRouter = require("../add-sections/projects/projects.router");
 const skillsSectionRouter = require("../add-sections/skills/skills.router");
 
-const profileRouter = require("../profile/profile/profile.router");
+const profilesRouter = require("../profile/profile/profiles.router");
 const profileInfoRouter = require("../profile/profile-info/profileInfo.router");
 const profilePhotoRouter = require("../profile/profile-photo/profile-photo.router");
 
@@ -18,7 +18,7 @@ apiRouter.use("/languages", languagesSectionRouter);
 apiRouter.use("/profile-links", profileLinksSectionRouter);
 apiRouter.use("/projects", projectsSectionRouter);
 apiRouter.use("/skills", skillsSectionRouter);
-apiRouter.use("/profiles", profileRouter);
+apiRouter.use("/profiles", profilesRouter);
 apiRouter.use("/profile-info", profileInfoRouter);
 apiRouter.use("/profile-photo", profilePhotoRouter);
 

@@ -1,0 +1,30 @@
+.popup-edit-container {
+	width: 100vw;
+	background-color: rgba(0, 0, 0, 0.4);
+	color: white;
+	height: 100vh;
+	z-index: 100;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+
+.popup-edit-container > div {
+	max-width: 400px;
+	height: auto;
+	background-color: black;
+	color: white;
+	margin: auto;
+	padding: 10px;
+	border-radius: 20px;
+	margin-top: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+#link {
+	color: white;
+	text-decoration: none;
+	background-color: red;
+}

@@ -1,6 +1,6 @@
 const express = require("express");
 const db = require("../../../config/db");
-const { getProfiles } = require("./profile.controller");
+const { getProfiles } = require("./profiles.controller");
 const profileRouter = express.Router();
 
 profileRouter.post("/", (req, res) => {

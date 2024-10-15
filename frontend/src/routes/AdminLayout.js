@@ -5,7 +5,7 @@ import Login from "../pages/Auth/Auth";
 import Feedbacks from "../pages/Feedbacks/Feedbacks";
 import ProfileInfoEdit from "../pages/Profile-Info-Edit/ProfileInfoEdit";
 
-function AppRoutes() {
+function AdminLayout() {
 	return (
 		<div className="app_container">
 			<Routes>
@@ -22,4 +22,4 @@ function AppRoutes() {
 	);
 }
 
-export default AppRoutes;
+export default AdminLayout;
