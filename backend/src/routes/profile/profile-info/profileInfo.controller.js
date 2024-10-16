@@ -36,7 +36,7 @@ function getProfileInfo(req, res) {
 		.then((profileInfoData) => {
 			// or > 0
 			if (profileInfoData.length !== 0) {
-				console.log("my profilie info", profileInfoData);
+				console.log("my profile info", profileInfoData);
 				return res.status(200).json(profileInfoData);
 			} else {
 				return res.status(404).json({
