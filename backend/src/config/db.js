@@ -2,7 +2,7 @@ const knex = require("knex");
 require("dotenv").config();
 
 console.log("NODE_ENV:", process.env.NODE_ENV);
-console.log("DATABASE_URL:", process.env.DATABASE_URL);
+// console.log("DATABASE_URL:", process.env.DATABASE_URL);
 
 // const dbConfig = {
 // 	connectionString: process.env.DATABASE_URL,
