@@ -1,25 +1,48 @@
-const knex = require("knex");
+// const knex = require("knex");
 
+// require("dotenv").config();
+
+// const isProduction = process.env.NODE_ENV === "production"; // switch to production
+// // const isProduction = process.env.NODE_ENV === "development "; // switch to local
+
+// const dbConfig = isProduction
+// 	? {
+// 			connectionString: process.env.DATABASE_URL_PROD,
+// 			ssl: { rejectUnauthorized: true },
+// 		}
+// 	: {
+// 			connectionString: process.env.DATABASE_URL_LOCAL,
+// 			ssl: { rejectUnauthorized: false },
+// 		};
+
+// const db = knex({
+// 	client: "pg",
+// 	connection: dbConfig,
+// });
+
+// module.exports = db;
+
+const knex = require("knex");
 require("dotenv").config();
 
-const isProduction = process.env.NODE_ENV === "production"; // switch to production
-// const isProduction = process.env.NODE_ENV === "development "; // switch to local
+const isProduction = process.env.NODE_ENV === "production";
 
-const dbConfig = isProduction
-	? {
-			connectionString: process.env.DATABASE_URL_PROD,
-			ssl: { rejectUnauthorized: true },
-		}
-	: {
-			connectionString: process.env.DATABASE_URL_LOCAL,
-			ssl: { rejectUnauthorized: false },
-		};
+const dbConfig = {
+	connection: {
+		connectionString: isProduction
+			? process.env.DATABASE_URL_PROD // Production URL
+			: process.env.DATABASE_URL_LOCAL, // Local URL
+		ssl: isProduction ? { rejectUnauthorized: true } : false,
+	},
+};
 
 const db = knex({
 	client: "pg",
-	connection: dbConfig,
+	connection: dbConfig.connection,
 });
+console.log("Database Configuration:", dbConfig);
 
+// Export the database instance
 module.exports = db;
 
 // const knex = require("knex");
