@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import PopupEdit from "../../components/Popup-edit/PopupEdit";
 import "./ProfileInfoEdit.css";
+import { apiUrl } from "../../utils/utils";
 
 // const apiUrl = process.env.REACT_APP_API_URL_LOCAL;
-const apiUrl = process.env.REACT_APP_API_URL_PROD;
+// const apiUrl = process.env.REACT_APP_API_URL_PROD;
 
 function ProfileInfoEdit() {
 	const [name, setName] = useState("");
