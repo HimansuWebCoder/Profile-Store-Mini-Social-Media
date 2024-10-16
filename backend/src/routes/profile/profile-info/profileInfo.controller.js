@@ -1,7 +1,34 @@
 const {
 	profileInfoGetModel,
 	editProfileInfoModel,
+	getOneProfileInfoModel,
 } = require("../../../models/profileInfo.model");
+
+// GET One Profile's Information
+
+function getOneProfileInfo(req, res) {
+	const { id } = req.params;
+	getOneProfileInfoModel(id)
+		.then((profileInfoData) => {
+			// or > 0
+			if (profileInfoData.length !== 0) {
+				console.log(profileInfoData);
+				return res.status(200).json(profileInfoData);
+			} else {
+				return res.status(404).json({
+					Error: "profile information data not found",
+				});
+			}
+		})
+		.catch((error) => {
+			console.error(
+				`Error occurred retrieved data from profile_info: ${error.stack} || ${error.message} ${error}`,
+			);
+			return res.status(500).json({
+				Error: "Internal Server Error",
+			});
+		});
+}
 
 // GET Profile's Information
 function getProfileInfo(req, res) {
@@ -62,4 +89,5 @@ function editProfileInfo(req, res) {
 module.exports = {
 	getProfileInfo,
 	editProfileInfo,
+	getOneProfileInfo,
 };

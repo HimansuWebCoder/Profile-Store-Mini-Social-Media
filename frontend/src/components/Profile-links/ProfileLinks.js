@@ -20,9 +20,9 @@ function ProfileLinks() {
 	}, []);
 	return (
 		<div className="links-parent-container">
-			{links.map((linkData) => (
-				<ul className="links-child-container" key={linkData.profileid}>
-					<li tabindex="0">
+			{links.map((linkData, index) => (
+				<ul className="links-child-container" key={index}>
+					<li tabIndex="0">
 						<a
 							className="links"
 							href={linkData.linkedin_url}
@@ -34,7 +34,7 @@ function ProfileLinks() {
 							/>
 						</a>
 					</li>
-					<li tabindex="0">
+					<li tabIndex="0">
 						<a
 							className="links"
 							href={linkData.portfolio_url}
@@ -46,7 +46,7 @@ function ProfileLinks() {
 							/>
 						</a>
 					</li>
-					<li tabindex="0">
+					<li tabIndex="0">
 						<a
 							className="links"
 							href={linkData.github_url}
@@ -58,7 +58,7 @@ function ProfileLinks() {
 							/>
 						</a>
 					</li>
-					<li tabindex="0">
+					<li tabIndex="0">
 						<a
 							className="links"
 							href={linkData.youtube_url}
@@ -70,7 +70,7 @@ function ProfileLinks() {
 							/>
 						</a>
 					</li>
-					<li tabindex="0">
+					<li tabIndex="0">
 						<a
 							className="links"
 							href={linkData.twitter_url}
@@ -82,7 +82,7 @@ function ProfileLinks() {
 							/>
 						</a>
 					</li>
-					<li tabindex="0">
+					<li tabIndex="0">
 						<a
 							className="links"
 							href={linkData.facebook_url}
@@ -94,7 +94,7 @@ function ProfileLinks() {
 							/>
 						</a>
 					</li>
-					<li tabindex="0">
+					<li tabIndex="0">
 						<a
 							className="links"
 							href={linkData.instagram_url}

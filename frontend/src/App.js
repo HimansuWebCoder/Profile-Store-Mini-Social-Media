@@ -4,7 +4,7 @@ import AdminLayout from "./routes/AdminLayout";
 
 function App() {
   return (
-    <div style={{ backgroundColor: "black", height: "100vh" }}>
+    <div style={{ backgroundColor: "white", height: "100vh" }}>
       <Routes>
         {/* Route for the layout */}
         <Route path="/" element={<AppLayout />} />

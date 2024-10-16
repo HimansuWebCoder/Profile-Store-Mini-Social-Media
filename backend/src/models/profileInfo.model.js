@@ -4,6 +4,10 @@ function profileInfoGetModel() {
 	return db("profile_info").returning("*");
 }
 
+function getOneProfileInfoModel(id) {
+	return db.select("*").from("profile_info").where({ id }).returning("*");
+}
+
 function editProfileInfoModel(id, name, headline) {
 	return db("profile_info")
 		.update({ name, headline })
@@ -14,4 +18,5 @@ function editProfileInfoModel(id, name, headline) {
 module.exports = {
 	profileInfoGetModel,
 	editProfileInfoModel,
+	getOneProfileInfoModel,
 };
