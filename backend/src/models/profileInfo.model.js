@@ -5,7 +5,7 @@ function profileInfoGetModel() {
 }
 
 function getOneProfileInfoModel(id) {
-	return db.select("*").from("profile_info").where({ id }).returning("*");
+	return db.select("*").from("profile_info").where({ id });
 }
 
 function editProfileInfoModel(id, name, headline) {
