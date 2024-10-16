@@ -2,18 +2,25 @@ import React, { useState, useEffect, Suspense } from "react";
 import "./ProfileInfo.css";
 
 const ProfileLinks = React.lazy(() => import("../Profile-links/ProfileLinks"));
+// const apiUrl = process.env.REACT_APP_API_URL_LOCAL;
+const apiUrl = process.env.REACT_APP_API_URL_PROD;
 
 function ProfileInfo({ setProfileId, location }) {
 	const [name, setName] = useState("");
 	const [headline, setHeadline] = useState("");
 	const [loading, setLoading] = useState(true);
 
+	// console.log(apiUrl);
+	useEffect(() => {
+		console.log("offline URL:", apiUrl);
+	});
 	useEffect(() => {
 		const fetchProfileInfo = async () => {
 			try {
 				console.log("Fetching profile info...");
 				const profileInfo = await fetch(
-					"https://profile-store-mini-social-media.onrender.com/api/profile-info",
+					// "https://profile-store-mini-social-media.onrender.com/api/profile-info",
+					`${apiUrl}/api/profile-info`,
 				);
 				const profileInfoData = await profileInfo.json();
 				// Simulate delay to showcase skeleton

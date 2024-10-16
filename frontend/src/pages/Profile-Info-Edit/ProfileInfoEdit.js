@@ -3,6 +3,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import PopupEdit from "../../components/Popup-edit/PopupEdit";
 import "./ProfileInfoEdit.css";
 
+// const apiUrl = process.env.REACT_APP_API_URL_LOCAL;
+const apiUrl = process.env.REACT_APP_API_URL_PROD;
+
 function ProfileInfoEdit() {
 	const [name, setName] = useState("");
 	const [headline, setHeadline] = useState("");
@@ -34,7 +37,8 @@ function ProfileInfoEdit() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		fetch(
-			`https://profile-store-mini-social-media.onrender.com/api/profile-info/${id}`,
+			// `https://profile-store-mini-social-media.onrender.com/api/profile-info/${id}`,
+			`${apiUrl}/api/profile-info/${id}`,
 			{
 				method: "PUT",
 				headers: { "Content-Type": "application/json" },
