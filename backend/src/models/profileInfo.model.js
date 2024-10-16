@@ -1,7 +1,7 @@
 const db = require("../config/db");
 
 function profileInfoGetModel() {
-	return db("profile_info").returning("*");
+	return db.select("*").from("profile_info");
 }
 
 function getOneProfileInfoModel(id) {

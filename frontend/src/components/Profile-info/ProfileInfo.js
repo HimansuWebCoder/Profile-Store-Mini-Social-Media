@@ -14,6 +14,7 @@ function ProfileInfo({ setProfileId, location }) {
 	useEffect(() => {
 		console.log("offline URL:", apiUrl);
 	});
+
 	useEffect(() => {
 		const fetchProfileInfo = async () => {
 			try {
@@ -23,6 +24,7 @@ function ProfileInfo({ setProfileId, location }) {
 					`${apiUrl}/api/profile-info`,
 				);
 				const profileInfoData = await profileInfo.json();
+				console.log("all Data info", profileInfoData);
 				// Simulate delay to showcase skeleton
 				setTimeout(() => {
 					setName(profileInfoData[0].name);
@@ -39,7 +41,7 @@ function ProfileInfo({ setProfileId, location }) {
 	}, [setProfileId, location]);
 
 	// Log the loading state to debug
-	console.log("Loading state:", loading);
+	// console.log("Loading state:", loading);
 
 	function Glimmer() {
 		return (
@@ -53,7 +55,7 @@ function ProfileInfo({ setProfileId, location }) {
 
 	// If loading, show skeleton loader
 	if (loading) {
-		console.log("Displaying Glimmer loader");
+		// console.log("Displaying Glimmer loader");
 		return <Glimmer />;
 	}
 
