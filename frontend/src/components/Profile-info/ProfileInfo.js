@@ -1,9 +1,9 @@
 import React, { useState, useEffect, Suspense } from "react";
 import "./ProfileInfo.css";
-import { apiUrl } from "../../utils/utils";
+// import { apiUrl } from "../../utils/utils";
 const ProfileLinks = React.lazy(() => import("../Profile-links/ProfileLinks"));
 // const apiUrl = process.env.REACT_APP_API_URL_LOCAL;
-// const apiUrl = process.env.REACT_APP_API_URL_PROD;
+const apiUrl = process.env.REACT_APP_API_URL_PROD;
 
 function ProfileInfo({ setProfileId, location }) {
 	const [name, setName] = useState("");
@@ -11,9 +11,9 @@ function ProfileInfo({ setProfileId, location }) {
 	const [loading, setLoading] = useState(true);
 
 	// console.log(apiUrl);
-	useEffect(() => {
-		console.log("offline URL:", apiUrl);
-	});
+	// useEffect(() => {
+	// 	console.log("offline URL:", apiUrl);
+	// });
 
 	useEffect(() => {
 		const fetchProfileInfo = async () => {

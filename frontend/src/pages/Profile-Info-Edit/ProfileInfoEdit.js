@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+// import { apiUrl } from "../../utils/utils";
 import PopupEdit from "../../components/Popup-edit/PopupEdit";
 import "./ProfileInfoEdit.css";
-import { apiUrl } from "../../utils/utils";
 
 // const apiUrl = process.env.REACT_APP_API_URL_LOCAL;
-// const apiUrl = process.env.REACT_APP_API_URL_PROD;
+const apiUrl = process.env.REACT_APP_API_URL_PROD;
 
 function ProfileInfoEdit() {
 	const [name, setName] = useState("");
@@ -20,6 +20,10 @@ function ProfileInfoEdit() {
 	useEffect(() => {
 		if (id) {
 			// Fetch current profile info and populate form
+			// https://profile-store-mini-social-media.onrender.com/api/profile-info
+			// fetch(
+			// 	`https://profile-store-mini-social-media.onrender.com/api/profile-info/${id}`,
+			// )
 			fetch(`${apiUrl}/api/profile-info/${id}`)
 				.then((response) => {
 					if (!response.ok) {
@@ -51,6 +55,7 @@ function ProfileInfoEdit() {
 		})
 			.then((res) => res.json())
 			.then((data) => {
+				console.log(data);
 				setMessage(data.message);
 				if (data.success) {
 					setIsUpdated(true);

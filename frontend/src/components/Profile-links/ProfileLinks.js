@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import "./ProfileLinks.css";
-import { apiUrl } from "../../utils/utils";
+// import { apiUrl } from "../../utils/utils";
 // const apiUrl = process.env.REACT_APP_API_URL_LOCAL;
-// // const apiUrl = process.env.REACT_APP_API_URL_PROD;
+const apiUrl = process.env.REACT_APP_API_URL_PROD;
 
 function ProfileLinks() {
 	const [links, setLinks] = useState([]);

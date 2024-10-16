@@ -1,7 +1,6 @@
 const knex = require("knex");
-require("dotenv").config();
 
-console.log("NODE_ENV:", process.env.NODE_ENV);
+// console.log("NODE_ENV:", process.env.NODE_ENV);
 // console.log("DATABASE_URL:", process.env.DATABASE_URL);
 
 // const dbConfig = {
@@ -12,32 +11,30 @@ console.log("NODE_ENV:", process.env.NODE_ENV);
 // 			: false,
 // };
 
-const isProduction = process.env.NODE_ENV === "production";
-const dbConfig = isProduction
-	? {
-			connectionString: process.env.DATABASE_URL,
-			ssl: { rejectUnauthorized: true },
-		}
-	: {
-			connectionString:
-				process.env.DATABASE_URL_LOCAL ||
-				"postgresql://profile_store_admin:test@localhost:5432/profile_store_db",
-			ssl: false,
-		};
+// const isProduction = process.env.NODE_ENV === "production";
+// const dbConfig = isProduction
+// 	? {
+// 			connectionString: process.env.DATABASE_URL,
+// 			ssl: { rejectUnauthorized: true },
+// 		}
+// 	: {
+// 			connectionString:
+// 				process.env.DATABASE_URL_LOCAL ||
+// 				"postgresql://profile_store_admin:test@localhost:5432/profile_store_db",
+// 			ssl: false,
+// 		};
 
-const db = knex({
-	client: "pg",
-	connection: dbConfig,
-});
+// const db = knex({
+// 	client: "pg",
+// 	connection: dbConfig,
+// });
 
-module.exports = db;
+// module.exports = db;
 
-console.log("NODE_ENV:", process.env.NODE_ENV);
-console.log("Using DB Config:", dbConfig);
+// console.log("NODE_ENV:", process.env.NODE_ENV);
+// console.log("Using DB Config:", dbConfig);
 
 // const knex = require("knex");
-
-// require("dotenv").config();
 
 // const isProduction = process.env.NODE_ENV === "production"; // switch to production
 // // const isProduction = process.env.NODE_ENV === "development "; // switch to local
@@ -60,7 +57,6 @@ console.log("Using DB Config:", dbConfig);
 // module.exports = db;
 
 // const knex = require("knex");
-// require("dotenv").config();
 
 // const isProduction = process.env.NODE_ENV === "production";
 
@@ -95,17 +91,18 @@ console.log("Using DB Config:", dbConfig);
 // // 	},
 // // });
 
-// require("dotenv").config();
+// For simple production and local both manually add and work offline development and production online
+const db = knex({
+	client: "pg",
+	connection: {
+		connectionString: process.env.DATABASE_URL,
+		ssl: { rejectUnauthorized: true },
+		// connectionString: process.env.DATABASE_URL_LOCAL,
+		// ssl: { rejectUnauthorized: false },
+	},
+});
 
-// const db = knex({
-// 	client: "pg",
-// 	connection: {
-// 		connectionString: process.env.DATABASE_URL,
-// 		ssl: { rejectUnauthorized: true },
-// 	},
-// });
-
-// module.exports = db;
+module.exports = db;
 // // console.log("DATABASE URL:", process.env.DATABASE_URL);
 
 // // https://todoapp-29o9.onrender.com
