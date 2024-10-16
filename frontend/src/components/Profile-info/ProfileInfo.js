@@ -2,8 +2,8 @@ import React, { useState, useEffect, Suspense } from "react";
 import "./ProfileInfo.css";
 
 const ProfileLinks = React.lazy(() => import("../Profile-links/ProfileLinks"));
-const apiUrl = process.env.REACT_APP_API_URL_LOCAL;
-// const apiUrl = process.env.REACT_APP_API_URL_PROD;
+// const apiUrl = process.env.REACT_APP_API_URL_LOCAL;
+const apiUrl = process.env.REACT_APP_API_URL_PROD;
 
 function ProfileInfo({ setProfileId, location }) {
 	const [name, setName] = useState("");

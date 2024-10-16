@@ -2,8 +2,8 @@ const knex = require("knex");
 
 require("dotenv").config();
 
-// const isProduction = process.env.NODE_ENV === "production"; // switch to production or local
-const isProduction = process.env.NODE_ENV === "development "; // switch to production or local
+const isProduction = process.env.NODE_ENV === "production"; // switch to production or local
+// const isProduction = process.env.NODE_ENV === "development "; // switch to production or local
 
 const dbConfig = isProduction
 	? {
