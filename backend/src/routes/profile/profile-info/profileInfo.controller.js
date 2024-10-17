@@ -5,7 +5,6 @@ const {
 } = require("../../../models/profileInfo.model");
 
 // GET One Profile's Information
-
 function getOneProfileInfo(req, res) {
 	const { id } = req.params;
 	getOneProfileInfoModel(id)

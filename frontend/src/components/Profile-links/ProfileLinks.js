@@ -1,17 +1,12 @@
 import { useState, useEffect } from "react";
 import "./ProfileLinks.css";
-// import { apiUrl } from "../../utils/utils";
-// const apiUrl = process.env.REACT_APP_API_URL_LOCAL;
-const apiUrl = process.env.REACT_APP_API_URL_PROD;
+import { apiUrl } from "../../utils/utils";
 
 function ProfileLinks() {
 	const [links, setLinks] = useState([]);
 
 	useEffect(() => {
-		fetch(
-			// "https://profile-store-mini-social-media.onrender.com/api/profile-links",
-			`${apiUrl}/api/profile-links`,
-		)
+		fetch(`${apiUrl}/api/profile-links`)
 			.then((res) => res.json())
 			.then((profileLinks) => {
 				console.log(profileLinks);
