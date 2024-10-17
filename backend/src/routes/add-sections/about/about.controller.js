@@ -37,17 +37,24 @@ function getAboutProfile(req, res) {
 
 // UPDATE about of profile
 function editAboutProfile(req, res) {
-	// const { description } = req.body;
+	const { description } = req.body;
 	const { id } = req.params;
-	const { description, profile_id } = req.body;
+	// const { description, profile_id } = req.body;
 
-	if (!description || !profile_id) {
+	if (!description) {
 		return res
 			.status(400)
 			.json({ Error: "description or profileId must needed" });
 	}
 
-	editAboutModel(id, profile_id, description)
+	// if (!description || !profile_id) {
+	// 	return res
+	// 		.status(400)
+	// 		.json({ Error: "description or profileId must needed" });
+	// }
+
+	// editAboutModel(id, profile_id, description)
+	editAboutModel(id, description)
 		.then((descriptionData) => {
 			if (descriptionData.length > 0) {
 				return res.status(200).json({

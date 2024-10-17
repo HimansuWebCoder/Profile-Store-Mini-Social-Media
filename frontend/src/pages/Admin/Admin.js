@@ -3,15 +3,18 @@ import { Outlet, Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import ProfilePhoto from "../../components/Profile-photo/ProfilePhoto";
 import ProfileInfo from "../../components/Profile-info/ProfileInfo";
+import About from "../../components/add-sections/About/About";
 import Skills from "../../components/add-sections/Skills/Skills";
 import "./Admin.css";
 
 function Admin() {
 	const [profileId, setProfileId] = useState(null);
+	const [aboutId, setAboutId] = useState(null);
 	const location = useLocation();
 
 	useEffect(() => {
 		console.log("profileid", profileId);
+		console.log("about id", aboutId);
 	});
 
 	return (
@@ -54,12 +57,17 @@ function Admin() {
 				</div>
 				<div className="sub-admin-container edit">
 					<h3>About</h3>
-					<img
+					{/*<img
 						className="editpencil"
 						src="/assets/images/pencil.png"
 						alt="about"
-					/>
+					/>*/}
 				</div>
+				<About
+					setAboutId={setAboutId}
+					aboutId={aboutId}
+					location={location}
+				/>
 				<div className="sub-admin-container edit">
 					<h3>Posts</h3>
 					<img

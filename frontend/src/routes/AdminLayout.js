@@ -4,6 +4,7 @@ import Admin from "../pages/Admin/Admin";
 import Login from "../pages/Auth/Auth";
 import Feedbacks from "../pages/Feedbacks/Feedbacks";
 import ProfileInfoEdit from "../pages/Profile-Info-Edit/ProfileInfoEdit";
+import AboutEdit from "../components/add-sections/About/About-edit/AboutEdit";
 
 import "./AdminLayout.css";
 
@@ -16,6 +17,7 @@ function AdminLayout() {
 						path="profile-info/:id/edit"
 						element={<ProfileInfoEdit />}
 					/>
+					<Route path="about/:id" element={<AboutEdit />} />
 				</Route>
 				<Route path="login" element={<Login />} />
 				<Route path="feedbacks" element={<Feedbacks />} />
