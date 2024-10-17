@@ -4,6 +4,7 @@ import { apiUrl } from "../../../utils/utils";
 
 function About({ aboutId, setAboutId }) {
 	const [about, setAbout] = useState("");
+	const [loading, setLoading] = useState(true);
 	const location = useLocation();
 	const pathname = location.pathname;
 	useEffect(() => {
@@ -12,8 +13,11 @@ function About({ aboutId, setAboutId }) {
 			.then((aboutData) => {
 				console.log("about location", location);
 				console.log("about data", aboutData);
-				setAbout(aboutData[0].description);
-				setAboutId(aboutData[0].id);
+				setTimeout(() => {
+					setAbout(aboutData[0].description);
+					setAboutId(aboutData[0].id);
+					setLoading(false);
+				}, 1000);
 			});
 	});
 
@@ -27,7 +31,12 @@ function About({ aboutId, setAboutId }) {
 						alt="editinfo"
 					/>
 				</Link>
-				<p>{about}</p>
+				{/*<p>{about}</p>*/}
+				{loading ? (
+					<p style={{ color: "white" }}>Loading...</p>
+				) : (
+					<p style={{ color: "white" }}>{about}</p>
+				)}
 			</div>
 		</div>
 	);
