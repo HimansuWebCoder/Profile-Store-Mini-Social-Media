@@ -8,6 +8,10 @@ function SkillPost() {
 	const navigate = useNavigate();
 	const inputRef = useRef(null);
 
+	useEffect(() => {
+		inputRef.current.focus();
+	}, []);
+
 	function handleSubmit() {
 		fetch(`${apiUrl}/api/skills`, {
 			method: "post",
