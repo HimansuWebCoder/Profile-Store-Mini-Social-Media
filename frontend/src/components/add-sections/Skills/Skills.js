@@ -6,6 +6,7 @@ import "./Skills.css";
 function Skills() {
 	const [skills, setSkills] = useState([]);
 	const [error, setError] = useState("");
+	const [loading, setLoading] = useState(true);
 	const location = useLocation();
 
 	useEffect(() => {
@@ -15,9 +16,13 @@ function Skills() {
 				if (skills.Error) {
 					setError(skills.Error);
 					setSkills([]);
+					setLoading(false);
 				} else {
-					setSkills(skills);
-					setError("");
+					setTimeout(() => {
+						setSkills(skills);
+						setError("");
+						setLoading(false);
+					}, 1000);
 				}
 			});
 	}, [location]);
@@ -27,15 +32,24 @@ function Skills() {
 			<Link to="/admin/skill/post">Post</Link>
 			<br />
 			<Link to="/admin/skill/edit">Edit</Link>
-			{skills.length === 0 ? (
-				<p>{error}</p>
+			{loading ? (
+				<p style={{ color: "white" }}>Loading....</p>
 			) : (
 				<>
-					{skills.map((skill) => (
-						<div className="skill-sub-container" key={skill.id}>
-							<p>{skill.skill}</p>
-						</div>
-					))}
+					{skills.length === 0 ? (
+						<p>{error}</p>
+					) : (
+						<>
+							{skills.map((skill) => (
+								<div
+									className="skill-sub-container"
+									key={skill.id}
+								>
+									<p>{skill.skill}</p>
+								</div>
+							))}
+						</>
+					)}
 				</>
 			)}
 		</div>

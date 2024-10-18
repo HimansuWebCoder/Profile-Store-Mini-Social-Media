@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { apiUrl } from "../../../../utils/utils";
+import "./AboutEdit.css";
 
 // Loading should be in util file it uses almost every component I will do it later DRY
 function AboutEdit() {
@@ -23,36 +24,31 @@ function AboutEdit() {
 			});
 	}, [id]);
 
-	useEffect(() => {
+	function editAboutHandler() {
 		fetch(`${apiUrl}/api/about/${id}`, {
 			method: "put",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ description: input }),
-		});
-	}, [input, id]);
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				alert(data.message);
+				navigate("/admin");
+			});
+	}
 
 	const handleNavigate = () => {
 		navigate("/admin");
 	};
 
 	return (
-		<div
-			style={{
-				width: "200px",
-				height: "200px",
-				backgroundColor: "rgba(0, 0, 0, 0.2)",
-				color: "white",
-				position: "absolute",
-				top: "550px",
-				padding: "10px",
-				textAlign: "center",
-			}}
-		>
+		<div className="about-edit-container">
 			{loading ? (
 				<p>loading...</p>
 			) : (
 				<>
 					<textarea
+						className="textarea"
 						value={input}
 						onChange={(e) => setInput(e.target.value)}
 						style={{
@@ -64,7 +60,8 @@ function AboutEdit() {
 					>
 						{description}
 					</textarea>
-					<button onClick={handleNavigate}>Submit</button>
+					<button onClick={editAboutHandler}>Submit</button>
+					<button onClick={() => navigate("/admin")}>Exit</button>
 				</>
 			)}
 		</div>

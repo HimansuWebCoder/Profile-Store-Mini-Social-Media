@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiUrl } from "../../../../utils/utils";
+import "./SkillPost.css";
 
 function SkillPost() {
 	const [skillInput, setSkillInput] = useState("");
 	const navigate = useNavigate();
+	const inputRef = useRef(null);
 
 	function handleSubmit() {
 		fetch(`${apiUrl}/api/skills`, {
@@ -14,25 +16,22 @@ function SkillPost() {
 		})
 			.then((res) => res.json())
 			.then((skillData) => {
+				setSkillInput("");
+				inputRef.current.focus();
+				alert(skillData.message);
 				console.log("skill added: ", skillData);
-				navigate("/admin");
+				// navigate("/admin");
 			});
 	}
 
 	return (
-		<div
-			style={{
-				width: "400px",
-				height: "200px",
-				backgroundColor: "rgba(0, 0, 0, 0.2)",
-				position: "absolute",
-				top: "700px",
-			}}
-		>
+		<div className="post-skill-container">
 			<h1 style={{ color: "white" }}>Post Skills</h1>
 			<input
 				type="text"
 				value={skillInput}
+				placeholder="Add your skills"
+				ref={inputRef}
 				onChange={(e) => setSkillInput(e.target.value)}
 			/>
 			<button onClick={handleSubmit}>add</button>

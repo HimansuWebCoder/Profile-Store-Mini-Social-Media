@@ -58,7 +58,7 @@ function editAboutProfile(req, res) {
 		.then((descriptionData) => {
 			if (descriptionData.length > 0) {
 				return res.status(200).json({
-					message: "description data edited successfully",
+					message: "About Section updated successfully",
 					data: descriptionData,
 				});
 			} else {

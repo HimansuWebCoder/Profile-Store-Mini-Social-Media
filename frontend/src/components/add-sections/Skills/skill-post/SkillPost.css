@@ -1,0 +1,23 @@
+.post-skill-container {
+	max-width: 500px;
+	height: 200px;
+	background-color: rgba(0, 0, 0, 0.7);
+	position: absolute;
+	top: 700px;
+	border-radius: 10px;
+	text-align: center;
+	justify-content: center;
+}
+
+.post-skill-container > input {
+	max-width: 80%;
+	height: 30px;
+	border-radius: 10px;
+	font-size: 1.2rem;
+}
+
+.post-skill-container > button {
+	max-width: 50%;
+	height: 30px;
+	border-radius: 5px;
+}

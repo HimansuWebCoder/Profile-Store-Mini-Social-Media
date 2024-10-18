@@ -1,8 +1,14 @@
 .skill-edit-container {
-	max-width: 400px;
-	height: 300px;
-	background: rgba(0, 0, 0, 0.3);
+	max-width: 100%;
+	height: auto;
+	padding: 10px;
+	border-radius: 10px;
+	background: rgba(0, 0, 0, 0.7);
 	position: absolute;
 	top: 600px;
 	color: white;
+}
+
+.skill-edit-container > h1 {
+	font-size: 1.5rem;
 }

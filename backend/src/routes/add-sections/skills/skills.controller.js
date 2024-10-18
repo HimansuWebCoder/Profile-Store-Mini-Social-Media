@@ -55,7 +55,7 @@ function postSkill(req, res) {
 	postSkillModel(skill)
 		.then((skill) => {
 			return res.status(201).json({
-				message: "Skills created successfully",
+				message: "Skills added successfully",
 				data: skill,
 			});
 		})
@@ -90,7 +90,7 @@ function editSkill(req, res) {
 		.then((skillsData) => {
 			if (skillsData.length !== 0) {
 				return res.status(200).json({
-					message: "skills update successfully",
+					message: "skills updated successfully",
 					data: skillsData,
 				});
 			} else {
