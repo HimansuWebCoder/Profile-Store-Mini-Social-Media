@@ -5,4 +5,7 @@
 	font-size: 1.5rem;
 	color: white;
 	word-break: break-word;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
 }

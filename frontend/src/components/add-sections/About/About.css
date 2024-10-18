@@ -1,0 +1,15 @@
+.aboutSection {
+	display: flex;
+	flex-direction: column;
+}
+
+.about-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: rgba(0, 0, 12, 0.5);
+}
+
+.about-container > Link {
+	cursor: pointer;
+}

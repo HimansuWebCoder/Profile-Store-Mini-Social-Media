@@ -42,11 +42,25 @@ function SkillEdit() {
 					{skills.map((skill) => (
 						<>
 							<p key={skill.id}>{skill.skill}</p>
-							<button onClick={() => DeleteSkill(skill.id)}>
-								Delete
+							<button
+								id="skill-edit-deleteBtn"
+								onClick={() => DeleteSkill(skill.id)}
+							>
+								<img
+									className="skill-edit-img"
+									src="/assets/images/delete.png"
+									alt="delete skills"
+								/>
 							</button>
-							<button onClick={() => navigate("/admin")}>
-								Cancel
+							<button
+								id="skill-edit-cancelBtn"
+								onClick={() => navigate("/admin")}
+							>
+								<img
+									className="skill-edit-img"
+									src="/assets/images/cancel.png"
+									alt="cancel"
+								/>
 							</button>
 						</>
 					))}

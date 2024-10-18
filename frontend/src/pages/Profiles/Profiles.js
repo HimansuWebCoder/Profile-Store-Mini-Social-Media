@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { apiUrl } from "../../utils/utils";
 import "./Profiles.css";
+import ProfilePhoto from "../../components/Profile-photo/ProfilePhoto";
 
 function Profiles({ mode, setMode }) {
 	const [profileName, setProfileName] = useState("");
@@ -37,8 +39,14 @@ function Profiles({ mode, setMode }) {
 					style={{ color: color, border: border }}
 					className="profiles-info-container"
 				>
-					<h2>{profileName}</h2>
-					<h3>{profileIntro}</h3>
+					<ProfilePhoto />
+					<div>
+						<h2>{profileName}</h2>
+						<h3>{profileIntro}</h3>
+					</div>
+					<button id="view-profile-btn">
+						<Link to="/admin">View Profile</Link>
+					</button>
 				</div>
 			)}
 		</div>

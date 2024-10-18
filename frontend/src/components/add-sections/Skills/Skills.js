@@ -27,14 +27,18 @@ function Skills() {
 			});
 	}, [location]);
 	return (
-		<div>
-			<h3>Skills</h3>
-			<Link className="skill-links " to="/admin/skill/post">
-				Post
-			</Link>
-			<Link className="skill-links " to="/admin/skill/edit">
-				Edit
-			</Link>
+		<div className="skills-main-container">
+			<div className="skills-view-container">
+				<h3>Skills</h3>
+				<div>
+					<Link className="skill-links " to="/admin/skill/post">
+						Post
+					</Link>
+					<Link className="skill-links " to="/admin/skill/edit">
+						Edit
+					</Link>
+				</div>
+			</div>
 			{loading ? (
 				<p style={{ color: "white" }}>Loading....</p>
 			) : (

@@ -20,8 +20,20 @@
 .skill-links {
 	color: white;
 	background-color: #257180;
-	margin: 50px;
+	margin-left: 5px;
 	padding: 10px;
 	border-radius: 10px;
 	text-decoration: none;
+}
+
+.skills-main-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.skills-view-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: rgba(0, 210, 200, 0.2);
 }

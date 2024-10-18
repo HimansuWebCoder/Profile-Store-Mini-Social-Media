@@ -23,33 +23,16 @@ function Admin() {
 				</div>
 				<ProfilePhoto />
 				<Outlet />
-				<div className="sub-admin-container editInfo">
-					{/*<Link to={`/admin/profile-info/${profileId}/edit`}>
-						<img
-							className="editpencil"
-							src="/assets/images/pencil.png"
-							alt="editinfo"
-						/>
-					</Link>*/}
-				</div>
 				<div className="sub-admin-container showinfo">
 					<ProfileInfo />
 				</div>
-				<div className="sub-admin-container edit">
+				<div className="sub-admin-container add-section">
 					<h3>Add-Section</h3>
 					<img
 						className="add-button"
 						src="/assets/images/add-button.png"
 						alt="section"
 					/>
-				</div>
-				<div className="sub-admin-container edit">
-					<h3>About</h3>
-					{/*<img
-						className="editpencil"
-						src="/assets/images/pencil.png"
-						alt="about"
-					/>*/}
 				</div>
 				<About />
 				<div className="sub-admin-container edit">

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { apiUrl } from "../../../utils/utils";
+import "./About.css";
 
 function About() {
 	const [about, setAbout] = useState("");
@@ -24,14 +25,17 @@ function About() {
 
 	return (
 		<div>
-			<div className="sub-admin-container editInfo">
-				<Link to={`/admin/about/${aboutId}`}>
-					<img
-						className="editpencil"
-						src="/assets/images/pencil.png"
-						alt="editinfo"
-					/>
-				</Link>
+			<div className="sub-admin-container aboutSection">
+				<div className="about-container">
+					<h3>About</h3>
+					<Link to={`/admin/about/${aboutId}`}>
+						<img
+							className="editpencil"
+							src="/assets/images/pencil.png"
+							alt="editinfo"
+						/>
+					</Link>
+				</div>
 				{/*<p>{about}</p>*/}
 				{loading ? (
 					<p style={{ color: "white" }}>Loading...</p>

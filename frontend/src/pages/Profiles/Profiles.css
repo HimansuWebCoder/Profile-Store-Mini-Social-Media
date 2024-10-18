@@ -1,16 +1,31 @@
 .profiles-container {
-	max-width: 300px;
+	max-width: 700px;
 	height: auto;
 	margin: auto;
 	color: white;
 	text-align: center;
+	/*	border: 1px solid black;*/
+	padding: 10px;
 }
 
 .profiles-info-container {
 	width: 100%;
 	height: auto;
 	border: 1px solid white;
+	border-radius: 10px;
 	margin: auto;
 	color: white;
 	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+	font-size: 1.5rem;
+}
+
+#view-profile-btn {
+	height: 50px;
+	font-size: 1rem;
+	border-radius: 5px;
+	cursor: pointer;
 }
