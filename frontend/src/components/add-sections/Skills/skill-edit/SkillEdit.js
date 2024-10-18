@@ -58,7 +58,7 @@ function SkillEdit() {
 							>
 								<img
 									className="skill-edit-img"
-									src="/assets/images/cancel.png"
+									src="/assets/images/cancel1.png"
 									alt="cancel"
 								/>
 							</button>

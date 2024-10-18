@@ -12,6 +12,7 @@
 	width: 100%;
 	height: auto;
 	border: 1px solid white;
+	background: rgba(0, 0, 110, 0.4);
 	border-radius: 10px;
 	margin: auto;
 	color: white;
@@ -19,23 +20,40 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 10px;
+	/*	padding: 10px;*/
 	font-size: 1.5rem;
+	word-break: break-word;
 }
 
 #view-profile-btn {
+	max-width: auto;
 	height: 50px;
 	font-size: 1rem;
 	border-radius: 5px;
 	cursor: pointer;
+	border: none;
+}
+
+#admin-navigate-link {
+	text-decoration: none;
 }
 
 @media screen and (max-width: 506px) {
 	.profiles-container {
-		max-width: 200px;
+		max-width: 300px;
 	}
 	.profiles-info-container {
 		max-width: 300px;
+		font-size: 0.8rem;
+	}
+}
+
+@media screen and (max-width: 320px) {
+	.profiles-container {
+		max-width: 250px;
+	}
+	.profiles-info-container {
+		max-width: 200px;
 		font-size: 0.8rem;
 	}
 }

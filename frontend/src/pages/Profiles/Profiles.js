@@ -11,7 +11,8 @@ function Profiles({ mode, setMode }) {
 	let color;
 	let border;
 	if (mode === "white") {
-		color = "black";
+		// color = "black";
+		color = "white";
 		border = "1px solid black";
 	} else {
 		color = "white";
@@ -45,7 +46,9 @@ function Profiles({ mode, setMode }) {
 						<h3>{profileIntro}</h3>
 					</div>
 					<button id="view-profile-btn">
-						<Link to="/admin">View Profile</Link>
+						<Link id="admin-navigate-link" to="/admin">
+							View Profile
+						</Link>
 					</button>
 				</div>
 			)}
