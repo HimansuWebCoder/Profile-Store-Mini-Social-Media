@@ -8,7 +8,8 @@
 	height: auto;
 	overflow: auto;
 	margin: auto;
-	background-color: #3e64ff;
+	/*	background-color: #3e64ff;*/
+	background-color: slateblue;
 	color: white;
 	text-align: center;
 	font-size: 1.5rem;
@@ -18,7 +19,7 @@
 
 .skill-links {
 	color: white;
-	background-color: maroon;
+	background-color: #257180;
 	margin: 50px;
 	padding: 10px;
 	border-radius: 10px;

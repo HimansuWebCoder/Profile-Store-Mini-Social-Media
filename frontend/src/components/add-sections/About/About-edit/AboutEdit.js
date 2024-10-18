@@ -51,12 +51,6 @@ function AboutEdit() {
 						className="textarea"
 						value={input}
 						onChange={(e) => setInput(e.target.value)}
-						style={{
-							width: "90%",
-							height: "80%",
-							backgroundColor: "black",
-							color: "white",
-						}}
 					>
 						{description}
 					</textarea>

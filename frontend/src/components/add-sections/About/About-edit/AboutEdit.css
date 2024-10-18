@@ -1,7 +1,7 @@
 .about-edit-container {
 	max-width: 500px;
 	height: 200px;
-	background-color: rgba(0, 0, 0, 0.7);
+	background-color: rgba(0, 100, 200, 1);
 	border-radius: 10px;
 	color: white;
 	position: absolute;
@@ -17,5 +17,9 @@
 }
 
 .textarea {
+	width: 90%;
+	height: 80%;
+	color: white;
 	font-size: 2rem;
+	background-color: rgba(0, 20, 50, 1);
 }
