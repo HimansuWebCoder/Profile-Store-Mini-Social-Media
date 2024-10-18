@@ -1,9 +1,11 @@
+import { useState } from "react";
 import Layout from "../containers/Layout/Layout";
+import "./AppLayout.css";
 
-function AppLayout() {
+function AppLayout({ mode, setMode }) {
 	return (
-		<div className="app_container">
-			<Layout />
+		<div id="color" className="app_container">
+			<Layout mode={mode} setMode={setMode} />
 		</div>
 	);
 }

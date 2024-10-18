@@ -4,17 +4,20 @@ import Navbar from "../Navigation/Navbar";
 import Profiles from "../../pages/Profiles/Profiles";
 import "./Layout.css";
 
-function Layout() {
+function Layout({ mode, setMode }) {
+	let color;
+	if (mode === "white") {
+		color = "black";
+	} else {
+		color = "white";
+	}
 	return (
 		<div className="layout-container">
-			<Navbar />
-			<Link
-				style={{ color: "white", textDecoration: "none" }}
-				to="/admin"
-			>
+			<Navbar mode={mode} setMode={setMode} />
+			<Link style={{ color: color, textDecoration: "none" }} to="/admin">
 				Admin
 			</Link>
-			<Profiles />
+			<Profiles mode={mode} setMode={setMode} />
 			<Outlet />
 		</div>
 	);

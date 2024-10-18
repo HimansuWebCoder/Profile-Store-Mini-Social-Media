@@ -7,12 +7,12 @@ import Mode from "../../components/Mode/Mode";
 
 import "./Navbar.css";
 
-function NavContainer() {
+function NavContainer({ mode, setMode }) {
 	return (
 		<div className="Nav-container">
 			<Logo />
 			<Search />
-			<Mode />
+			<Mode mode={mode} setMode={setMode} />
 			<Setting />
 		</div>
 	);

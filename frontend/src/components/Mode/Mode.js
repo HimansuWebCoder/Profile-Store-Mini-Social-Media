@@ -1,9 +1,20 @@
 import "./Mode.css";
 
-function SystemMode() {
+function SystemMode({ mode, setMode }) {
+	let image;
+	const toggleMode = () => {
+		setMode(mode === "black" ? "white" : "black");
+	};
+
+	if (mode === "white") {
+		image = <img className="toggle-img" src="/assets/images/sun.png" />;
+	} else {
+		image = <img className="toggle-img" src="/assets/images/moon.png" />;
+	}
+
 	return (
 		<div className="mode-container">
-			<img src="assets/images/sun.png" />
+			<button onClick={toggleMode}>{image}</button>
 		</div>
 	);
 }
