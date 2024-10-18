@@ -12,7 +12,7 @@ function Admin() {
 		<div className="admin-container">
 			<div className="admin-sub-container">
 				<Link id="home-link" to="/">
-					Home
+					<img id="home-route" src="/assets/images/home.png" />
 				</Link>
 				<div className="sub-admin-container editProfilePhoto">
 					<img

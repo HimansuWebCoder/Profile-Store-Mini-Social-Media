@@ -29,3 +29,13 @@
 	border-radius: 5px;
 	cursor: pointer;
 }
+
+@media screen and (max-width: 506px) {
+	.profiles-container {
+		max-width: 200px;
+	}
+	.profiles-info-container {
+		max-width: 300px;
+		font-size: 0.8rem;
+	}
+}
