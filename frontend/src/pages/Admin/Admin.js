@@ -63,11 +63,7 @@ function Admin() {
 						alt="about"
 					/>*/}
 				</div>
-				<About
-					setAboutId={setAboutId}
-					aboutId={aboutId}
-					location={location}
-				/>
+				<About />
 				<div className="sub-admin-container edit">
 					<h3>Posts</h3>
 					<img

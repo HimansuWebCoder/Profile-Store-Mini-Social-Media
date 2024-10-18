@@ -33,11 +33,11 @@ function AboutEdit() {
 				padding: "10px",
 			}}
 		>
-			<input
-				type="text"
+			<textarea
 				value={input}
 				onChange={(e) => setInput(e.target.value)}
-			/>
+				style={{ width: "90%", height: "80%" }}
+			></textarea>
 			<button onClick={handleNavigate}>Submit</button>
 		</div>
 	);

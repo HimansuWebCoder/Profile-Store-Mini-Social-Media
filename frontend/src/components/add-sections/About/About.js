@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { apiUrl } from "../../../utils/utils";
 
-function About({ aboutId, setAboutId }) {
+function About() {
 	const [about, setAbout] = useState("");
+	const [aboutId, setAboutId] = useState("");
 	const [loading, setLoading] = useState(true);
 	const location = useLocation();
 	const pathname = location.pathname;
@@ -35,7 +36,9 @@ function About({ aboutId, setAboutId }) {
 				{loading ? (
 					<p style={{ color: "white" }}>Loading...</p>
 				) : (
-					<p style={{ color: "white" }}>{about}</p>
+					<p style={{ color: "white", wordBreak: "break-word" }}>
+						{about}
+					</p>
 				)}
 			</div>
 		</div>
