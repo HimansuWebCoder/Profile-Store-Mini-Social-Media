@@ -4,9 +4,9 @@ function getSkillsModel() {
 	return db.select("*").from("skills");
 }
 
-function postSkillModel(skill, profile_id) {
+function postSkillModel(skill) {
 	// return db("projects").insert({ project_url, profile_id }).returning("*");
-	return db.insert({ skill, profile_id }).into("skills").returning("*");
+	return db.insert({ skill }).into("skills").returning("*");
 }
 
 function editSkillModel(id, profile_id, project_url) {

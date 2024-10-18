@@ -1,6 +1,6 @@
 .admin-container {
 	max-width: 600px;
-	height: 130vh;
+	height: auto;
 	margin: auto;
 	display: flex;
 	/*	border: 10px solid red;*/

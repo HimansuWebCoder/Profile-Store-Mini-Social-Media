@@ -39,20 +39,20 @@ function getSkills(req, res) {
 
 // POST Skills
 function postSkill(req, res) {
-	// const { skill } = req.body;
-	const { skill, profile_id } = req.body;
+	const { skill } = req.body;
+	// const { skill, profile_id } = req.body;
 
-	// if (!skill) {
-	// 	res.status(400).json({error: "skillName  must required"});
-	// }
-
-	if (!skill || !profile_id) {
-		return res
-			.status(400)
-			.json({ Error: "skillName & profileId must required" });
+	if (!skill) {
+		return res.status(400).json({ error: "skillName  must required" });
 	}
 
-	postSkillModel(skill, profile_id)
+	// if (!skill) {
+	// 	return res
+	// 		.status(400)
+	// 		.json({ Error: "skillName & profileId must required" });
+	// }
+
+	postSkillModel(skill)
 		.then((skill) => {
 			return res.status(201).json({
 				message: "Skills created successfully",

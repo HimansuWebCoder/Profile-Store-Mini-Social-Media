@@ -1,12 +1,16 @@
 import React, { useState, useEffect, Suspense } from "react";
+import { useLocation, Link } from "react-router-dom";
 import "./ProfileInfo.css";
 import { apiUrl } from "../../utils/utils";
 import ProfileLinks from "../Profile-links/ProfileLinks";
 
-function ProfileInfo({ setProfileId, location }) {
+function ProfileInfo() {
 	const [name, setName] = useState("");
 	const [headline, setHeadline] = useState("");
 	const [loading, setLoading] = useState(true);
+
+	const [profileId, setProfileId] = useState(null);
+	const location = useLocation();
 
 	useEffect(() => {
 		const fetchProfileInfo = async () => {
@@ -31,6 +35,13 @@ function ProfileInfo({ setProfileId, location }) {
 
 	return (
 		<div id="profile-info-container">
+			<Link to={`/admin/profile-info/${profileId}/edit`}>
+				<img
+					className="editpencil"
+					src="/assets/images/pencil.png"
+					alt="editinfo"
+				/>
+			</Link>
 			{loading ? (
 				<p>Loading....</p>
 			) : (

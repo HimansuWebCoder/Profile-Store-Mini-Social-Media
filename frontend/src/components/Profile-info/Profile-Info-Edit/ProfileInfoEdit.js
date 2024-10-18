@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { apiUrl } from "../../utils/utils";
-import PopupEdit from "../../components/Popup-edit/PopupEdit";
+import { apiUrl } from "../../../utils/utils";
+import PopupEdit from "../../Popup-edit/PopupEdit";
 import "./ProfileInfoEdit.css";
 
 function ProfileInfoEdit() {
@@ -25,6 +25,7 @@ function ProfileInfoEdit() {
 			.then((data) => {
 				console.log(data);
 				setMessage(data.message);
+				setLoading(false);
 				if (data.success) {
 					setIsUpdated(true);
 				} else {

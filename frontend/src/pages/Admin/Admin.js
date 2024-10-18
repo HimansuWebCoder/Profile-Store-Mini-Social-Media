@@ -8,15 +8,6 @@ import Skills from "../../components/add-sections/Skills/Skills";
 import "./Admin.css";
 
 function Admin() {
-	const [profileId, setProfileId] = useState(null);
-	const [aboutId, setAboutId] = useState(null);
-	const location = useLocation();
-
-	useEffect(() => {
-		console.log("profileid", profileId);
-		console.log("about id", aboutId);
-	});
-
 	return (
 		<div className="admin-container">
 			<div className="admin-sub-container">
@@ -33,19 +24,16 @@ function Admin() {
 				<ProfilePhoto />
 				<Outlet />
 				<div className="sub-admin-container editInfo">
-					<Link to={`/admin/profile-info/${profileId}/edit`}>
+					{/*<Link to={`/admin/profile-info/${profileId}/edit`}>
 						<img
 							className="editpencil"
 							src="/assets/images/pencil.png"
 							alt="editinfo"
 						/>
-					</Link>
+					</Link>*/}
 				</div>
 				<div className="sub-admin-container showinfo">
-					<ProfileInfo
-						setProfileId={setProfileId}
-						location={location}
-					/>
+					<ProfileInfo />
 				</div>
 				<div className="sub-admin-container edit">
 					<h3>Add-Section</h3>
@@ -72,7 +60,7 @@ function Admin() {
 						alt="post"
 					/>
 				</div>
-				{/*<Skills />*/}
+				<Skills />
 			</div>
 		</div>
 	);

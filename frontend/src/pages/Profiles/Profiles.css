@@ -1,0 +1,16 @@
+.profiles-container {
+	max-width: 300px;
+	height: auto;
+	margin: auto;
+	color: white;
+	text-align: center;
+}
+
+.profiles-info-container {
+	width: 100%;
+	height: auto;
+	border: 1px solid white;
+	margin: auto;
+	color: white;
+	text-align: center;
+}

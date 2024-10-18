@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import Navbar from "../Navigation/Navbar";
+import Profiles from "../../pages/Profiles/Profiles";
 import "./Layout.css";
 
 function Layout() {
@@ -13,6 +14,7 @@ function Layout() {
 			>
 				Admin
 			</Link>
+			<Profiles />
 			<Outlet />
 		</div>
 	);
