@@ -22,7 +22,7 @@ function SkillPost() {
 			.then((skillData) => {
 				setSkillInput("");
 				inputRef.current.focus();
-				alert(skillData.message);
+				// alert(skillData.message);
 				// console.log("skill added: ", skillData);
 				// navigate("/admin");
 			});

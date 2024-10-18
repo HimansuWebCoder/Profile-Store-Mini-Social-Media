@@ -12,3 +12,8 @@
 .skill-edit-container > h1 {
 	font-size: 1.5rem;
 }
+
+.skill-edit-sub-container {
+	height: 400px;
+	overflow: auto;
+}

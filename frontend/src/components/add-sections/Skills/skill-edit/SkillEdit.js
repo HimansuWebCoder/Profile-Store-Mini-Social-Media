@@ -37,7 +37,7 @@ function SkillEdit() {
 			{loading ? (
 				<p>Loading....</p>
 			) : (
-				<>
+				<div className="skill-edit-sub-container">
 					<h1>Edit your skills</h1>
 					{skills.map((skill) => (
 						<>
@@ -50,7 +50,7 @@ function SkillEdit() {
 							</button>
 						</>
 					))}
-				</>
+				</div>
 			)}
 		</div>
 	);

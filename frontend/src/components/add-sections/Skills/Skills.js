@@ -29,13 +29,16 @@ function Skills() {
 	return (
 		<div>
 			<h3>Skills</h3>
-			<Link to="/admin/skill/post">Post</Link>
-			<br />
-			<Link to="/admin/skill/edit">Edit</Link>
+			<Link className="skill-links " to="/admin/skill/post">
+				Post
+			</Link>
+			<Link className="skill-links " to="/admin/skill/edit">
+				Edit
+			</Link>
 			{loading ? (
 				<p style={{ color: "white" }}>Loading....</p>
 			) : (
-				<>
+				<div className="skills-container">
 					{skills.length === 0 ? (
 						<p>{error}</p>
 					) : (
@@ -50,7 +53,7 @@ function Skills() {
 							))}
 						</>
 					)}
-				</>
+				</div>
 			)}
 		</div>
 	);
