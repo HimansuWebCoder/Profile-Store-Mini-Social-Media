@@ -36,6 +36,7 @@ function SkillPost() {
 				onChange={(e) => setSkillInput(e.target.value)}
 			/>
 			<button onClick={handleSubmit}>add</button>
+			<button onClick={() => navigate("/admin")}>Cancel</button>
 		</div>
 	);
 }
