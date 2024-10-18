@@ -13,6 +13,9 @@ function ProfileInfo({ setProfileId, location }) {
 			try {
 				const profileInfo = await fetch(`${apiUrl}/api/profile-info`);
 				const profileInfoData = await profileInfo.json();
+				// if (!profileInfoData.ok) {
+				// 	alert("You are Offline");
+				// }
 				setTimeout(() => {
 					setName(profileInfoData[0].name);
 					setHeadline(profileInfoData[0].headline);

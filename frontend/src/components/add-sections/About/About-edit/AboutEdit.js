@@ -10,12 +10,21 @@ function AboutEdit() {
 	const id = location.pathname.split("/")[3];
 
 	useEffect(() => {
+		fetch(`${apiUrl}/api/about`)
+			.then((res) => res.json())
+			.then((aboutData) => {
+				setDescription(aboutData[0].description);
+				setInput(aboutData[0].description);
+			});
+	}, [id]);
+
+	useEffect(() => {
 		fetch(`${apiUrl}/api/about/${id}`, {
 			method: "put",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ description: input }),
 		});
-	});
+	}, [input, id]);
 
 	const handleNavigate = () => {
 		navigate("/admin");
@@ -36,8 +45,15 @@ function AboutEdit() {
 			<textarea
 				value={input}
 				onChange={(e) => setInput(e.target.value)}
-				style={{ width: "90%", height: "80%" }}
-			></textarea>
+				style={{
+					width: "90%",
+					height: "80%",
+					backgroundColor: "black",
+					color: "white",
+				}}
+			>
+				{description}
+			</textarea>
 			<button onClick={handleNavigate}>Submit</button>
 		</div>
 	);
