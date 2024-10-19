@@ -31,8 +31,6 @@ const apiRouter = require("./routes/api/api.router");
 
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
-console.log(process.env.DATABASE_URL_LOCAL);
-
 app.post("/upload", upload.single("avatar"), function (req, res, next) {
 	console.log("uploaded file: ", req.file);
 	console.log("uploaded file: ", req.body);
@@ -44,6 +42,7 @@ app.post("/upload", upload.single("avatar"), function (req, res, next) {
 		.into("profile_photo")
 		.returning("*")
 		.then((insertedImage) => {
+			console.log(insertedImage);
 			res.status(200).json(insertedImage);
 		});
 });
