@@ -17,9 +17,6 @@ function Admin() {
 			.then((photo) => {
 				console.log("profile-image", photo[photo.length - 1].image);
 				setProfileImg(photo[photo.length - 1].image);
-				setTimeout(() => {
-					navigate("/admin");
-				}, 1000);
 			});
 	}, [location]);
 	return (
