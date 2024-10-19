@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import ProfilePhoto from "../../components/Profile-photo/ProfilePhoto";
 import ProfileInfo from "../../components/Profile-info/ProfileInfo";
@@ -10,14 +10,19 @@ import "./Admin.css";
 
 function Admin() {
 	const [profileImg, setProfileImg] = useState("");
+	cosnt navigate = useNavigate();
+	cosnt location = useLocation();
 	useEffect(() => {
 		fetch(`${apiUrl}/api/profile-photo`)
 			.then((res) => res.json())
 			.then((photo) => {
 				console.log("profile-image", photo[photo.length - 1].image);
 				setProfileImg(photo[photo.length - 1].image);
+				setTimeout(() => {
+					navigate('/admin')
+				}, 1000)
 			});
-	}, []);
+	}, [location]);
 	return (
 		<div className="admin-container">
 			<div className="admin-sub-container">
