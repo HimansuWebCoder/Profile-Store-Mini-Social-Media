@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import ProfilePhoto from "../../components/Profile-photo/ProfilePhoto";
 import ProfileInfo from "../../components/Profile-info/ProfileInfo";
 import About from "../../components/add-sections/About/About";
@@ -10,8 +9,8 @@ import "./Admin.css";
 
 function Admin() {
 	const [profileImg, setProfileImg] = useState("");
-	cosnt navigate = useNavigate();
-	cosnt location = useLocation();
+	const navigate = useNavigate();
+	const location = useLocation();
 	useEffect(() => {
 		fetch(`${apiUrl}/api/profile-photo`)
 			.then((res) => res.json())
@@ -19,8 +18,8 @@ function Admin() {
 				console.log("profile-image", photo[photo.length - 1].image);
 				setProfileImg(photo[photo.length - 1].image);
 				setTimeout(() => {
-					navigate('/admin')
-				}, 1000)
+					navigate("/admin");
+				}, 1000);
 			});
 	}, [location]);
 	return (
