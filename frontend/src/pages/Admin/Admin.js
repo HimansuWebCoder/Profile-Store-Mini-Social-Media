@@ -21,7 +21,13 @@ function Admin() {
 						alt="Edit Profile Photo"
 					/>
 				</div>
-				<ProfilePhoto />
+				{/*Profile Photo Component*/}
+				<ProfilePhoto
+					imgSrc="/assets/images/user.png"
+					alt="profile image"
+					size="150px"
+					bg="#d2e0fb"
+				/>
 				<Outlet />
 				<div className="sub-admin-container showinfo">
 					<ProfileInfo />

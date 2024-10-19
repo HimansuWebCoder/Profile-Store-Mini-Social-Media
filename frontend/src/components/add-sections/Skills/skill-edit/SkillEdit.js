@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { apiUrl } from "../../../../utils/utils";
 import { useLocation, useNavigate } from "react-router-dom";
+import PopupEdit from "../../../Popup-edit/PopupEdit";
 import "./SkillEdit.css";
 
 function SkillEdit() {
@@ -8,6 +9,7 @@ function SkillEdit() {
 	const [deleteSkill, setDeleteSkill] = useState("");
 	const [loading, setLoading] = useState(true);
 	const [skillId, setSkillId] = useState("");
+	const [popupMessage, setPopupMessage] = useState(null);
 	const location = useLocation();
 	const navigate = useNavigate();
 
@@ -27,8 +29,7 @@ function SkillEdit() {
 		})
 			.then((res) => res.json())
 			.then((deletedSkillData) => {
-				alert(deletedSkillData.message);
-				navigate("/admin");
+				setPopupMessage(deletedSkillData.message);
 			});
 	}
 
@@ -64,6 +65,7 @@ function SkillEdit() {
 							</button>
 						</>
 					))}
+					{popupMessage && <PopupEdit msg={popupMessage} />}
 				</div>
 			)}
 		</div>

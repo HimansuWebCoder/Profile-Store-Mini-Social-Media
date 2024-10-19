@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { apiUrl } from "../../../../utils/utils";
+import PopupEdit from "../../../Popup-edit/PopupEdit";
 import "./AboutEdit.css";
 
 // Loading should be in util file it uses almost every component I will do it later DRY
@@ -8,6 +9,7 @@ function AboutEdit() {
 	const [description, setDescription] = useState("");
 	const [input, setInput] = useState("");
 	const [loading, setLoading] = useState(true);
+	const [popupMessage, setPopupMessage] = useState(null);
 	const location = useLocation();
 	const navigate = useNavigate();
 	const id = location.pathname.split("/")[3];
@@ -32,8 +34,8 @@ function AboutEdit() {
 		})
 			.then((res) => res.json())
 			.then((data) => {
-				alert(data.message);
-				navigate("/admin");
+				// alert(data.message);
+				setPopupMessage(data.message);
 			});
 	}
 
@@ -58,6 +60,7 @@ function AboutEdit() {
 					<button onClick={() => navigate("/admin")}>Exit</button>
 				</>
 			)}
+			{popupMessage && <PopupEdit msg={popupMessage} />}
 		</div>
 	);
 }

@@ -1,9 +1,14 @@
 import "./ProfilePhoto.css";
 
-function ProfilePhoto() {
+function ProfilePhoto({ imgSrc, alt, size, bg, className }) {
 	return (
-		<div className="profile-photo-container">
-			<img src="/assets/images/user.png" alt="profile image" />
+		<div style={{ background: bg }} className="profile-photo-container">
+			<img
+				className={`${className}`}
+				src={imgSrc}
+				alt={alt}
+				// style={{ width: size, height: size }}
+			/>
 		</div>
 	);
 }

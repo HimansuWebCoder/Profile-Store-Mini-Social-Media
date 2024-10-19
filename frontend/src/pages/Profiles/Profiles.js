@@ -13,7 +13,7 @@ function Profiles({ mode, setMode }) {
 	if (mode === "white") {
 		// color = "black";
 		color = "white";
-		border = "1px solid black";
+		border = "none";
 	} else {
 		color = "white";
 		border = "1px solid white";
@@ -34,13 +34,19 @@ function Profiles({ mode, setMode }) {
 	return (
 		<div style={{ color: color }} className="profiles-container">
 			{loading ? (
-				<p>Loading...</p>
+				<p style={{ color: "black" }}>Loading...</p>
 			) : (
 				<div
 					style={{ color: color, border: border }}
 					className="profiles-info-container"
 				>
-					<ProfilePhoto />
+					<ProfilePhoto
+						imgSrc="/assets/images/user.png"
+						alt="profile image"
+						size="100px"
+						bg="none"
+						className="profile-main-img-container"
+					/>
 					<div>
 						<h2>{profileName}</h2>
 						<h3>{profileIntro}</h3>
