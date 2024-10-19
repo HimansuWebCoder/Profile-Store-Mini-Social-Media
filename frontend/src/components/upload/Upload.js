@@ -11,9 +11,7 @@ function Upload() {
 					enctype="multipart/form-data"
 				>
 					<input type="file" name="avatar" />
-					<button type="submit">
-						<Link to="/admin">Upload</Link>
-					</button>
+					<button type="submit">Upload</button>
 					<button>
 						<Link to="/admin">Back</Link>
 					</button>
