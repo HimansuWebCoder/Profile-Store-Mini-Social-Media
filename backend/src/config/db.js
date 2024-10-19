@@ -11,6 +11,10 @@ const knex = require("knex");
 // // 	},
 // // });
 
+// Why I add this in here why in app.js dotenv not works for this local development
+// because I set env for production in render platform not local thats it
+require("dotenv").config();
+
 const db = knex({
 	client: "pg",
 	connection: {

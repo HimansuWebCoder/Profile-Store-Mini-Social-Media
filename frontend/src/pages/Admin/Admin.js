@@ -5,9 +5,19 @@ import ProfilePhoto from "../../components/Profile-photo/ProfilePhoto";
 import ProfileInfo from "../../components/Profile-info/ProfileInfo";
 import About from "../../components/add-sections/About/About";
 import Skills from "../../components/add-sections/Skills/Skills";
+import { apiUrl } from "../../utils/utils";
 import "./Admin.css";
 
 function Admin() {
+	const [profileImg, setProfileImg] = useState("");
+	useEffect(() => {
+		fetch(`${apiUrl}/api/profile-photo`)
+			.then((res) => res.json())
+			.then((photo) => {
+				console.log("profile-image", photo[photo.length - 1].image);
+				setProfileImg(photo[photo.length - 1].image);
+			});
+	}, []);
 	return (
 		<div className="admin-container">
 			<div className="admin-sub-container">
@@ -25,9 +35,9 @@ function Admin() {
 				</div>
 				{/*Profile Photo Component*/}
 				<ProfilePhoto
-					imgSrc="/assets/images/user.png"
+					imgSrc={profileImg}
 					alt="profile image"
-					size="150px"
+					size="100px"
 					bg="#d2e0fb"
 				/>
 				<Outlet />

@@ -4,6 +4,7 @@ const session = require("express-session");
 const path = require("path");
 const bodyParser = require("body-parser");
 const upload = require("./config/config");
+const db = require("./config/db");
 
 require("dotenv").config();
 
@@ -30,9 +31,21 @@ const apiRouter = require("./routes/api/api.router");
 
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
+console.log(process.env.DATABASE_URL_LOCAL);
+
 app.post("/upload", upload.single("avatar"), function (req, res, next) {
 	console.log("uploaded file: ", req.file);
 	console.log("uploaded file: ", req.body);
+
+	const fullImgUrl = `https://profile-store-mini-social-media.onrender.com/uploads/${req.file.filename}`;
+	// const fullImgUrl = `http://localhost:8000/uploads/${req.file.filename}`;
+
+	db.insert({ image: fullImgUrl })
+		.into("profile_photo")
+		.returning("*")
+		.then((insertedImage) => {
+			res.status(200).json(insertedImage);
+		});
 });
 
 // API Routers
