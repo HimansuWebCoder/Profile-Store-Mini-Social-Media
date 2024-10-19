@@ -15,11 +15,13 @@ function Admin() {
 					<img id="home-route" src="/assets/images/home.png" />
 				</Link>
 				<div className="sub-admin-container editProfilePhoto">
-					<img
-						className="editpencil"
-						src="/assets/images/pencil.png"
-						alt="Edit Profile Photo"
-					/>
+					<Link to="/admin/file">
+						<img
+							className="editpencil"
+							src="/assets/images/pencil.png"
+							alt="Edit Profile Photo"
+						/>
+					</Link>
 				</div>
 				{/*Profile Photo Component*/}
 				<ProfilePhoto

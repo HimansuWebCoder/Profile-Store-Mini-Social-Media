@@ -7,6 +7,7 @@ import ProfileInfoEdit from "../components/Profile-info/Profile-Info-Edit/Profil
 import SkillPost from "../components/add-sections/Skills/skill-post/SkillPost";
 import SkillEdit from "../components/add-sections/Skills/skill-edit/SkillEdit";
 import AboutEdit from "../components/add-sections/About/About-edit/AboutEdit";
+import Upload from "../components/upload/Upload";
 
 import "./AdminLayout.css";
 
@@ -22,6 +23,7 @@ function AdminLayout() {
 					<Route path="about/:id" element={<AboutEdit />} />
 					<Route path="skill/post" element={<SkillPost />} />
 					<Route path="skill/:id" element={<SkillEdit />} />
+					<Route path="file" element={<Upload />} />
 				</Route>
 				<Route path="login" element={<Login />} />
 				<Route path="feedbacks" element={<Feedbacks />} />

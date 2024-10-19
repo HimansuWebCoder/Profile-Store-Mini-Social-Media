@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const session = require("express-session");
 const path = require("path");
+const bodyParser = require("body-parser");
+const upload = require("./config/config");
+
 require("dotenv").config();
 
 // Import Middlewares
@@ -16,6 +19,7 @@ app.use(
 	}),
 );
 
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParserMiddleware);
 app.use(corsMiddleware);
 
@@ -23,6 +27,11 @@ app.use(express.static(path.join(__dirname, "./public")));
 
 // Import Routes
 const apiRouter = require("./routes/api/api.router");
+
+app.post("/upload", upload.single("avatar"), function (req, res, next) {
+	console.log("uploaded file: ", req.file);
+	console.log("uploaded file: ", req.body);
+});
 
 // API Routers
 app.use("/api", apiRouter);
