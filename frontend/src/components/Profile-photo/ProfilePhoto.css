@@ -20,6 +20,7 @@
 	object-fit: cover;
 	object-position: top;
 	border-radius: 50%;
+	border: 1px solid black;
 }
 
 /*@media screen and (max-width: 506px) {
