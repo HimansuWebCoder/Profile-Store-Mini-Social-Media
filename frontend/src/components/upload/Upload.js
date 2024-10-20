@@ -80,6 +80,7 @@ function Upload() {
 					<button>
 						<Link to="/admin">Back</Link>
 					</button>
+					{popupMessage && <PopupEdit msg={popupMessage} />}
 				</form>
 			</div>
 		</div>
