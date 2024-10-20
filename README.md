@@ -33,6 +33,7 @@ Provide an extended description of your project. Explain the problem it solves o
 ### Built With
 
 -   [Node.js](https://nodejs.org/)
+-   [Express.js](https://expressjs.com/)
 -   [React.js](https://reactjs.org/)
 -   [PostgreSQL](https://www.postgresql.org/)
 -   [Cloudinary](https://cloudinary.com/)
