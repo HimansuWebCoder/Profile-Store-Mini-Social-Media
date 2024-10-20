@@ -26,6 +26,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import PopupEdit from "../Popup-edit/PopupEdit";
+import { apiUrl } from "../../utils/utils";
 import "./Upload.css";
 
 function Upload() {
@@ -48,7 +49,7 @@ function Upload() {
 		formData.append("avatar", selectedFile);
 
 		try {
-			const response = await fetch("http://localhost:8000/upload", {
+			const response = await fetch(`${apiUrl}/upload`, {
 				method: "POST",
 				body: formData,
 			});
