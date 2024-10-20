@@ -9,6 +9,7 @@ import "./Admin.css";
 
 function Admin() {
 	const [profileImg, setProfileImg] = useState("");
+	const [loading, setLoading] = useState(true);
 	const navigate = useNavigate();
 	const location = useLocation();
 	useEffect(() => {
@@ -17,6 +18,7 @@ function Admin() {
 			.then((photo) => {
 				console.log("profile-image", photo[photo.length - 1].image);
 				setProfileImg(photo[photo.length - 1].image);
+				setLoading(false);
 			});
 	}, [location]);
 	return (
@@ -35,12 +37,24 @@ function Admin() {
 					</Link>
 				</div>
 				{/*Profile Photo Component*/}
-				<ProfilePhoto
-					imgSrc={profileImg}
-					alt="profile image"
-					size="100px"
-					bg="#d2e0fb"
-				/>
+				{loading ? (
+					<h2
+						style={{
+							margin: "auto",
+							maxWidth: "100px",
+							height: "auto",
+						}}
+					>
+						Loading...
+					</h2>
+				) : (
+					<ProfilePhoto
+						imgSrc={profileImg}
+						alt="profile image"
+						size="100px"
+						bg="#d2e0fb"
+					/>
+				)}
 				<Outlet />
 				<div className="sub-admin-container showinfo">
 					<ProfileInfo />
