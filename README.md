@@ -79,10 +79,11 @@ Step-by-step guide on how to install and set up the project.
 1. Clone the repository
 
     ```bash
-    git clone git@github.com:HimansuWebCoder/Fullstack_Profile_Store.git
+    git clone git@github.com:HimansuWebCoder/Profile-Store-Mini-Social-Media.git
 
-    cd Fullstack_Profile_Store
+    cd Profile-Store-Mini-Social-Media
 
-    npm start
+    npm install
+    npm run backend
 
     ```
