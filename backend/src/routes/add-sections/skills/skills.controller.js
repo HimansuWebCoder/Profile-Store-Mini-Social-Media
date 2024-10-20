@@ -13,7 +13,7 @@ function getSkills(req, res) {
 				// either > 0 or !== 0
 				return res.status(200).json(skillsData);
 			} else {
-				return res.status(404).json({ Error: "skillsData not found" });
+				return res.status(404).json({ Error: "skills not found" });
 			}
 		})
 		.catch((err) => {
@@ -55,7 +55,7 @@ function postSkill(req, res) {
 	postSkillModel(skill)
 		.then((skill) => {
 			return res.status(201).json({
-				message: "Skills added successfully",
+				message: "Skill added successfully",
 				data: skill,
 			});
 		})
@@ -90,7 +90,7 @@ function editSkill(req, res) {
 		.then((skillsData) => {
 			if (skillsData.length !== 0) {
 				return res.status(200).json({
-					message: "skills updated successfully",
+					message: "skill updated successfully",
 					data: skillsData,
 				});
 			} else {

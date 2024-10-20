@@ -17,8 +17,10 @@ function Admin() {
 			.then((res) => res.json())
 			.then((photo) => {
 				console.log("profile-image", photo[photo.length - 1].image);
-				setProfileImg(photo[photo.length - 1].image);
-				setLoading(false);
+				setTimeout(() => {
+					setProfileImg(photo[photo.length - 1].image);
+					setLoading(false);
+				}, 2000);
 			});
 	}, [location]);
 	return (

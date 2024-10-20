@@ -33,17 +33,19 @@ function SkillPost() {
 
 	return (
 		<div className="post-skill-container">
-			<h1 style={{ color: "white" }}>Post Skills</h1>
-			<input
-				type="text"
-				value={skillInput}
-				placeholder="Add your skills"
-				ref={inputRef}
-				onChange={(e) => setSkillInput(e.target.value)}
-			/>
-			<button onClick={handleSubmit}>add</button>
-			<button onClick={() => navigate("/admin")}>Cancel</button>
-			{popupMessage && <PopupEdit msg={popupMessage} />}
+			<div className="post-skill-sub-container">
+				<h1 style={{ color: "white" }}>Post Skills</h1>
+				<input
+					type="text"
+					value={skillInput}
+					placeholder="Add your skills"
+					ref={inputRef}
+					onChange={(e) => setSkillInput(e.target.value)}
+				/>
+				<button onClick={handleSubmit}>add</button>
+				<button onClick={() => navigate("/admin")}>Cancel</button>
+				{popupMessage && <PopupEdit msg={popupMessage} />}
+			</div>
 		</div>
 	);
 }

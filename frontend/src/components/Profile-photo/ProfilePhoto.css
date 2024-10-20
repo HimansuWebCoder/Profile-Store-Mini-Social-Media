@@ -11,6 +11,8 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	border: 1px solid black;
+	border-radius: 50%;
 }
 
 .profile-photo-container > img {
@@ -20,7 +22,6 @@
 	object-fit: cover;
 	object-position: top;
 	border-radius: 50%;
-	border: 1px solid black;
 }
 
 /*@media screen and (max-width: 506px) {

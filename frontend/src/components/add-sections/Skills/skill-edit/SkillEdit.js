@@ -18,8 +18,10 @@ function SkillEdit() {
 			.then((res) => res.json())
 			.then((skillsData) => {
 				console.log("skills data:", skillsData);
-				setSkills(skillsData);
-				setLoading(false);
+				setTimeout(() => {
+					setSkills(skillsData);
+					setLoading(false);
+				}, 1000);
 			});
 	}, [location]);
 
@@ -36,13 +38,15 @@ function SkillEdit() {
 	return (
 		<div className="skill-edit-container">
 			{loading ? (
-				<p>Loading....</p>
+				<h2>Loading....</h2>
 			) : (
 				<div className="skill-edit-sub-container">
 					<h1>Edit your skills</h1>
 					{skills.map((skill) => (
 						<>
-							<p key={skill.id}>{skill.skill}</p>
+							<p id="skills-name" key={skill.id}>
+								{skill.skill}
+							</p>
 							<button
 								id="skill-edit-deleteBtn"
 								onClick={() => DeleteSkill(skill.id)}

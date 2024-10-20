@@ -44,11 +44,11 @@ function AboutEdit() {
 	};
 
 	return (
-		<div className="about-edit-container">
+		<div className="about-edit-main-container">
 			{loading ? (
-				<p>loading...</p>
+				<h2 id="about-loading-header">loading...</h2>
 			) : (
-				<>
+				<div className="about-edit-container">
 					<textarea
 						className="textarea"
 						value={input}
@@ -58,7 +58,7 @@ function AboutEdit() {
 					</textarea>
 					<button onClick={editAboutHandler}>Submit</button>
 					<button onClick={() => navigate("/admin")}>Exit</button>
-				</>
+				</div>
 			)}
 			{popupMessage && <PopupEdit msg={popupMessage} />}
 		</div>
