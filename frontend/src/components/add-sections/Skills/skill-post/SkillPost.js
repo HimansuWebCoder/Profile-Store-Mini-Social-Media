@@ -24,10 +24,10 @@ function SkillPost() {
 			.then((skillData) => {
 				setSkillInput("");
 				inputRef.current.focus();
-				setPopupMessage(skillData.message);
-				// alert(skillData.message);
-				// console.log("skill added: ", skillData);
-				// navigate("/admin");
+				// setPopupMessage(skillData.message);
+				setTimeout(() => {
+					setPopupMessage(skillData.message);
+				}, 1000);
 			});
 	}
 

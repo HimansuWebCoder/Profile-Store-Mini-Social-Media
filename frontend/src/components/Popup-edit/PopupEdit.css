@@ -7,6 +7,7 @@
 	position: fixed;
 	top: 0;
 	left: 0;
+	text-align: center;
 }
 
 .popup-edit-container > div {
@@ -39,4 +40,7 @@
 	max-width: 30px;
 	height: 30px;
 	border-radius: 50%;
+}
+
+#popup-edit-header-loader {
 }
