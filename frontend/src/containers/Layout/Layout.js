@@ -2,6 +2,7 @@ import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import Navbar from "../Navigation/Navbar";
 import Profiles from "../../pages/Profiles/Profiles";
+import Images from "../../components/posts/images/Images";
 import "./Layout.css";
 
 function Layout({ mode, setMode }) {
@@ -18,6 +19,7 @@ function Layout({ mode, setMode }) {
 				Admin
 			</Link>
 			<Profiles mode={mode} setMode={setMode} />
+			<Images />
 			<Outlet />
 		</div>
 	);

@@ -48,8 +48,10 @@ function Upload() {
 		const formData = new FormData();
 		formData.append("avatar", selectedFile);
 
+		// 51
+		// 39
 		try {
-			const response = await fetch(`${apiUrl}/upload/51`, {
+			const response = await fetch(`${apiUrl}/upload/39`, {
 				method: "put",
 				body: formData,
 			});
@@ -57,7 +59,7 @@ function Upload() {
 			if (response.ok) {
 				const data = await response.json();
 				console.log("File uploaded successfully:", data);
-				setPopupMessage(data.success);
+				setPopupMessage(data.message);
 				// Redirect or handle success as needed
 			} else {
 				console.error("Failed to upload file");

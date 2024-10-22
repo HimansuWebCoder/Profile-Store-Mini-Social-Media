@@ -1,8 +1,12 @@
 const db = require("../../../config/db");
+const upload = require("../../../config/config");
+const {
+	getImagesModel,
+	postImageModel,
+} = require("../../../models/images.model");
 
-function getImages(req, res, db) {
-	db("images")
-		.returning("image_url")
+function getImages(req, res) {
+	getImagesModel()
 		.then((img) => {
 			res.status(200).json(img);
 		})
@@ -23,12 +27,17 @@ function getImages(req, res, db) {
 	// 	});
 }
 
-function postImage(req, res, db) {
+function postImage(req, res) {
 	const { image } = req.body;
-	db("images")
-		.returning("image_url") // or you can return "*" all
-		.insert({ image_url: image })
+	console.log("uploaded file: ", req.file);
+	console.log("uploaded file: ", req.body);
+
+	// const fullImgUrl = `http://localhost:8000/uploads/${req.file.filename}`;
+	const fullImgUrl = `https://profile-store-mini-social-media.onrender.com/uploads/${req.file.filename}`;
+
+	postImageModel(fullImgUrl)
 		.then((image) => {
+			console.log(image);
 			res.status(200).json(image);
 		})
 		.catch((err) => {
