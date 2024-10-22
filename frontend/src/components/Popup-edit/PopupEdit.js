@@ -11,6 +11,11 @@ function PopupEdit({ msg }) {
 		}
 	}, [msg]);
 
+	// this is also working but above it better method because of msg coming and check condition
+	// useEffect(() => {
+	// 	setLoader(false);
+	// }, 1000);
+
 	return (
 		<div className="popup-edit-container">
 			{loader ? (

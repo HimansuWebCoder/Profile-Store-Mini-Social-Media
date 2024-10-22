@@ -31,19 +31,43 @@ const apiRouter = require("./routes/api/api.router");
 
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
-app.post("/upload", upload.single("avatar"), function (req, res, next) {
+app.put("/upload/:id", upload.single("avatar"), function (req, res, next) {
 	console.log("uploaded file: ", req.file);
 	console.log("uploaded file: ", req.body);
 
 	const fullImgUrl = `https://profile-store-mini-social-media.onrender.com/uploads/${req.file.filename}`;
 	// const fullImgUrl = `http://localhost:8000/uploads/${req.file.filename}`;
 
-	db.insert({ image: fullImgUrl })
-		.into("profile_photo")
+	// db.insert({ image: fullImgUrl })
+	// 	.into("profile_photo")
+	// 	.returning("*")
+	// 	.then((insertedImage) => {
+	// 		console.log(insertedImage);
+	// 		res.status(201).json({
+	// 			success: "Profile Image uploaded Succefully",
+	// 			data: insertedImage,
+	// 		});
+	// 	});
+
+	const { id } = req.params;
+
+	db("profile_photo")
+		.where({ id })
+		.update({ image: fullImgUrl })
 		.returning("*")
-		.then((insertedImage) => {
-			console.log(insertedImage);
-			res.status(200).json(insertedImage);
+		.then((data) => {
+			if (data.length > 0) {
+				// or data.length !== 0 must not be zero either > 0 or !== 0
+				console.log(data);
+				return res.status(200).json({
+					message: "Profile photo updated successfully",
+					data: data,
+				});
+			} else {
+				return res.status(404).json({
+					Error: "Profile photo not found to update",
+				});
+			}
 		});
 });
 
