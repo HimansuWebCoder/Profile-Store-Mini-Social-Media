@@ -51,7 +51,7 @@ function Upload() {
 		// 51
 		// 39
 		try {
-			const response = await fetch(`${apiUrl}/upload/39`, {
+			const response = await fetch(`${apiUrl}/upload/51`, {
 				method: "put",
 				body: formData,
 			});
