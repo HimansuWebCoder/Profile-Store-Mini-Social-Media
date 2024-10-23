@@ -36,6 +36,7 @@ function Layout({ mode, setMode }) {
 					Posts
 				</Link>
 				{/*<Images />*/}
+				{/*<EditPost />*/}
 			</div>
 			<Outlet />
 		</div>

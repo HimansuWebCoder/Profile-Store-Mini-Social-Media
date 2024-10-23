@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { apiUrl } from "../../../utils/utils";
 import ProfilePhoto from "../../Profile-photo/ProfilePhoto";
 import "./Images.css";
@@ -28,11 +28,14 @@ function Images() {
 								/>
 							</div>
 							<div>
-								<img
-									className="posted-image-logo"
-									src="/assets/images/menu.png"
-									alt="triple dot"
-								/>
+								<Link to={`/posts/${img.id}`}>
+									<img
+										className="posted-image-logo"
+										src="/assets/images/menu.png"
+										alt="triple dot"
+									/>
+								</Link>
+								<Outlet />
 							</div>
 						</div>
 						<img

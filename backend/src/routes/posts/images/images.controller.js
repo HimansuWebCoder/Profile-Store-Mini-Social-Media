@@ -51,7 +51,7 @@ function postImage(req, res) {
 
 function editImage(req, res, db) {
 	const { image } = req.body;
-	const id = req.params.imageId;
+	const id = req.params.id;
 	db("images")
 		.where({ id: id })
 		.update({ image_url: image })
@@ -65,7 +65,17 @@ function editImage(req, res, db) {
 }
 
 function deleteImage(req, res, db) {
-	res.send("delete images");
+	// res.send("delete images");
+	const { id } = req.params;
+	db("images")
+		.del()
+		.where({ id })
+		.returning("*")
+		.then((deletedImg) => {
+			res.json({
+				message: "deleted image Successfully",
+			});
+		});
 }
 
 module.exports = {
