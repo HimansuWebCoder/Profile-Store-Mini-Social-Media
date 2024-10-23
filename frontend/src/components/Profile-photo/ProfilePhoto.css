@@ -4,14 +4,14 @@
 	border-radius: 20px;
 }
 .profile-photo-container {
-	max-width: 500px;
-	height: 200px;
+	/*	max-width: 500px;*/
+	/*	height: 200px;*/
 	/*	background-color: #d2e0fb;*/
 	aspect-ratio: 1 / 1;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border: 1px solid black;
+	/*	border: 1px solid black;*/
 	border-radius: 50%;
 }
 
