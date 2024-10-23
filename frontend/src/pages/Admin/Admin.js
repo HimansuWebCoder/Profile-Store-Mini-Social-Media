@@ -55,6 +55,7 @@ function Admin() {
 						alt="profile image"
 						size="100px"
 						bg="#d2e0fb"
+						className="profile-photo-logo-container"
 					/>
 				)}
 				<Outlet />
