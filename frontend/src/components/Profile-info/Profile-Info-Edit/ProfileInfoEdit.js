@@ -44,7 +44,7 @@ function ProfileInfoEdit() {
 	return (
 		<div className="profile-info-edit-container">
 			{isUpdated ? (
-				<PopupEdit msg={message} />
+				<PopupEdit msg={message} redirect="/admin" />
 			) : (
 				<div className="edit-sub-container">
 					<div className="redirect-btn-container">

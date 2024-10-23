@@ -1,11 +1,26 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { apiUrl } from "../../../utils/utils";
 import PopupEdit from "../../Popup-edit/PopupEdit";
+import { apiUrl } from "../../../utils/utils";
+import "./EditImagePost.css";
 
-function CreatePost() {
+function EditImagePost() {
 	const [selectedFile, setSelectedFile] = useState(null);
 	const [popupMessage, setPopupMessage] = useState(null);
+	const location = useLocation();
+	const navigate = useNavigate();
+	const imgPostId = location.pathname.split("/")[3];
+	useEffect(() => {
+		console.log(imgPostId);
+	}, []);
+
+	// function editImgPostHandler() {
+	// 	fetch(`${apiUrl}/api/posts/images/${imgPostId}`, {
+	// 		method: "put",
+	// 		headers: {"Content-Type": "application/json"},
+	// 		body: JSON.stringify({})
+	// 	});
+	// }
 
 	const handleFileChange = (e) => {
 		setSelectedFile(e.target.files[0]);
@@ -23,10 +38,13 @@ function CreatePost() {
 		formData.append("avatar", selectedFile);
 
 		try {
-			const response = await fetch(`${apiUrl}/api/posts/images`, {
-				method: "post",
-				body: formData,
-			});
+			const response = await fetch(
+				`${apiUrl}/api/posts/images/${imgPostId}`,
+				{
+					method: "put",
+					body: formData,
+				},
+			);
 
 			if (response.ok) {
 				const data = await response.json();
@@ -52,10 +70,10 @@ function CreatePost() {
 					/>
 					<button type="submit">Upload</button>
 					<button>
-						<Link to="/admin">Back</Link>
+						<Link to="/posts">Back</Link>
 					</button>
 					{popupMessage && (
-						<PopupEdit msg={popupMessage} redirect="/admin" />
+						<PopupEdit msg={popupMessage} redirect="/posts" />
 					)}
 				</form>
 			</div>
@@ -63,4 +81,4 @@ function CreatePost() {
 	);
 }
 
-export default CreatePost;
+export default EditImagePost;

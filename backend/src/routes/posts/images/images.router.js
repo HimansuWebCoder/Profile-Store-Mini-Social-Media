@@ -17,7 +17,7 @@ imagesRouter.post("/", upload.single("avatar"), (req, res, next) => {
 	postImage(req, res, db);
 });
 
-imagesRouter.put("/:id", (req, res) => {
+imagesRouter.put("/:id", upload.single("avatar"), (req, res, next) => {
 	editImage(req, res, db);
 });
 

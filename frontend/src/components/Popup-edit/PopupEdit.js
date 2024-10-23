@@ -3,7 +3,7 @@ import { apiUrl } from "../../utils/utils";
 import { useState, useEffect } from "react";
 import "./PopupEdit.css";
 
-function PopupEdit({ msg }) {
+function PopupEdit({ msg, redirect }) {
 	const [loader, setLoader] = useState(true);
 	useEffect(() => {
 		if (msg) {
@@ -28,7 +28,7 @@ function PopupEdit({ msg }) {
 						alt="check"
 					/>
 					<p>{msg}</p>
-					<Link id="link" to="/admin">
+					<Link id="link" to={redirect}>
 						<img
 							id="popup-cancel-img"
 							src="/assets/images/cancel.png"

@@ -10,13 +10,17 @@ import "./Admin.css";
 function Admin() {
 	const [profileImg, setProfileImg] = useState("");
 	const [loading, setLoading] = useState(true);
+	const [profilePhotoId, setProfilePhotoId] = useState("");
 	const navigate = useNavigate();
 	const location = useLocation();
+
 	useEffect(() => {
 		fetch(`${apiUrl}/api/profile-photo`)
 			.then((res) => res.json())
 			.then((photo) => {
+				console.log("my profile", photo[0].id);
 				console.log("profile-image", photo[photo.length - 1].image);
+				setProfilePhotoId(photo[0].id);
 				setTimeout(() => {
 					setProfileImg(photo[photo.length - 1].image);
 					setLoading(false);
@@ -30,7 +34,7 @@ function Admin() {
 					<img id="home-route" src="/assets/images/home.png" />
 				</Link>
 				<div className="sub-admin-container editProfilePhoto">
-					<Link to="/admin/file">
+					<Link to={`/admin/file/${profilePhotoId}`}>
 						<img
 							className="editpencil"
 							src="/assets/images/pencil.png"

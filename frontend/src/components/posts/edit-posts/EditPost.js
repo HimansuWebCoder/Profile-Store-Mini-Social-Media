@@ -36,7 +36,7 @@ function EditPost() {
 					<Link to="/posts">Cancel</Link>
 				</div>
 				<div className="editpost-popup-container">
-					<Link to="/file">
+					<Link to={`/posts/edit/${id}`}>
 						<img
 							className="editPostedImages"
 							src="/assets/images/pencil.png"

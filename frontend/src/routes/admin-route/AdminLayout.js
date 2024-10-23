@@ -24,7 +24,7 @@ function AdminLayout() {
 					<Route path="about/:id" element={<AboutEdit />} />
 					<Route path="skill/post" element={<SkillPost />} />
 					<Route path="skill/:id" element={<SkillEdit />} />
-					<Route path="file" element={<Upload />} />
+					<Route path="file/:id" element={<Upload />} />
 					<Route path="create-post" element={<CreatePost />} />
 				</Route>
 				<Route path="login" element={<Login />} />

@@ -4,7 +4,7 @@ import Layout from "../../containers/Layout/Layout";
 import Profiles from "../../pages/Profiles/Profiles";
 import ImagePosts from "../../components/posts/images/Images";
 import EditPost from "../../components/posts/edit-posts/EditPost";
-import DeletePost from "../../components/posts/delete-posts/DeletePost";
+import EditImagePost from "../../components/posts/edit-image-posts/EditImagePost";
 
 import "./AppLayout.css";
 
@@ -19,8 +19,8 @@ function AppLayout({ mode, setMode }) {
 					<Route path="profiles" element={<Profiles />} />
 					<Route path="posts" element={<ImagePosts />}>
 						<Route path=":id" element={<EditPost />} />
+						<Route path="edit/:id" element={<EditImagePost />} />
 					</Route>
-					{/*<Route path="posts/:id" element={<DeletePost />} />*/}
 				</Route>
 			</Routes>
 		</div>

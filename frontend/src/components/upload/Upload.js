@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import PopupEdit from "../Popup-edit/PopupEdit";
 import { apiUrl } from "../../utils/utils";
 import "./Upload.css";
@@ -7,6 +7,14 @@ import "./Upload.css";
 function Upload() {
 	const [selectedFile, setSelectedFile] = useState(null);
 	const [popupMessage, setPopupMessage] = useState(null);
+	const location = useLocation();
+	const navigate = useNavigate();
+
+	const updateProfilePhotoId = location.pathname.split("/")[3];
+
+	useEffect(() => {
+		console.log("upload location path", location.pathname);
+	});
 
 	const handleFileChange = (e) => {
 		setSelectedFile(e.target.files[0]);
@@ -26,10 +34,13 @@ function Upload() {
 		// 51
 		// 39
 		try {
-			const response = await fetch(`${apiUrl}/upload/51`, {
-				method: "put",
-				body: formData,
-			});
+			const response = await fetch(
+				`${apiUrl}/upload/${updateProfilePhotoId}`,
+				{
+					method: "put",
+					body: formData,
+				},
+			);
 
 			if (response.ok) {
 				const data = await response.json();
@@ -57,7 +68,9 @@ function Upload() {
 					<button>
 						<Link to="/admin">Back</Link>
 					</button>
-					{popupMessage && <PopupEdit msg={popupMessage} />}
+					{popupMessage && (
+						<PopupEdit msg={popupMessage} redirect="/admin" />
+					)}
 				</form>
 			</div>
 		</div>

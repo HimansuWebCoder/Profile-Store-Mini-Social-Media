@@ -50,14 +50,20 @@ function postImage(req, res) {
 }
 
 function editImage(req, res, db) {
+	// const fullImgUrl = `http://localhost:8000/uploads/${req.file.filename}`;
+	const fullImgUrl = `https://profile-store-mini-social-media.onrender.com/uploads/${req.file.filename}`;
+
 	const { image } = req.body;
 	const id = req.params.id;
 	db("images")
 		.where({ id: id })
-		.update({ image_url: image })
+		.update({ image_url: fullImgUrl })
 		.returning("*")
 		.then((img) => {
-			res.json(img);
+			res.json({
+				message: "ImagePost updated Successfully",
+				data: img,
+			});
 		})
 		.catch((error) => {
 			res.json(error);
