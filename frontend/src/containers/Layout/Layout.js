@@ -15,11 +15,28 @@ function Layout({ mode, setMode }) {
 	return (
 		<div className="layout-container">
 			<Navbar mode={mode} setMode={setMode} />
-			<Link style={{ color: color, textDecoration: "none" }} to="/admin">
-				Admin
-			</Link>
-			<Profiles mode={mode} setMode={setMode} />
-			<Images />
+			<div className="layout-block-box">
+				<Link
+					style={{ color: color, textDecoration: "none" }}
+					to="/admin"
+				>
+					Admin
+				</Link>
+				{/*<Profiles mode={mode} setMode={setMode} />*/}
+				<Link
+					style={{ color: color, textDecoration: "none" }}
+					to="/profiles"
+				>
+					Profiles
+				</Link>
+				<Link
+					style={{ color: color, textDecoration: "none" }}
+					to="/posts"
+				>
+					Posts
+				</Link>
+				{/*<Images />*/}
+			</div>
 			<Outlet />
 		</div>
 	);

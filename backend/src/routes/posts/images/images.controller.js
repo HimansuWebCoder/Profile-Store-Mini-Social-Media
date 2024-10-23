@@ -38,7 +38,10 @@ function postImage(req, res) {
 	postImageModel(fullImgUrl)
 		.then((image) => {
 			console.log(image);
-			res.status(200).json(image);
+			res.status(200).json({
+				message: "Post Uploaded Successfully",
+				data: image,
+			});
 		})
 		.catch((err) => {
 			res.status(500).json({ err: "Internal Server Error" });

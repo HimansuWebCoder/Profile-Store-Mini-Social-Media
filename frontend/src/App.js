@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
-import AppLayout from "./routes/AppLayout";
-import AdminLayout from "./routes/AdminLayout";
+import AppLayout from "./routes/app-layout-route/AppLayout";
+import AdminLayout from "./routes/admin-route/AdminLayout";
 
 function App() {
   const [mode, setMode] = useState("white");
@@ -11,12 +11,15 @@ function App() {
       style={{
         backgroundColor: mode,
         width: "100%",
-        height: "100vh",
+        minHeight: "100vh",
       }}
     >
       <Routes>
-        <Route path="/" element={<AppLayout mode={mode} setMode={setMode} />} />
-        <Route path="/*" element={<AdminLayout />} />
+        <Route
+          path="/*"
+          element={<AppLayout mode={mode} setMode={setMode} />}
+        />
+        <Route path="/admin/*" element={<AdminLayout />} />
       </Routes>
     </div>
   );

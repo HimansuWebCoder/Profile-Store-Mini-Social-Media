@@ -72,11 +72,13 @@ function Admin() {
 				<About />
 				<div className="sub-admin-container edit">
 					<h3>Posts</h3>
-					<img
-						className="add-button"
-						src="/assets/images/add-button.png"
-						alt="post"
-					/>
+					<Link to="/admin/create-post">
+						<img
+							className="add-button"
+							src="/assets/images/add-button.png"
+							alt="post"
+						/>
+					</Link>
 				</div>
 				<Skills />
 			</div>
