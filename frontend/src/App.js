@@ -1,15 +1,17 @@
 import { Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import AppLayout from "./routes/app-layout-route/AppLayout";
 import AdminLayout from "./routes/admin-route/AdminLayout";
+import { ThemeContext } from "./ThemeContext";
 
 function App() {
   const [mode, setMode] = useState("white");
+  const { isDarkMode, toggleTheme } = useContext(ThemeContext);
 
   return (
     <div
       style={{
-        backgroundColor: mode,
+        backgroundColor: isDarkMode ? "white" : "black",
         width: "100%",
         minHeight: "100vh",
       }}

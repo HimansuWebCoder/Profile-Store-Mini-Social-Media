@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { apiUrl } from "../../../utils/utils";
 import ProfilePhoto from "../../Profile-photo/ProfilePhoto";
+import { ThemeContext } from "../../../ThemeContext";
 import "./Images.css";
 
 function Images() {
 	const [postImages, setPostImages] = useState([]);
+	const { isDarkMode, toggleTheme } = useContext(ThemeContext);
 	const location = useLocation();
 	useEffect(() => {
 		fetch(`${apiUrl}/api/posts/images`)
@@ -16,11 +18,25 @@ function Images() {
 			});
 	}, [location]);
 	return (
-		<div className="post-container">
+		<div
+			style={{ color: isDarkMode ? "black" : "white" }}
+			className="post-container"
+		>
 			{postImages.map((img) => (
 				<div className="post-sub-container" key={img.id}>
-					<div className="posted-image-container">
-						<div className="post-logo-edit-container">
+					<div
+						style={{
+							background: isDarkMode ? "#FAF7F0" : "#FDFFE2",
+							color: isDarkMode ? "white" : "black",
+						}}
+						className="posted-image-container"
+					>
+						<div
+							style={{
+								background: isDarkMode ? "#31363F" : "#87A2FF",
+							}}
+							className="post-logo-edit-container"
+						>
 							<div>
 								<ProfilePhoto
 									imgSrc="/assets/images/user.png"
@@ -43,7 +59,12 @@ function Images() {
 							src={img.image_url}
 							alt="posted image"
 						/>
-						<div className="like-comment-share-container">
+						<div
+							style={{
+								background: isDarkMode ? "#0B192C" : "#F5EFFF",
+							}}
+							className="like-comment-share-container"
+						>
 							<div>
 								<img
 									className="posted-image-emojis"
