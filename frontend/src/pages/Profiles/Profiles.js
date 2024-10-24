@@ -41,7 +41,9 @@ function Profiles({ mode, setMode }) {
 				</p>
 			) : (
 				<div
-					style={{ color: isDarkMode ? "white" : "white" }}
+					style={{
+						color: isDarkMode ? "white" : "white",
+					}}
 					className="profiles-info-container"
 				>
 					<ProfilePhoto

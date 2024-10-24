@@ -12,7 +12,12 @@ function Layout({ mode, setMode }) {
 	return (
 		<div className="layout-container">
 			<Navbar mode={mode} setMode={setMode} />
-			<div className="layout-block-box">
+			<div
+				style={{
+					background: isDarkMode ? "skyblue" : "yellow",
+				}}
+				className="layout-block-box"
+			>
 				<Link
 					style={{
 						color: isDarkMode ? "red" : "blue",
