@@ -69,7 +69,7 @@ function SkillEdit() {
 							</button>
 						</>
 					))}
-					{popupMessage && <PopupEdit msg={popupMessage} />}
+					{popupMessage && <PopupEdit msg={popupMessage} redirect="/admin" />}
 				</div>
 			)}
 		</div>
