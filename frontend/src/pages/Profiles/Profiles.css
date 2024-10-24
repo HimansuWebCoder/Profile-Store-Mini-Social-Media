@@ -4,20 +4,20 @@
 	margin: auto;
 	color: white;
 	text-align: center;
-	/*	border: 1px solid black;*/
+	border: 1px solid white;
 	margin-top: 20px;
 }
 
 .profiles-info-container {
 	width: 90%;
-	height: auto;
+	max-height: 150px;
 	background: rgba(0, 0, 110, 0.7);
 	border-radius: 5px;
 	margin: auto;
 	color: white;
 	text-align: center;
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
 	align-items: center;
 	padding: 5px;
 	font-size: 1.5rem;
@@ -25,41 +25,41 @@
 	box-shadow: 6px 15px 40px 0.4px black;
 }
 
-#view-profile-btn {
-	max-width: auto;
-	height: 50px;
-	font-size: 1rem;
-	border-radius: 5px;
-	cursor: pointer;
-	border: none;
-}
-
 #admin-navigate-link {
 	text-decoration: none;
 }
 
-@media screen and (max-width: 506px) {
+.profile-main-img-container {
+	max-width: 100px;
+	/*	height: auto;*/
+	max-height: 80px;
+}
+
+/*@media screen and (max-width: 506px) {
 	.profiles-container {
 		max-width: 300px;
 	}
 	.profiles-info-container {
 		max-width: 300px;
+		font-size: 0.8rem;
+	}
+}*/
+
+@media screen and (max-width: 388px) {
+	.profiles-container {
+		max-width: 400px;
+		height: 100px;
+		border: 1px solid white;
+	}
+	.profiles-info-container {
+		max-width: 200px;
+		height: 220px;
 		font-size: 0.8rem;
 	}
 }
 
-/*@media screen and (max-width: 320px) {
-	.profiles-container {
-		max-width: 250px;
-	}
-	.profiles-info-container {
-		max-width: 200px;
-		font-size: 0.8rem;
-	}
-}
-*/
 .profile-main-img-container {
-	width: 200px;
+	width: 80px;
 	height: 200px;
 }
 
@@ -78,10 +78,5 @@
 		width: 80px;
 		height: auto;
 		max-height: 80px;
-	}
-
-	#view-profile-btn {
-		height: 25px;
-		font-size: 0.7rem;
 	}
 }

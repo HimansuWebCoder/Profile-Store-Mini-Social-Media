@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { apiUrl } from "../../utils/utils";
+import { ThemeContext } from "../../ThemeContext";
 import "./Profiles.css";
 import ProfilePhoto from "../../components/Profile-photo/ProfilePhoto";
 
@@ -8,16 +9,17 @@ function Profiles({ mode, setMode }) {
 	const [profileName, setProfileName] = useState("");
 	const [profileIntro, setProfileIntro] = useState("");
 	const [loading, setLoading] = useState(true);
-	let color;
-	let border;
-	if (mode === "white") {
-		// color = "black";
-		color = "white";
-		border = "none";
-	} else {
-		color = "white";
-		border = "1px solid white";
-	}
+	const { isDarkMode, toggleTheme } = useContext(ThemeContext);
+	// let color;
+	// let border;
+	// if (mode === "white") {
+	// 	// color = "black";
+	// 	color = "white";
+	// 	border = "none";
+	// } else {
+	// 	color = "white";
+	// 	border = "1px solid white";
+	// }
 
 	useEffect(() => {
 		fetch(`${apiUrl}/api/profile-info`)
@@ -32,18 +34,20 @@ function Profiles({ mode, setMode }) {
 			});
 	}, []);
 	return (
-		<div style={{ color: color }} className="profiles-container">
+		<div style={{ color: "red" }} className="profiles-container">
 			{loading ? (
-				<p style={{ color: "black" }}>Loading...</p>
+				<p style={{ color: isDarkMode ? "black" : "white" }}>
+					Loading...
+				</p>
 			) : (
 				<div
-					style={{ color: color, border: border }}
+					style={{ color: isDarkMode ? "white" : "white" }}
 					className="profiles-info-container"
 				>
 					<ProfilePhoto
 						imgSrc="/assets/images/user.png"
 						alt="profile image"
-						size="100px"
+						size="auto"
 						bg="none"
 						className="profile-main-img-container"
 					/>
@@ -51,11 +55,6 @@ function Profiles({ mode, setMode }) {
 						<h2>{profileName}</h2>
 						<h3>{profileIntro}</h3>
 					</div>
-					<button id="view-profile-btn">
-						<Link id="admin-navigate-link" to="/admin">
-							View Profile
-						</Link>
-					</button>
 				</div>
 			)}
 		</div>
