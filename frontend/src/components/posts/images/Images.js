@@ -23,7 +23,15 @@ function Images() {
 			className="post-container"
 		>
 			{postImages.map((img) => (
-				<div className="post-sub-container" key={img.id}>
+				<div
+					style={{
+						border: isDarkMode
+							? "1px solid blue"
+							: "1px solid white",
+					}}
+					className="post-sub-container"
+					key={img.id}
+				>
 					<div
 						style={{
 							background: isDarkMode ? "#FAF7F0" : "#FDFFE2",
