@@ -44,7 +44,7 @@ function SkillPost() {
 				/>
 				<button onClick={handleSubmit}>add</button>
 				<button onClick={() => navigate("/admin")}>Cancel</button>
-				{popupMessage && <PopupEdit msg={popupMessage} />}
+				{popupMessage && <PopupEdit msg={popupMessage} redirect="/admin" />}
 			</div>
 		</div>
 	);
