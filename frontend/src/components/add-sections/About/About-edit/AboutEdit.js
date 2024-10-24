@@ -60,7 +60,7 @@ function AboutEdit() {
 					<button onClick={() => navigate("/admin")}>Exit</button>
 				</div>
 			)}
-			{popupMessage && <PopupEdit msg={popupMessage} />}
+			{popupMessage && <PopupEdit msg={popupMessage} redirect="/admin"/>}
 		</div>
 	);
 }
