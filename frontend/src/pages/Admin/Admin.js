@@ -66,14 +66,14 @@ function Admin() {
 				<div className="sub-admin-container showinfo">
 					<ProfileInfo />
 				</div>
-				<div className="sub-admin-container add-section">
+				{/*<div className="sub-admin-container add-section">
 					<h3>Add-Section</h3>
 					<img
 						className="add-button"
 						src="/assets/images/add-button.png"
 						alt="section"
 					/>
-				</div>
+				</div>*/}
 				<About />
 				<div className="sub-admin-container edit">
 					<h3>Posts</h3>

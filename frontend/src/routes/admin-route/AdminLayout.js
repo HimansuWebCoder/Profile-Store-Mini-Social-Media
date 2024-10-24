@@ -9,6 +9,7 @@ import SkillEdit from "../../components/add-sections/Skills/skill-edit/SkillEdit
 import AboutEdit from "../../components/add-sections/About/About-edit/AboutEdit";
 import Upload from "../../components/upload/Upload";
 import CreatePost from "../../components/posts/create-posts/CreatePost";
+import EditProfileLinks from "../../components/Profile-links/edit-profile-links/EditProfileLinks";
 
 import "./AdminLayout.css";
 
@@ -26,6 +27,10 @@ function AdminLayout() {
 					<Route path="skill/:id" element={<SkillEdit />} />
 					<Route path="file/:id" element={<Upload />} />
 					<Route path="create-post" element={<CreatePost />} />
+					<Route
+						path="edit-profile-links"
+						element={<EditProfileLinks />}
+					/>
 				</Route>
 				<Route path="login" element={<Login />} />
 				<Route path="feedbacks" element={<Feedbacks />} />
