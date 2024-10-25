@@ -38,5 +38,7 @@
 .profile-photo-logo-container {
 	max-width: 200px;
 	height: 200px;
-	border-radius: 50px;
+	border-radius: 50%;
+	border: 1px solid black;
+	aspect-ratio: 1 / 1;
 }

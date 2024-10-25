@@ -28,7 +28,7 @@
 
 .post-logo-edit-container {
 	max-width: 100%;
-	height: auto;
+	height: 80px;
 	/*	border: 1px solid black;*/
 	display: flex;
 	justify-content: space-between;
