@@ -48,7 +48,7 @@ function Images() {
 							<div>
 								<ProfilePhoto
 									imgSrc="/assets/images/user.png"
-									className="posted-image-logo"
+									className="profile-main-img-container"
 								/>
 							</div>
 							<div>

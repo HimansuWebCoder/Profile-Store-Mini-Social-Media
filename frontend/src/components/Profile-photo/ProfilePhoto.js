@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { apiUrl } from "../../utils/utils";
 import { ThemeContext } from "../../ThemeContext";
 import "./ProfilePhoto.css";
@@ -8,6 +8,7 @@ function ProfilePhoto({ imgSrc, alt, size, bg, className }) {
 	const [profileImg, setProfileImg] = useState("");
 	const { isDarkMode, toggleTheme } = useContext(ThemeContext);
 	const [loading, setLoading] = useState(true);
+	const location = useLocation();
 	useEffect(() => {
 		fetch(`${apiUrl}/api/profile-photo`)
 			.then((res) => res.json())
@@ -17,14 +18,18 @@ function ProfilePhoto({ imgSrc, alt, size, bg, className }) {
 					setLoading(false);
 				}, 2000);
 			});
-	}, []);
+	}, [location]);
 	return (
 		<div
 			className="profile-photo-main-container"
 			style={{ background: bg }}
 		>
 			<div className="profile-photo-container">
-				<Link id="admin-link-profile" to="/admin">
+				<Link
+					style={{ textDecoration: "none" }}
+					id="admin-link-profile"
+					to="/admin"
+				>
 					{loading ? (
 						<p style={{ color: isDarkMode ? "white" : "white" }}>
 							Loading...
