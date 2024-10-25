@@ -3,6 +3,7 @@ import { Link, Outlet } from "react-router-dom";
 import Navbar from "../Navigation/Navbar";
 import Profiles from "../../pages/Profiles/Profiles";
 import Images from "../../components/posts/images/Images";
+import CreatePost from "../../components/posts/create-posts/CreatePost";
 import { ThemeContext } from "../../ThemeContext";
 import "./Layout.css";
 

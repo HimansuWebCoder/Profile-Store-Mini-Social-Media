@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { apiUrl } from "../../../utils/utils";
 import ProfilePhoto from "../../Profile-photo/ProfilePhoto";
+import PopupEdit from "../../Popup-edit/PopupEdit";
 import { ThemeContext } from "../../../ThemeContext";
 import "./Images.css";
 
@@ -22,6 +23,16 @@ function Images() {
 			style={{ color: isDarkMode ? "black" : "white" }}
 			className="post-container"
 		>
+			<div className="create-post-container">
+				<h1>Create Posts</h1>
+				<Link className="create-post-link" to="/posts/create-post">
+					<img
+						className="add-button"
+						src="/assets/images/add-button.png"
+						alt="create-img"
+					/>
+				</Link>
+			</div>
 			{postImages.map((img) => (
 				<div
 					style={{

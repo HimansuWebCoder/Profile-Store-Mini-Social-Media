@@ -53,3 +53,18 @@
 	width: 50px;
 	max-height: 50px;
 }
+
+.create-post-container {
+	max-width: 100%;
+	height: auto;
+	border: 1px solid blue;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	background: rgba(0, 12, 222, 0.4);
+}
+
+.create-post-link {
+	color: white;
+	text-decoration: none;
+}

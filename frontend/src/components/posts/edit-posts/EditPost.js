@@ -4,7 +4,7 @@ import { upload } from "../../upload/Upload";
 import { apiUrl } from "../../../utils/utils";
 import "./EditPost.css";
 
-function EditPost() {
+function EditPost({ redirectTo }) {
 	const [editPost, setEditPost] = useState("");
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -31,9 +31,11 @@ function EditPost() {
 
 	return (
 		<div className="editpost-container">
-			<div>
-				<div>
-					<Link to="/posts">Cancel</Link>
+			<div className="editpost-sub-container">
+				<div id="cancel-img-edit">
+					<Link class="edit-img-cancel-link" to="/posts">
+						Cancel
+					</Link>
 				</div>
 				<div className="editpost-popup-container">
 					<Link to={`/posts/edit/${id}`}>

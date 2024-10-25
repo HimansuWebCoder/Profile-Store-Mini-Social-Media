@@ -55,7 +55,7 @@ function CreatePost() {
 						<Link to="/admin">Back</Link>
 					</button>
 					{popupMessage && (
-						<PopupEdit msg={popupMessage} redirect="/admin" />
+						<PopupEdit msg={popupMessage} redirect="/posts" />
 					)}
 				</form>
 			</div>
