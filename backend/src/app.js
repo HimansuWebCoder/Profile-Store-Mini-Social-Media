@@ -41,7 +41,7 @@ const apiRouter = require("./routes/api/api.router");
 
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
-app.post("/api/upload", upload.single("avatar"), function (req, res, next) {
+app.put("/api/upload/:id", upload.single("avatar"), function (req, res, next) {
 	// const id = req.params.id;
 	console.log("uploaded file: ", req.file);
 	console.log("uploaded file: ", req.body);
@@ -84,34 +84,23 @@ app.post("/api/upload", upload.single("avatar"), function (req, res, next) {
 			const result = await cloudinary.uploader.upload(imagePath, options);
 			// console.log(result);
 
-			// db("profile_photo")
-			// 	.where({ id })
-			// 	.update({ image: result.url })
-			// 	.returning("*")
-			// 	.then((data) => {
-			// 		if (data.length > 0) {
-			// 			// or data.length !== 0 must not be zero either > 0 or !== 0
-			// 			console.log(data);
-			// 			return res.status(200).json({
-			// 				message: "Profile photo updated successfully",
-			// 				data: data,
-			// 			});
-			// 		} else {
-			// 			return res.status(404).json({
-			// 				Error: "Profile photo not found to update",
-			// 			});
-			// 		}
-			// 	});
-
-			db.insert({ image: result.url })
-				.into("profile_photo")
+			db("profile_photo")
+				.where({ id })
+				.update({ image: result.url })
 				.returning("*")
-				.then((insertedImage) => {
-					console.log(insertedImage);
-					res.status(201).json({
-						success: "Profile Image uploaded Succefully",
-						data: insertedImage,
-					});
+				.then((data) => {
+					if (data.length > 0) {
+						// or data.length !== 0 must not be zero either > 0 or !== 0
+						console.log(data);
+						return res.status(200).json({
+							message: "Profile photo updated successfully",
+							data: data,
+						});
+					} else {
+						return res.status(404).json({
+							Error: "Profile photo not found to update",
+						});
+					}
 				});
 		} catch (error) {
 			console.error(error);
@@ -125,16 +114,6 @@ app.post("/api/upload", upload.single("avatar"), function (req, res, next) {
 
 	uploadImage(imagePath);
 });
-
-// app.post("/api/upload", upload.single("file"), (req, res) => {
-// 	if (!req.file) {
-// 		return res.status(400).json({ message: "No file uploaded" });
-// 	}
-// 	res.status(201).json({
-// 		message: "File uploaded successfully",
-// 		filename: req.file.filename,
-// 	});
-// });
 
 // API Routers
 app.use("/api", apiRouter);
