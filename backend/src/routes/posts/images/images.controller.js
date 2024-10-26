@@ -1,5 +1,6 @@
 const db = require("../../../config/db");
 const upload = require("../../../config/config");
+const uploadImage = require("../../../config/cloudinary");
 const {
 	getImagesModel,
 	postImageModel,
@@ -8,6 +9,7 @@ const {
 function getImages(req, res) {
 	getImagesModel()
 		.then((img) => {
+			// console.log("fetched images:", img);
 			res.status(200).json(img);
 		})
 		.catch((err) => {
@@ -32,8 +34,8 @@ function postImage(req, res) {
 	console.log("uploaded file: ", req.file);
 	console.log("uploaded file: ", req.body);
 
-	// const fullImgUrl = `http://localhost:8000/uploads/${req.file.filename}`;
-	const fullImgUrl = `https://profile-store-mini-social-media.onrender.com/uploads/${req.file.filename}`;
+	const fullImgUrl = `http://localhost:8000/uploads/${req.file.filename}`;
+	// const fullImgUrl = `https://profile-store-mini-social-media.onrender.com/uploads/${req.file.filename}`;
 
 	postImageModel(fullImgUrl)
 		.then((image) => {
