@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import PopupEdit from "../../Popup-edit/PopupEdit";
 import { apiUrl } from "../../../utils/utils";
 import "./EditImagePost.css";
@@ -10,8 +10,10 @@ function EditImagePost() {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const imgPostId = location.pathname.split("/")[3];
+	const { id } = useParams();
 	useEffect(() => {
 		console.log(imgPostId);
+		console.log("my editimage edit image id: ", id);
 	}, []);
 
 	// function editImgPostHandler() {
@@ -38,13 +40,10 @@ function EditImagePost() {
 		formData.append("avatar", selectedFile);
 
 		try {
-			const response = await fetch(
-				`${apiUrl}/api/posts/images/${imgPostId}`,
-				{
-					method: "put",
-					body: formData,
-				},
-			);
+			const response = await fetch(`${apiUrl}/api/posts/images/${id}`, {
+				method: "put",
+				body: formData,
+			});
 
 			if (response.ok) {
 				const data = await response.json();
