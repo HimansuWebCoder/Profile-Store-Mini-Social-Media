@@ -31,7 +31,7 @@ function ProfilePhoto({ imgSrc, alt, size, bg, className }) {
 					to="/admin"
 				>
 					{loading ? (
-						<p style={{ color: isDarkMode ? "white" : "white" }}>
+						<p style={{ color: isDarkMode ? "black" : "black" }}>
 							Loading...
 						</p>
 					) : (

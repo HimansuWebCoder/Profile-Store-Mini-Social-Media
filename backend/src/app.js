@@ -42,7 +42,6 @@ const apiRouter = require("./routes/api/api.router");
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 app.put("/api/upload/:id", upload.single("avatar"), function (req, res, next) {
-	// const id = req.params.id;
 	console.log("uploaded file: ", req.file);
 	console.log("uploaded file: ", req.body);
 
@@ -50,10 +49,10 @@ app.put("/api/upload/:id", upload.single("avatar"), function (req, res, next) {
 		return res.status(400).json({ message: "no file uploaded" });
 	}
 
-	res.status(201).json({
-		message: "file uploaded successfully",
-		filename: req.file.filename,
-	});
+	// res.status(201).json({
+	// 	message: "file uploaded successfully",
+	// 	filename: req.file.filename,
+	// });
 
 	// const fullImgUrl = `https://profile-store-mini-social-media.onrender.com/uploads/${req.file.filename}`;
 	// const fullImgUrl = `http://localhost:8000/uploads/${req.file.filename}`;
@@ -70,6 +69,7 @@ app.put("/api/upload/:id", upload.single("avatar"), function (req, res, next) {
 	// 		});
 	// 	});
 
+	const id = req.params.id;
 	const imagePath = req.file.path;
 
 	const uploadImage = async (imagePath, res) => {
@@ -112,7 +112,7 @@ app.put("/api/upload/:id", upload.single("avatar"), function (req, res, next) {
 
 	// console.log(uploadImage(imagePath));
 
-	uploadImage(imagePath);
+	uploadImage(imagePath, res);
 });
 
 // API Routers

@@ -45,8 +45,8 @@ function Images() {
 				>
 					<div
 						style={{
-							background: isDarkMode ? "#FAF7F0" : "#FDFFE2",
-							color: isDarkMode ? "black" : "black",
+							background: isDarkMode ? "#F5EFFF" : "#F7EFE5",
+							color: isDarkMode ? "black" : "blue",
 						}}
 						className="posted-image-container"
 					>
@@ -56,10 +56,10 @@ function Images() {
 							// }}
 							className="post-logo-edit-container"
 						>
-							<div>
+							<div className="profile-posted-img-main-container">
 								<ProfilePhoto
 									imgSrc="/assets/images/user.png"
-									className="profile-main-img-container"
+									className="profile-main-img-posted-container"
 								/>
 							</div>
 							<div>
@@ -86,7 +86,7 @@ function Images() {
 							// }}
 							className="like-comment-share-container"
 						>
-							<div>
+							<div className="user-response-container">
 								<img
 									className="posted-image-emojis"
 									src="/assets/images/like.png"
@@ -94,7 +94,7 @@ function Images() {
 								/>
 								<h4>Like</h4>
 							</div>
-							<div>
+							<div className="user-response-container">
 								<img
 									className="posted-image-emojis"
 									src="/assets/images/comment.png"
@@ -102,7 +102,7 @@ function Images() {
 								/>
 								<h4>Comment</h4>
 							</div>
-							<div>
+							<div className="user-response-container">
 								<img
 									className="posted-image-emojis"
 									src="/assets/images/share.png"

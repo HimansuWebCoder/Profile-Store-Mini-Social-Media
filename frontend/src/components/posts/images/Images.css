@@ -16,26 +16,29 @@
 	border-radius: 20px;
 }
 .posted-image-container {
-	width: 100%;
+	max-width: 100%;
 	height: auto;
 	/*	border: 1px solid blue;*/
 	margin-top: 20px;
 	border-radius: 10px;
+	padding: 10px;
 }
 
 #image-post-box-container {
-	width: 100%;
+	max-width: 100%;
 	height: auto;
 }
 
 #posted-img {
 	width: 100%;
 	height: 300px;
+	border: 1px solid white;
+	border-radius: 10px;
 }
 
 .post-logo-edit-container {
 	max-width: 100%;
-	height: 50px;
+	height: 40px;
 	/*	border: 1px solid black;*/
 	display: flex;
 	justify-content: space-between;
@@ -77,7 +80,22 @@
 	text-decoration: none;
 }
 
-.profile-main-img-container {
+.profile-posted-img-main-container {
 	max-width: 60px;
 	height: auto;
+	/*	border: 1px solid white;*/
+}
+
+.profile-main-img-posted-container {
+	max-width: 100%;
+	aspect-ratio: 1 / 1;
+	border-radius: 50%;
+	height: auto;
+}
+
+.user-response-container {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
 }

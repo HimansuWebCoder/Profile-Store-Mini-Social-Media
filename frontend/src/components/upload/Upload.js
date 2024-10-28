@@ -35,7 +35,7 @@ function Upload() {
 		// 39
 		try {
 			const response = await fetch(
-				`${apiUrl}/upload/${updateProfilePhotoId}`,
+				`${apiUrl}/api/upload/${updateProfilePhotoId}`,
 				{
 					method: "put",
 					body: formData,
