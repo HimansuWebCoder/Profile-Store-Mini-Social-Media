@@ -34,7 +34,7 @@ function Profiles({ mode, setMode }) {
 			});
 	}, []);
 	return (
-		<div style={{ color: "red" }} className="profiles-container">
+		<div className="profiles-container">
 			{loading ? (
 				<p style={{ color: isDarkMode ? "black" : "white" }}>
 					Loading...
@@ -43,6 +43,7 @@ function Profiles({ mode, setMode }) {
 				<div
 					style={{
 						color: isDarkMode ? "white" : "white",
+						background: isDarkMode ? "#1e3e62" : "#1F2544",
 					}}
 					className="profiles-info-container"
 				>

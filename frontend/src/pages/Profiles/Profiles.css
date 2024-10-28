@@ -11,7 +11,8 @@
 .profiles-info-container {
 	width: 95%;
 	max-height: 150px;
-	background: rgba(0, 0, 110, 0.7);
+	/*	background: rgba(0, 0, 110, 0.7);*/
+	background: #1e3e62;
 	border-radius: 20px;
 	border: 1px solid white;
 	margin: auto;

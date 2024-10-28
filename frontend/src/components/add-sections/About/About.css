@@ -7,8 +7,10 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background-color: rgba(0, 0, 12, 0.5);
-	padding: 10px;
+	background-color: #092635;
+	padding: 5px;
+	margin-top: 10px;
+	border-radius: 10px;
 }
 
 .about-container > Link {

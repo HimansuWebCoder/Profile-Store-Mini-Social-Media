@@ -1,16 +1,18 @@
-import { useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
 import ProfilePhoto from "../../components/Profile-photo/ProfilePhoto";
 import ProfileInfo from "../../components/Profile-info/ProfileInfo";
 import About from "../../components/add-sections/About/About";
 import Skills from "../../components/add-sections/Skills/Skills";
 import { apiUrl } from "../../utils/utils";
+import { ThemeContext } from "../../ThemeContext";
 import "./Admin.css";
 
 function Admin() {
 	const [profileImg, setProfileImg] = useState("");
 	const [loading, setLoading] = useState(true);
 	const [profilePhotoId, setProfilePhotoId] = useState("");
+	const { isDarkMode, toggleTheme } = useContext(ThemeContext);
 	const navigate = useNavigate();
 	const location = useLocation();
 
@@ -28,7 +30,10 @@ function Admin() {
 			});
 	}, [location]);
 	return (
-		<div className="admin-container">
+		<div
+			style={{ backgroundColor: isDarkMode ? "#395B64" : "#092635" }}
+			className="admin-container"
+		>
 			<div className="admin-sub-container">
 				<Link id="home-link" to="/">
 					<img id="home-route" src="/assets/images/home.png" />

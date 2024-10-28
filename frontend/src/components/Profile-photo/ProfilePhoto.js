@@ -13,10 +13,8 @@ function ProfilePhoto({ imgSrc, alt, size, bg, className }) {
 		fetch(`${apiUrl}/api/profile-photo`)
 			.then((res) => res.json())
 			.then((photo) => {
-				setTimeout(() => {
-					setProfileImg(photo[photo.length - 1].image);
-					setLoading(false);
-				}, 2000);
+				setProfileImg(photo[photo.length - 1].image);
+				setLoading(false);
 			});
 	}, [location]);
 	return (
@@ -31,7 +29,7 @@ function ProfilePhoto({ imgSrc, alt, size, bg, className }) {
 					to="/admin"
 				>
 					{loading ? (
-						<p style={{ color: isDarkMode ? "black" : "black" }}>
+						<p style={{ color: isDarkMode ? "black" : "white" }}>
 							Loading...
 						</p>
 					) : (

@@ -15,14 +15,15 @@ function Layout({ mode, setMode }) {
 			<Navbar mode={mode} setMode={setMode} />
 			<div
 				style={{
-					background: isDarkMode ? "skyblue" : "yellow",
+					background: isDarkMode ? "#F7F9F2" : "#433D8B",
+					border: isDarkMode ? "1px solid #F5F7F8" : "none",
 				}}
 				className="layout-block-box"
 			>
 				<Link
 					style={{
-						color: isDarkMode ? "red" : "blue",
-						background: isDarkMode ? "white" : "yellow",
+						color: isDarkMode ? "red" : "white",
+						// background: isDarkMode ? "white" : "white",
 						textDecoration: "none",
 					}}
 					to="/admin"
@@ -32,8 +33,8 @@ function Layout({ mode, setMode }) {
 				{/*<Profiles mode={mode} setMode={setMode} />*/}
 				<Link
 					style={{
-						color: isDarkMode ? "red" : "blue",
-						background: isDarkMode ? "white" : "yellow",
+						color: isDarkMode ? "red" : "white",
+						// background: isDarkMode ? "white" : "yellow",
 						textDecoration: "none",
 					}}
 					to="/profiles"
@@ -42,8 +43,8 @@ function Layout({ mode, setMode }) {
 				</Link>
 				<Link
 					style={{
-						color: isDarkMode ? "red" : "blue",
-						background: isDarkMode ? "white" : "yellow",
+						color: isDarkMode ? "red" : "white",
+						// background: isDarkMode ? "white" : "yellow",
 						textDecoration: "none",
 					}}
 					to="/posts"
