@@ -97,6 +97,7 @@ function Images() {
 										alt="posted image"
 									/>
 								</div>
+								<hr />
 								<div
 									// style={{
 									// 	background: isDarkMode ? "#0B192C" : "#F5EFFF",
