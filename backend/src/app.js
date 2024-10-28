@@ -12,9 +12,9 @@ require("dotenv").config();
 
 // Configuration
 cloudinary.config({
-	cloud_name: "dtiasevyl",
-	api_key: "411418114532979",
-	api_secret: "Y4GRLW3VVy2_RwrO9TV5YMfHKFI", // Click 'View API Keys' above to copy your API secret
+	cloud_name: process.env.cloudinary_cloudName,
+	api_key: process.env.cloudinary_api_key,
+	api_secret: process.env.cloudinary_api_secret, // Click 'View API Keys' above to copy your API secret
 });
 
 // Import Middlewares
