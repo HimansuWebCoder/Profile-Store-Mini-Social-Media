@@ -37,7 +37,7 @@ function Images() {
 				<div
 					style={{
 						border: isDarkMode
-							? "1px solid blue"
+							? "1px solid black"
 							: "1px solid white",
 					}}
 					className="post-sub-container"
@@ -46,14 +46,14 @@ function Images() {
 					<div
 						style={{
 							background: isDarkMode ? "#FAF7F0" : "#FDFFE2",
-							color: isDarkMode ? "white" : "black",
+							color: isDarkMode ? "black" : "black",
 						}}
 						className="posted-image-container"
 					>
 						<div
-							style={{
-								background: isDarkMode ? "#31363F" : "#87A2FF",
-							}}
+							// style={{
+							// 	background: isDarkMode ? "#31363F" : "#87A2FF",
+							// }}
 							className="post-logo-edit-container"
 						>
 							<div>
@@ -73,15 +73,17 @@ function Images() {
 								<Outlet />
 							</div>
 						</div>
-						<img
-							id="posted-img"
-							src={img.image_url}
-							alt="posted image"
-						/>
+						<div id="image-post-box-container">
+							<img
+								id="posted-img"
+								src={img.image_url}
+								alt="posted image"
+							/>
+						</div>
 						<div
-							style={{
-								background: isDarkMode ? "#0B192C" : "#F5EFFF",
-							}}
+							// style={{
+							// 	background: isDarkMode ? "#0B192C" : "#F5EFFF",
+							// }}
 							className="like-comment-share-container"
 						>
 							<div>
