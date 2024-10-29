@@ -8,6 +8,7 @@ function ApiContextProvider({ children }) {
 	const [loading, setLoading] = useState(true);
 	const location = useLocation();
 
+	// profile-photo api
 	useEffect(() => {
 		setLoading(true);
 		fetch(`${apiUrl}/api/profile-photo`)

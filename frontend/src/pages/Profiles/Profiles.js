@@ -10,16 +10,6 @@ function Profiles({ mode, setMode }) {
 	const [profileIntro, setProfileIntro] = useState("");
 	const [loading, setLoading] = useState(true);
 	const { isDarkMode, toggleTheme } = useContext(ThemeContext);
-	// let color;
-	// let border;
-	// if (mode === "white") {
-	// 	// color = "black";
-	// 	color = "white";
-	// 	border = "none";
-	// } else {
-	// 	color = "white";
-	// 	border = "1px solid white";
-	// }
 
 	useEffect(() => {
 		fetch(`${apiUrl}/api/profile-info`)

@@ -9,7 +9,6 @@ function ProfilePhotoProvider({ children }) {
 	const location = useLocation();
 
 	useEffect(() => {
-		setLoading(true);
 		fetch(`${apiUrl}/api/profile-photo`)
 			.then((res) => res.json())
 			.then((photo) => {
