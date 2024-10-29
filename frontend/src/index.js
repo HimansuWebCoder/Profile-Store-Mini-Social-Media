@@ -5,13 +5,16 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "./ThemeContext";
+import { ProfilePhotoProvider } from "./ProfilePhotoContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider>
-        <App />
+        <ProfilePhotoProvider>
+          <App />
+        </ProfilePhotoProvider>
       </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>,

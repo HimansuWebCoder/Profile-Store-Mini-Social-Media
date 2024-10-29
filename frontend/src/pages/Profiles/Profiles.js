@@ -4,12 +4,14 @@ import { apiUrl } from "../../utils/utils";
 import { ThemeContext } from "../../ThemeContext";
 import "./Profiles.css";
 import ProfilePhoto from "../../components/Profile-photo/ProfilePhoto";
+import { ProfilePhotoContext } from "../../ProfilePhotoContext";
 
 function Profiles({ mode, setMode }) {
 	const [profileName, setProfileName] = useState("");
 	const [profileIntro, setProfileIntro] = useState("");
 	const [loading, setLoading] = useState(true);
 	const { isDarkMode, toggleTheme } = useContext(ThemeContext);
+	const { profilePhoto } = useContext(ProfilePhotoContext);
 	// let color;
 	// let border;
 	// if (mode === "white") {
@@ -21,18 +23,18 @@ function Profiles({ mode, setMode }) {
 	// 	border = "1px solid white";
 	// }
 
-	useEffect(() => {
-		fetch(`${apiUrl}/api/profile-info`)
-			.then((res) => res.json())
-			.then((profilesData) => {
-				console.log(profilesData);
-				setTimeout(() => {
-					setProfileName(profilesData[0].name);
-					setProfileIntro(profilesData[0].headline);
-					setLoading(false);
-				}, 1000);
-			});
-	}, []);
+	// useEffect(() => {
+	// 	fetch(`${apiUrl}/api/profile-info`)
+	// 		.then((res) => res.json())
+	// 		.then((profilesData) => {
+	// 			console.log(profilesData);
+	// 			setTimeout(() => {
+	// 				setProfileName(profilesData[0].name);
+	// 				setProfileIntro(profilesData[0].headline);
+	// 				setLoading(false);
+	// 			}, 1000);
+	// 		});
+	// }, []);
 	return (
 		<div className="profiles-container">
 			{loading ? (
@@ -48,7 +50,8 @@ function Profiles({ mode, setMode }) {
 					className="profiles-info-container"
 				>
 					<ProfilePhoto
-						imgSrc="/assets/images/user.png"
+						// imgSrc="/assets/images/user.png"
+						imgSrc={profilePhoto}
 						alt="profile image"
 						size="auto"
 						bg="none"
