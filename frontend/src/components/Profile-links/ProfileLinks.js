@@ -5,7 +5,7 @@ import { apiUrl } from "../../utils/utils";
 
 const socialMediaLinks = [
 	{ name: "linkedin", icon: "/assets/images/linkedin.png" },
-	{ name: "portfolio", icon: "/assets/images/portfolio.png" },
+	// { name: "portfolio", icon: "/assets/images/portfolio.png" },
 	{ name: "github", icon: "/assets/images/github.png" },
 	{ name: "youtube", icon: "/assets/images/youtube.png" },
 	{ name: "twitter", icon: "/assets/images/twitter.png" },

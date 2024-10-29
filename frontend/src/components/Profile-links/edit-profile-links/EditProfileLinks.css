@@ -1,0 +1,36 @@
+.profileLinks-container {
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	/*	border: 1px solid blue;*/
+	background: rgba(0, 0, 0, 0.1);
+	display: flex;
+	justify-content: center;
+}
+
+.profileLinks-sub-container {
+	width: 400px;
+	height: auto;
+	margin: auto;
+	border: 1px solid white;
+	background: black;
+	color: white;
+	padding: 10px;
+}
+
+.edit-profile-links-header {
+	width: 100%;
+	height: auto;
+	background: rgba(200, 22, 250, 0.5);
+	/*	border: 1px solid white;*/
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+#cancel-edit-links {
+	color: white;
+	text-decoration: none;
+}

@@ -9,7 +9,7 @@ function postProfileLinkModel(urls) {
 	return db.insert(urls).into("profile_links").returning("*"); // many mistake in this that they by mistakely use {urls} don't do that because urls is an object itself with key: value
 }
 
-function editProfileLinkModel(id, profile_id, urls) {
+function editProfileLinkModel(id, urls) {
 	// if you need a specifi user so use profile_id
 	// you can name anything here that relate to original name from controller req.body name
 	return db("profile_links")

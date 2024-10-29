@@ -51,16 +51,22 @@ function postProfileLink(req, res) {
 
 function editProfileLink(req, res) {
 	// using spread/...rest operator instead
-	const { profile_id, profile_info_id, ...urls } = req.body;
+	// const { profile_id, profile_info_id, ...urls } = req.body;
+	const { profile_id, ...urls } = req.body;
 
-	if (!profile_id) {
+	// if (!profile_id) {
+	// 	// i did not have profile_info_id so I skip for now
+	// 	return res.status(400).json({ Error: "profileId  must required" });
+	// }
+
+	if (!urls) {
 		// i did not have profile_info_id so I skip for now
-		return res.status(400).json({ Error: "profileId  must required" });
+		return res.status(400).json({ Error: "urls  must required" });
 	}
 
 	const { id } = req.params; // or you can do const profileLinkId = req.params.id; also
 	console.log(id);
-	editProfileLinkModel(id, profile_id, urls)
+	editProfileLinkModel(id, urls)
 		// editProfileLinkModel(id, urls) // try also without profile_id without specific user email general view but there is no need, this is your choice but highly recommended use use all but what needed only that extract and use for update or anything
 		.then((profileLinks) => {
 			if (profileLinks.length > 0) {
