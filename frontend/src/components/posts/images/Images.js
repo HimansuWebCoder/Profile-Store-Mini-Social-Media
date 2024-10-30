@@ -7,6 +7,11 @@ import CommentBox from "../comments/CommentBox";
 import { ThemeContext } from "../../../ThemeContext";
 import "./Images.css";
 
+const shareData = {
+	title: "Profile-Store",
+	url: "https://profile-store-mini-social-media.onrender.com",
+};
+
 function Images() {
 	const [postImages, setPostImages] = useState([]);
 	const [like, setLike] = useState("");
@@ -24,6 +29,10 @@ function Images() {
 				}, 1000);
 			});
 	}, [location]);
+
+	function shareData() {
+		navigator.share(shareData);
+	}
 
 	useEffect(() => {
 		fetch(`${apiUrl}/api/profiles`)
@@ -155,6 +164,7 @@ function Images() {
 									</div>
 									<div className="user-response-container">
 										<img
+											onClick={shareData}
 											className="posted-image-emojis"
 											src="/assets/images/share.png"
 											alt="share"
