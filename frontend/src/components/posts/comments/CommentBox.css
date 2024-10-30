@@ -17,13 +17,15 @@
 	padding: 10px;
 	background: black;
 	color: white;
-	overflow: auto;
+	overflow-y: auto;
+	border-radius: 10px;
 }
 
 #cancel-comment-box {
 	width: 100%;
 	height: auto;
-	background: rgba(0, 0, 220, 0.5);
+	/*	background: rgba(0, 0, 220, 0.5);*/
+	background: black;
 	padding: 10px;
 	top: 0;
 	position: sticky;

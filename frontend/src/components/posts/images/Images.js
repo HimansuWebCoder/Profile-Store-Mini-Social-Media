@@ -132,26 +132,26 @@ function Images() {
 									className="like-comment-share-container"
 								>
 									<div className="user-response-container">
-										<img
-											onClick={likebtn}
-											className="posted-image-emojis"
-											src="/assets/images/like.png"
-											alt="like"
-										/>
-										<span>{like}</span>
+										<div>
+											<img
+												onClick={likebtn}
+												className="posted-image-emojis"
+												src="/assets/images/like.png"
+												alt="like"
+											/>
+											<span id="like-count">{like}</span>
+										</div>
 										<h4>Like</h4>
 									</div>
 									<div className="user-response-container">
-										<img
-											className="posted-image-emojis"
-											src="/assets/images/comment.png"
-											alt="comment"
-										/>
-										<h4>
-											<Link to="/posts/comments">
-												Comment
-											</Link>
-										</h4>
+										<Link to="/posts/comments">
+											<img
+												className="posted-image-emojis"
+												src="/assets/images/comment.png"
+												alt="comment"
+											/>
+										</Link>
+										<h4>Comment</h4>
 									</div>
 									<div className="user-response-container">
 										<img

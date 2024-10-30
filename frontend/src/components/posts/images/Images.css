@@ -100,3 +100,9 @@
 	flex-direction: column;
 	align-items: center;
 }
+
+#like-count {
+	margin-left: 10px;
+	font-size: 1.4rem;
+	text-shadow: 1px 5px 1px yellow;
+}

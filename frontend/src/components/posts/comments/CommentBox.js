@@ -5,6 +5,7 @@ import "./CommentBox.css";
 function CommentBox() {
 	const [comments, setComments] = useState([]);
 	const [postComments, setPostComments] = useState("");
+	const [loader, setLoader] = useState(true);
 	const location = useLocation();
 	const navigate = useNavigate();
 
@@ -13,6 +14,7 @@ function CommentBox() {
 			.then((res) => res.json())
 			.then((comments) => {
 				setComments(comments);
+				setLoader(false);
 			});
 	}, [location]);
 
@@ -27,12 +29,13 @@ function CommentBox() {
 			body: JSON.stringify({ comment: postComments }),
 		})
 			.then((res) => res.json())
-			.then((allComment) => {
-				// setComments(allComment.data);
-				setPostComments("");
-				navigate("/posts/comments");
-
-				// console.log(allComment.data);
+			.then(() => {
+				fetch(`${apiUrl}/api/posts/comments`)
+					.then((res) => res.json())
+					.then((commentsData) => {
+						setComments(commentsData);
+						setPostComments("");
+					});
 			});
 	}
 
@@ -46,11 +49,15 @@ function CommentBox() {
 				</div>
 				<div>
 					<h1>Comment box</h1>
-					<ul>
-						{comments.map((comment) => (
-							<li key={comment.id}>{comment.comment}</li>
-						))}
-					</ul>
+					{loader ? (
+						<p>Loading...</p>
+					) : (
+						<ul>
+							{comments.map((comment) => (
+								<li key={comment.id}>{comment.comment}</li>
+							))}
+						</ul>
+					)}
 					<input
 						type="text"
 						value={postComments}
