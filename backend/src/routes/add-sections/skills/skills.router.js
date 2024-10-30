@@ -1,5 +1,5 @@
 const express = require("express");
-const db = require("../../../config/db");
+const db = require("../../../config/db"); // this should commented
 const {
 	getSkills,
 	postSkill,

@@ -1,0 +1,36 @@
+.comment-box-container {
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	padding: 20px;
+}
+
+.comment-box {
+	max-width: 300px;
+	height: 200px;
+	margin: auto;
+	margin-top: 300px;
+	padding: 10px;
+	background: black;
+	color: white;
+	overflow: auto;
+}
+
+#cancel-comment-box {
+	width: 100%;
+	height: auto;
+	background: rgba(0, 0, 220, 0.5);
+	padding: 10px;
+	top: 0;
+	position: sticky;
+	font-size: 1.5rem;
+}
+
+#cancel-comment {
+	color: white;
+	text-decoration: none;
+}

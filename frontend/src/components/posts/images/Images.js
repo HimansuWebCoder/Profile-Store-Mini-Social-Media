@@ -3,11 +3,13 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import { apiUrl } from "../../../utils/utils";
 import ProfilePhoto from "../../Profile-photo/ProfilePhoto";
 import PopupEdit from "../../Popup-edit/PopupEdit";
+import CommentBox from "../comments/CommentBox";
 import { ThemeContext } from "../../../ThemeContext";
 import "./Images.css";
 
 function Images() {
 	const [postImages, setPostImages] = useState([]);
+	const [like, setLike] = useState("");
 	const { isDarkMode, toggleTheme } = useContext(ThemeContext);
 	const [loader, setLoader] = useState(true);
 	const location = useLocation();
@@ -22,6 +24,31 @@ function Images() {
 				}, 1000);
 			});
 	}, [location]);
+
+	useEffect(() => {
+		fetch(`${apiUrl}/api/profiles`)
+			.then((res) => res.json())
+			.then((peopleLikes) => {
+				setLike(peopleLikes[3].likes_count);
+			});
+	}, []);
+
+	function likebtn() {
+		fetch(`${apiUrl}/api/posts/likes`, {
+			method: "post",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ profile_id: 1 }),
+		})
+			.then((res) => res.json())
+			.then(() => {
+				fetch(`${apiUrl}/api/profiles`)
+					.then((res) => res.json())
+					.then((peopleLikes) => {
+						setLike(peopleLikes[3].likes_count);
+					});
+			});
+	}
+
 	return (
 		<div
 			style={{ color: isDarkMode ? "black" : "white" }}
@@ -106,10 +133,12 @@ function Images() {
 								>
 									<div className="user-response-container">
 										<img
+											onClick={likebtn}
 											className="posted-image-emojis"
 											src="/assets/images/like.png"
 											alt="like"
 										/>
+										<span>{like}</span>
 										<h4>Like</h4>
 									</div>
 									<div className="user-response-container">
@@ -118,7 +147,11 @@ function Images() {
 											src="/assets/images/comment.png"
 											alt="comment"
 										/>
-										<h4>Comment</h4>
+										<h4>
+											<Link to="/posts/comments">
+												Comment
+											</Link>
+										</h4>
 									</div>
 									<div className="user-response-container">
 										<img
