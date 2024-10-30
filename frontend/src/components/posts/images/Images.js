@@ -30,8 +30,19 @@ function Images() {
 			});
 	}, [location]);
 
-	function shareData() {
-		navigator.share(shareData);
+	// function shareHandler() {
+	// 	navigator.share(shareData);
+	// }
+
+	function handleShare() {
+		if (navigator.share) {
+			navigator
+				.share(shareData)
+				.then(() => console.log("Share successful"))
+				.catch((error) => console.error("Error sharing:", error));
+		} else {
+			alert("Sharing is not supported on this device.");
+		}
 	}
 
 	useEffect(() => {
@@ -164,7 +175,7 @@ function Images() {
 									</div>
 									<div className="user-response-container">
 										<img
-											onClick={shareData}
+											onClick={handleShare}
 											className="posted-image-emojis"
 											src="/assets/images/share.png"
 											alt="share"
