@@ -9,11 +9,15 @@ function ProfilePhotoProvider({ children }) {
 	const location = useLocation();
 
 	useEffect(() => {
-		fetch(`${apiUrl}/api/profile-photo`)
+		fetch(`${apiUrl}/api/profile-photo`, {
+			method: "get",
+			credentials: "include"
+		})
 			.then((res) => res.json())
 			.then((photo) => {
 				setTimeout(() => {
-					setProfilePhoto(photo[photo.length - 1].image);
+					setProfilePhoto(photo[0].image);
+					console.log(photo[0].image);
 					setLoading(false);
 				}, 2000);
 			});

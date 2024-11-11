@@ -10,7 +10,10 @@ function Skills() {
 	const location = useLocation();
 
 	useEffect(() => {
-		fetch(`${apiUrl}/api/skills`)
+		fetch(`${apiUrl}/api/skills`, {
+			method: "get",
+			credentials: "include"
+		})
 			.then((res) => res.json())
 			.then((skills) => {
 				if (skills.Error) {

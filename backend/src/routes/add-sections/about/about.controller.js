@@ -21,12 +21,20 @@ function getAboutProfile(req, res) {
 	// 		return res.status(500).json({ Error: "Internal Server Error" });
 	// 	});
 
+	const email = req.session.email;
+
+	if (!email) {
+		return res.status(400).json({Error: "You need to login to see about profile"})
+	}
+
 	getAboutModel()
+	    .join("profiles", "about.profile_id", "=", "profiles.id")
+	    .where({email: email})
 		.then((aboutData) => {
 			if (aboutData.length !== 0) {
 				return res.status(200).json(aboutData);
 			} else {
-				return res.status(404).json({ Error: "about data not found" });
+				return res.status(404).json({ Error: " user exist but about data not found" });
 			}
 		})
 		.catch((error) => {

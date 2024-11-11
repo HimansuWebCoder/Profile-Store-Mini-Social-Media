@@ -1,0 +1,9 @@
+.users-photo-container {
+	height: auto;
+}
+
+.users-photo-container > img {
+	width: 80px;
+	height: 80px;
+	border-radius: 50px;
+}

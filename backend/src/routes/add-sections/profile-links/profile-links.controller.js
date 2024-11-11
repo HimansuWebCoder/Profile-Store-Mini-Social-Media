@@ -3,29 +3,45 @@ const {
 	postProfileLinkModel,
 	editProfileLinkModel,
 } = require("../../../models/profileLinks.model");
+const session = require("express-session");
+const db = require("../../../config/db")
 
 function getProfileLinks(req, res) {
-	getProfileLinksModel()
-		.then((profileLinks) => {
-			if (profileLinks.length > 0) {
-				return res.status(200).json(profileLinks);
-			} else {
-				return res
-					.status(404)
-					.json({ Error: "profile links data not found" });
-			}
-		})
-		.catch((error) => {
-			console.error(`Failed to retrieve profile links from DB: ${error}`);
-			return res.status(500).json({ error: "Internal Server Error" });
-		});
-
-	// db("profile_links")
-	// 	.join("profiles", "profile_links.profile_id", "profiles.id")
-	// 	.select("*")
-	// 	.then((data) => {
-	// 		return res.json(data);
+	// getProfileLinksModel()
+	// 	.then((profileLinks) => {
+	// 		if (profileLinks.length > 0) {
+	// 			return res.status(200).json(profileLinks);
+	// 		} else {
+	// 			return res
+	// 				.status(404)
+	// 				.json({ Error: "profile links data not found" });
+	// 		}
+	// 	})
+	// 	.catch((error) => {
+	// 		console.error(`Failed to retrieve profile links from DB: ${error}`);
+	// 		return res.status(500).json({ error: "Internal Server Error" });
 	// 	});
+
+	const email  = req.session.email;
+
+	if (!email) {
+		return res.status(400).json({Error: "Login to see profile links"})
+	}
+     
+   
+    	db("profile_links")
+    	 .join("profiles", "profile_links.profile_id", "=", "profiles.id")
+    	 .select("*")
+    	 .where({email: email})
+    	 .then(profile => {
+    	 	// return res.json(profile)
+    	 	if (profile.length > 0) {
+    	 		return res.status(200).json(profile)
+    	 	} else {
+    	 		return res.status(404).json("user exist but not found profile links")
+    	 	}
+    	 })
+   
 }
 
 // POST profile links

@@ -20,6 +20,7 @@ function ProfileInfoEdit() {
 			method: "PUT",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ name, headline }),
+			credentials: "include"
 		})
 			.then((res) => res.json())
 			.then((data) => {
@@ -29,7 +30,9 @@ function ProfileInfoEdit() {
 				if (data.success) {
 					setIsUpdated(true);
 				} else {
-					alert(data.message);
+					// alert(data.message);
+					// alert("profile info updated successfully!");
+					navigate("/admin")
 				}
 			})
 			.catch((error) => {

@@ -7,6 +7,7 @@ import EditPost from "../../components/posts/edit-posts/EditPost";
 import EditImagePost from "../../components/posts/edit-image-posts/EditImagePost";
 import CreatePost from "../../components/posts/create-posts/CreatePost";
 import CommentBox from "../../components/posts/comments/CommentBox";
+import Login from "../../components/Auth/Login/Login";
 
 import "./AppLayout.css";
 
@@ -19,6 +20,7 @@ function AppLayout({ mode, setMode }) {
 					element={<Layout mode={mode} setMode={setMode} />}
 				>
 					<Route path="profiles" element={<Profiles />} />
+					<Route path="login" element={<Login />} />
 					<Route path="posts" element={<ImagePosts />}>
 						<Route path=":id" element={<EditPost />} />
 						<Route path="edit/:id" element={<EditImagePost />} />

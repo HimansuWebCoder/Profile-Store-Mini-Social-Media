@@ -7,6 +7,7 @@ import CreatePost from "../../components/posts/create-posts/CreatePost";
 import { ThemeContext } from "../../ThemeContext";
 import "./Layout.css";
 
+
 function Layout({ mode, setMode }) {
 	const { isDarkMode, toggleTheme } = useContext(ThemeContext);
 
@@ -20,6 +21,16 @@ function Layout({ mode, setMode }) {
 				}}
 				className="layout-block-box"
 			>
+				<Link
+					style={{
+						color: isDarkMode ? "red" : "white",
+						// background: isDarkMode ? "white" : "yellow",
+						textDecoration: "none",
+					}}
+					to="/login"
+				>
+					Login
+				</Link>
 				<Link
 					style={{
 						color: isDarkMode ? "red" : "white",
@@ -54,6 +65,7 @@ function Layout({ mode, setMode }) {
 				{/*<Images />*/}
 				{/*<EditPost />*/}
 			</div>
+				
 			<Outlet />
 		</div>
 	);

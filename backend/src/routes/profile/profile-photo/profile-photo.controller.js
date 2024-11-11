@@ -7,26 +7,19 @@ function getProfilePhoto(req, res, db) {
 	// 	.then((data) => {
 	// 		res.json(data);
 	// 	})
-	db.select("*")
-		.from("profile_photo")
-		.then((data) => {
-			if (data.length !== 0) {
-				// either > 0 or !== 0
-				return res.status(200).json(data);
-			} else {
-				return res
-					.status(404)
-					.json({ Error: "profile photo not found" });
-			}
-		})
-		.catch((error) => {
-			console.error(
-				`Error happend retrieved profile_photo from DB: ${error}`,
-			);
-			return res.status(500).json({
-				Error: "Internal Server Error",
-			});
-		});
+	const email = req.session.email;
+
+	if (!email) {
+		return res.status(400).json({Error: "You need to login to see profile photo"})
+	}
+
+	db("profile_photo")
+	    .join("profiles", "profile_photo.profile_id", "=", "profiles.id")
+	    .select("*")
+	    .where({email: req.session.email})
+	    .then(data => {
+	    	return res.json(data)
+	    })
 
 	// 	db("profile_photo")
 	// 		.join("profiles", "profile_photo.profile_id", "profiles.id")

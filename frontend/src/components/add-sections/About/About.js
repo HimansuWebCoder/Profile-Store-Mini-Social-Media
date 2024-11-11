@@ -10,7 +10,10 @@ function About() {
 	const location = useLocation();
 	const pathname = location.pathname;
 	useEffect(() => {
-		fetch(`${apiUrl}/api/about`)
+		fetch(`${apiUrl}/api/about`, {
+			method: "get",
+			credentials: "include"
+		})
 			.then((res) => res.json())
 			.then((aboutData) => {
 				console.log("about location", location);

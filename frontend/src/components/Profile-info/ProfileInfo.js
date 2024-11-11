@@ -15,15 +15,22 @@ function ProfileInfo() {
 	useEffect(() => {
 		const fetchProfileInfo = async () => {
 			try {
-				const profileInfo = await fetch(`${apiUrl}/api/profile-info`);
+				const profileInfo = await fetch(`${apiUrl}/api/profile-info`, {
+					method: "get",
+			        credentials: "include"
+				});
 				const profileInfoData = await profileInfo.json();
 				// if (!profileInfoData.ok) {
 				// 	alert("You are Offline");
 				// }
+
+				console.log("profile info data", profileInfoData)
+				console.log("profile info id ", location)
 				setTimeout(() => {
 					setName(profileInfoData[0].name);
 					setHeadline(profileInfoData[0].headline);
-					setProfileId(profileInfoData[0].id);
+					setProfileId(profileInfoData[0].profile_id);
+					console.log("profile id", profileInfoData[0].profile_id)
 					setLoading(false);
 				}, 1000);
 			} catch (error) {
@@ -48,7 +55,7 @@ function ProfileInfo() {
 				<>
 					<h1 className="header">{name}</h1>
 					<h3 className="header">{headline}</h3>
-					<ProfileLinks />
+					{/*<ProfileLinks />*/}
 				</>
 			)}
 		</div>

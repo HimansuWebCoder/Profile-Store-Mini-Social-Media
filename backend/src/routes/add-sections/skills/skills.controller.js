@@ -7,7 +7,16 @@ const {
 
 // GET Skills
 function getSkills(req, res) {
+	const email = req.session.email;
+
+	if (!email) {
+		return res.status(404).json({Error: "Login to see user skills"})
+	}
+
 	getSkillsModel()
+	    .join("profiles", "skills.profile_id", "=", "profiles.id")
+	    .select("*")
+	    .where({email: email})
 		.then((skillsData) => {
 			if (skillsData.length > 0) {
 				// either > 0 or !== 0

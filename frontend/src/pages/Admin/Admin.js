@@ -17,16 +17,24 @@ function Admin() {
 	const location = useLocation();
 
 	useEffect(() => {
-		fetch(`${apiUrl}/api/profile-photo`)
+		fetch(`${apiUrl}/api/profile-photo`, {
+			method: "get",
+			credentials: "include"
+		})
 			.then((res) => res.json())
 			.then((photo) => {
+				if (photo.length > 0) {
 				console.log("my profile", photo[0].id);
 				console.log("profile-image", photo[photo.length - 1].image);
 				setProfilePhotoId(photo[0].id);
 				setTimeout(() => {
-					setProfileImg(photo[photo.length - 1].image);
+					setProfileImg(photo[0].image);
 					setLoading(false);
-				}, 2000);
+				  }, 2000);
+				} else {
+					alert("Login to see your admin")
+					navigate("/login")
+				}
 			});
 	}, [location]);
 	return (

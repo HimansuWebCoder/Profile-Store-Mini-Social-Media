@@ -1,7 +1,8 @@
 const db = require("../config/db");
 
 function getSkillsModel() {
-	return db.select("*").from("skills");
+	// return db.select("*").from("skills");
+	return db("skills").select("*");
 }
 
 function postSkillModel(skill) {
