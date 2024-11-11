@@ -11,12 +11,23 @@ const session = require("./config/session");
 
 require("dotenv").config();
 
+// for development only
+// app.use(
+// 	session({
+// 		secret: "@@@***###)))",
+// 		resave: false,
+// 		saveUninitialized: false,
+// 		cookie: { secure: false},
+// 	}),
+// );
+
+// for production only
 app.use(
 	session({
 		secret: "@@@***###)))",
 		resave: false,
-		saveUninitialized: false,
-		cookie: { secure: false},
+		saveUninitialized: true,
+		cookie: { secure: true},
 	}),
 );
 
