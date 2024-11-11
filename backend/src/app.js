@@ -26,7 +26,7 @@ app.use(
 	session({
 		secret: "@@@***###)))",
 		resave: false,
-		saveUninitialized: true,
+		saveUninitialized: false,
 		cookie: { secure: true},
 	}),
 );

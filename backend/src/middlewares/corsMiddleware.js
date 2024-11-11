@@ -9,6 +9,7 @@ require("dotenv").config();
 
 // for production only
 module.exports = cors({
-	origin: "https://profile-store-mini-social-media.onrender.com",
+	// origin: "https://profile-store-mini-social-media.onrender.com",
+	origin: "*",
     credentials: true
 });
