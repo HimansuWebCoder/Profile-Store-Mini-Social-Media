@@ -185,6 +185,8 @@ app.get("/*", (req, res) => {
 app.post("/login", (req, res, next) => {
 	const { email } = req.body;
 	req.session.email = email;
+	console.log(email)
+	console.log(req.session.email);
 
    if (!email) {
    	return res.status(404).json("Login data is required");
