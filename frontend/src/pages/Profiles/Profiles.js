@@ -70,11 +70,10 @@ function Profiles({ mode, setMode }) {
 						bg="none"
 						className="profile-main-img-container"
 					/>
-					<UsersPhoto />
+					<UsersPhoto img={user.image} />
 					<div>
                       <h2 >{user.name}</h2>
                       <h2 >{user.headline}</h2>
-                      <img src={user.image} alt="not found" />      
 					</div>
 				</div>
 				))}
