@@ -63,11 +63,18 @@ function Profiles({ mode, setMode }) {
 					}}
 					className="profiles-info-container"
 				>
-					
-					<UsersPhoto img={user.image} />
+					<ProfilePhoto
+						imgSrc={user.image} 
+						alt="profile image"
+						size="auto"
+						bg="none"
+						className="profile-main-img-container"
+					/>
+					<UsersPhoto />
 					<div>
                       <h2 >{user.name}</h2>
                       <h2 >{user.headline}</h2>
+                      <img src={user.image} alt="not found" />      
 					</div>
 				</div>
 				))}
