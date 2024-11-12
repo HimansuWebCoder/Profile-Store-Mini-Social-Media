@@ -21,6 +21,8 @@ require("dotenv").config();
 // 	}),
 // );
 
+app.set('trust proxy', 1);
+
 // for production only
 app.use(
 	session({
