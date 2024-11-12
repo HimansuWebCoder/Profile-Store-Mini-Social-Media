@@ -10,7 +10,11 @@ require("dotenv").config();
 // for production only
 module.exports = cors({
 	// origin: "https://profile-store-mini-social-media.onrender.com",
-	origin: ['http://localhost:3000', 'https://profile-store-mini-social-media.onrender.com', 'http://profile-store-frontend.vercel.app'], // or you can use multiple domain origin
+	origin: [
+	'http://localhost:3000',
+	 'https://profile-store-mini-social-media.onrender.com',
+	  'https://profile-store-frontend.vercel.app'], // or you can use multiple domain origin
 	// origin: "*",
     credentials: true
 });
+
