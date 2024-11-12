@@ -15,7 +15,7 @@ function submitHandler() {
 				body: JSON.stringify({email: loginInput}),
 				credentials: "include"
 		})
-		.then(() => {
+		.then((response) => {
            if (response.ok) {
 		        navigate("/admin");
 		      } else {
