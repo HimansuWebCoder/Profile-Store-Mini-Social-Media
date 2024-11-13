@@ -43,7 +43,7 @@ function ProfilePhoto({ imgSrc, alt, size, bg, className }) {
 						<img
 							className={`${className}`}
 							src={profileImg}
-							alt={alt}
+							alt={alt} 
 							// style={{ width: size, height: size }}
 						/>
 					)}*/}

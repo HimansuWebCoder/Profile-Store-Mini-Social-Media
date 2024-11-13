@@ -1,5 +1,9 @@
-.signup-container {
-	width: 200px;
-	height: 200px;
-	background-color: red;
+.login-container {
+	max-width: 500px;
+	height: auto;
+	padding: 10px;
+	margin: auto;
+	margin-top: 20px;
+	color: white;
+	background-color: blue;
 }

@@ -1,5 +1,5 @@
 const knex = require("knex");
-
+// const  { Pool }  = require("pg");
 // // const db = knex({
 // // 	client: "pg",
 // // 	connection: {
@@ -15,6 +15,10 @@ const knex = require("knex");
 // because I set env for production in render platform not local thats it
 require("dotenv").config();
 
+// const pgPool = new Pool({
+// 	connectionString: process.env.DATABASE_URL_LOCAL,
+// 	ssl: {rejectUnauthorized: false},
+// })
 const db = knex({
 	client: "pg",
 	connection: {

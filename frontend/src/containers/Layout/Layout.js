@@ -27,10 +27,21 @@ function Layout({ mode, setMode }) {
 						// background: isDarkMode ? "white" : "yellow",
 						textDecoration: "none",
 					}}
+					to="/signup"
+				>
+					Signup
+				</Link>
+				<Link
+					style={{
+						color: isDarkMode ? "red" : "white",
+						// background: isDarkMode ? "white" : "yellow",
+						textDecoration: "none",
+					}}
 					to="/login"
 				>
 					Login
 				</Link>
+
 				<Link
 					style={{
 						color: isDarkMode ? "red" : "white",

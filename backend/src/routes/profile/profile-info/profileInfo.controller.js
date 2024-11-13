@@ -197,9 +197,11 @@ function getOneProfileInfo(req, res) {
 
 // GET Profile's Information
 function getProfileInfo(req, res) {
-	const email = req.session.email;
-	const profileName = req.session.email;
-	const profileHeadline = req.session.headline;
+	const email = req.session.userData.email;
+	// const profileName = req.session.email;
+	// const profileHeadline = req.session.headline;
+
+	// const profileName = req.session.userData.name;
 
 	if(!email) {
 		return res.status(400).json({status: "Email needed to see profile-info"});
@@ -213,7 +215,12 @@ function getProfileInfo(req, res) {
         .select("*")
         .where({email: email})
         .then(user => {
-        	return res.json(user)
+        	// return res.json(user)
+        	if (user.length > 0) {
+        		return res.json(user)
+        	} else {
+        		return res.json("user exist but not found any data")
+        	}
         })
 
 			// or > 0

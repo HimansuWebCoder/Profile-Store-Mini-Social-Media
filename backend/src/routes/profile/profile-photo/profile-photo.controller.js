@@ -40,8 +40,20 @@ function getProfilePhoto(req, res, db) {
 // UPDATE Profile's Photo
 function editProfilePhoto(req, res, db) {
 	// const id = req.params.profilePhotoId;
-	const { profilePhotoId } = req.params;
-	const { image, profileId } = req.body;
+	// const { profilePhotoId } = req.params;
+	// const { image, profileId } = req.body;
+	const email = req.session.email;
+	const { id } = req.params;
+
+	if (!email) {
+		return res.status(400).json({Error: "Login to update profile"})
+	}
+
+	// if (!image || !profileId) {
+	// 	return res
+	// 		.status(400)
+	// 		.json({ Error: "image or profileId is required" });
+	// }
 
 	if (!image || !profileId) {
 		return res

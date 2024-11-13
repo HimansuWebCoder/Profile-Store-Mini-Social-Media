@@ -8,34 +8,58 @@ const cloudinary = require("cloudinary").v2;
 const db = require("./config/db");
 const morgan = require("morgan");
 const session = require("./config/session");
+const connectPg = require("connect-pg-simple");
+const pg = require("pg");
+const PgSession = connectPg(session);
+const { Pool } = require("pg");
 
 require("dotenv").config();
+
+// const pgPool = db.client.pool;
+// const pgPool = new Pool({
+//   connectionString: process.env.DATABASE_URL_LOCAL,
+//   ssl: { rejectUnauthorized: false }, // Set based on your environment
+// });
 
 // for development only
 // app.use(
 // 	session({
+// 		store: new PgSession({
+// 			pool: pgPool,
+// 			tableName: "sessions",
+// 		}),
 // 		secret: "@@@***###)))",
 // 		resave: false,
 // 		saveUninitialized: false,
-// 		cookie: { secure: false},
+// 		cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24}, // 1 day expiration for session cookie
 // 	}),
 // );
 
-app.set('trust proxy', 1);
-
-// for production only
+// for development and memory() store only
 app.use(
 	session({
 		secret: "@@@***###)))",
 		resave: false,
 		saveUninitialized: false,
-		cookie: { 
-			secure: true,
-			httpOnly: true,  
-            sameSite: "None", 
-		},
+		cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24}, // 1 day expiration for session cookie
 	}),
 );
+
+// app.set('trust proxy', 1);
+
+// for production only
+// app.use(
+// 	session({
+// 		secret: "@@@***###)))",
+// 		resave: false,
+// 		saveUninitialized: false,
+// 		cookie: { 
+// 			secure: true,
+// 			httpOnly: true,  
+//             sameSite: "None", 
+// 		},
+// 	}),
+// );
 
 
 // Configuration
@@ -86,6 +110,12 @@ app.put("/api/upload/:id", upload.single("avatar"), function (req, res, next) {
 		return res.status(400).json({ message: "no file uploaded" });
 	}
 
+	const email = req.session.email;
+
+	if (!email) {
+		return res.status(400).json({Error: "login to update profile photo"})
+	}
+
 	// res.status(201).json({
 	// 	message: "file uploaded successfully",
 	// 	filename: req.file.filename,
@@ -121,24 +151,50 @@ app.put("/api/upload/:id", upload.single("avatar"), function (req, res, next) {
 			const result = await cloudinary.uploader.upload(imagePath, options);
 			// console.log(result);
 
-			db("profile_photo")
-				.where({ id })
-				.update({ image: result.url })
-				.returning("*")
-				.then((data) => {
-					if (data.length > 0) {
+
+	return db.raw(`
+      UPDATE profile_photo
+      SET image = ? 
+      FROM profiles 
+      WHERE profile_photo.profile_id = profiles.id 
+        AND profiles.email = ?
+        AND profile_photo.profile_id = ?
+      RETURNING *;
+	`, [image, email , id])
+	.then(photo => {
+     
+	  if (photo.length > 0) {
 						// or data.length !== 0 must not be zero either > 0 or !== 0
-						console.log(data);
+						console.log(photo);
 						return res.status(200).json({
 							message: "Profile photo updated successfully",
-							data: data,
+							data: photo,
 						});
 					} else {
 						return res.status(404).json({
 							Error: "Profile photo not found to update",
 						});
 					}
-				});
+				})
+
+			// db("profile_photo")
+			// 	.where({ id })
+			// 	.update({ image: result.url })
+			// 	.returning("*")
+			// 	.then((data) => {
+			// 		if (data.length > 0) {
+			// 			// or data.length !== 0 must not be zero either > 0 or !== 0
+			// 			console.log(data);
+			// 			return res.status(200).json({
+			// 				message: "Profile photo updated successfully",
+			// 				data: data,
+			// 			});
+			// 		} else {
+			// 			return res.status(404).json({
+			// 				Error: "Profile photo not found to update",
+			// 			});
+			// 		}
+			// 	});
 		} catch (error) {
 			console.error(error);
 			return res.status(500).json({
@@ -183,74 +239,255 @@ app.get("/all-users", isAuthenticated, (req, res, next) => {
 	  });
 })
 
+app.get("/all", (req, res) => {
+	res.json(req.session.userData)
+})
+
+app.get("/profileinfo", (req, res) => {
+	db("profile_info")
+	   .select("*")
+	   .where({name: req.session.name})
+	   .then(user => {
+	   	res.json(user)
+	   })
+})
+
 app.get("/*", (req, res) => {
 	res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
 
-app.post("/login", (req, res, next) => {
-	const { email } = req.body;
-	req.session.email = email;
-	console.log(email)
-	console.log(req.session.email);
-
-   if (!email) {
-   	return res.status(404).json("Login data is required");
-   } 
-
-	db("profiles")
-	  .select("*")
-	  .where({email: req.session.email})
-	  .then(user => {
-
-	  	if (!user.length) {
-	  		return res.json("Email not found or wrong email");
-	  	} else {
-	  		// return res.json("You are successfully logged in");
-	  		return res.status(200).json({data: user, status: "You are successfully logged in"})
-	  	}
-	  	// console.log(user);
-	  	// if (user.length === 0) {
-	  	// 	req.session.email = null;
-	  	// 	return res.json("email not found or wrong email")
-	  	// } else {
-	  	// return res.json("Your successfully logged in");
-	  	// }
-	  	// return res.json(user[0])
-	  }) 
-})
-
 
 app.post("/signup", (req, res) => {
-	const { email } = req.body;
-	const name = "himansu";
-	const headline = "marketer"
+	// const { name, email, password } = req.body;
+	const { email} = req.body;
+	// const name = "Your name";
+	// const skill = "Your skills"
+	// const headline = "Your headline"
 
+	const usersData = {
+		description: "description",
+		comment: null,
+		experience: null,
+		image_url: null,
+		language: null,
+		name: "your name",
+		headline: "your headline",
+		github_url: null,
+		linkedin_url: null,
+		twitter_url: null,
+		youtube_url: null,
+		instagram_url: null,
+		portfolio_url: null,
+		facebook_url: null,
+		image: "https://png.pngitem.com/pimgs/s/78-786293_1240-x-1240-0-avatar-profile-icon-png.png",
+		email: email,
+		// password: password,
+		project_url: null,
+		saved_post: null,
+		skill: "your skills"
+	}
+
+	req.session.userData = usersData;
+	// req.session.email = usersData.email;
 	req.session.email = email;
-	req.session.name = name;
-	req.session.headline = headline;
 
-	db("profiles")
-	   .insert({email: req.session.email})
-	   .returning("*")
-	   .then(email => {
-	   	console.log(email)
-	   	// return res.json(email[0].id)
-	   	return db("profile_info")
-	   	          .insert({name: name, headline: headline, profile_id: email[0].id})
-	   	          .returning("*")
-	   	          .then(info => {
-	   	          	return res.status(201).json("successfully inserted")
-	   	          })
-	   })
+	// req.session.email = email;
+	// req.session.name = name;
+	// req.session.headline = headline;
+
+	if (!email) {
+		return res.status(400).json({Error: "Signup to use the App"})
+	}
+   
+   // db("profiles")
+   //   .select("*")
+   //   .then(userEmail => {
+   //   	  console.log(userEmail)
+   //      if (userEmail > 0) {
+   //      	return res.json("Email already exists!");
+   //      }
+
+   //      console.log("session data when signup:", req.session.userData);
+
+   //      const profileId = userEmail[0].id
+
+   //      db("profile_info")
+   //        .insert({name: name, profile_id: profileId})
+   //        .where({email: email})
+   //        .returning("*")
+   //        .then(user => {
+   //        	console.log(user)
+   //        	return res.json(user)
+   //        })         
+   //   })
+
+db("profiles")
+  .select("*")
+  .where({ email }) // Check if email exists
+  .then((existingProfiles) => {
+    console.log(existingProfiles);
+    if (existingProfiles.length > 0) {
+      return res.json("Email already exists!");
+    }
+
+    // Insert into "profiles" table if the email does not exist
+    db("profiles")
+      .insert({ email })
+      .returning("*")
+      .then((profile) => {
+        const profileId = profile[0].id;
+        console.log("Profile ID:", profileId);
+
+        // Insert into "profile_info" table
+        db("profile_info")
+          .insert({ name: req.session.userData.name, headline: req.session.userData.headline, profile_id: profileId })
+          .returning("*")
+          .then((profileInfo) => {
+            console.log("Profile Info:", profileInfo);
+
+            // Insert into "skills" table
+            db("skills")
+              .insert({
+                skill: req.session.userData.skill,
+                profile_id: profileId,
+              })
+              .returning("*")
+              .then((skillsInfo) => {
+                console.log("Skills Info:", skillsInfo);
+
+                // Insert into "about" table
+                db("about")
+                  .insert({
+                    description: req.session.userData.description,
+                    profile_id: profileId,
+                  })
+                  .returning("*")
+                  .then((aboutInfo) => {
+                    // return res.json(aboutInfo);
+                    // return res.json("Signup successfully!")
+                    db("profile_photo")
+                      .insert({image: req.session.userData.image, profile_id: profileId})
+                      .returning("*")
+                      .then((photo) => {
+                      	return res.json("signup successfully!")
+                      })
+                  })
+                  .catch((err) =>
+                    console.error("Error inserting into 'about':", err)
+                  );
+              })
+              .catch((err) =>
+                console.error("Error inserting into 'skills':", err)
+              );
+          })
+          .catch((err) =>
+            console.error("Error inserting into 'profile_info':", err)
+          );
+      })
+      .catch((err) => console.error("Error inserting into 'profiles':", err));
+  })
+  .catch((err) => console.error("Error selecting from 'profiles':", err));
+
+
+
 })
+
+
+// app.post("/login", (req, res, next) => {
+// 	const { email } = req.body;
+// 	// req.session.email = email;
+// 	// req.session.userData= email;
+// 	req.session.userData.email = email;
+// 	console.log("session", req.session.userData)
+// 	console.log("name", req.session.name)
+// 	// if (req.session.userData) {
+// 	// 	console.log("User already logged in:", req.session.userData);
+// 	// 	return res.json(req.session.userData); // Return user data if it's already in session
+// 	// }
+
+// 	console.log(email)
+// 	console.log(req.session.email);
+  
+//    if (!email) {
+//    	return res.status(404).json("Login data is required");
+//    } 
+
+// 	db("profiles")
+// 	  .select("*")
+// 	  .where({email: req.session.userData.email})
+// 	  .then(user => {
+ 
+// 	  	if (!user.length) {
+// 	  		return res.json("Email not found or wrong email");
+// 	  	} else {
+// 	  		// return res.json("You are successfully logged in");
+// 	  		console.log("users data", req.session.userData)
+// 	  		return res.status(200).json({data: user, status: "You are successfully logged in"})
+// 	  	}
+// 	  	// console.log(user);
+// 	  	// if (user.length === 0) {
+// 	  	// 	req.session.email = null;
+// 	  	// 	return res.json("email not found or wrong email")
+// 	  	// } else {
+// 	  	// return res.json("Your successfully logged in");
+// 	  	// }
+// 	  	// return res.json(user[0])
+// 	  }) 
+// })
+
+app.post("/login", (req, res, next) => {
+	const { email } = req.body;
+
+	// If the email is provided, store it in the session
+	// req.session.userData = { email };  // Use an object to store user-related data
+	// req.session.userData.email;
+	// req.session.userData.email = email;
+	req.session.email = email;
+
+	console.log("session", req.session.userData);
+	console.log("name", req.session.name);
+
+	// If email is not provided, return a 404 error
+	if (!email) {
+		return res.status(404).json("Login data is required");
+	}
+
+	// Check the database for the user with the provided email
+	db("profiles")
+		.select("*")
+		.where({ email: req.session.email })
+		.then(user => {
+			// If no user is found, destroy the session and return an error message
+			if (!user.length) {
+				req.session.destroy((err) => {
+					if (err) {
+						return res.status(500).json("Error destroying session");
+					}
+					return res.status(404).json("Email not found or wrong email");
+				});
+			} else {
+				// If the user exists, return the user data with a success message
+				console.log("User data:", req.session.userData);
+				return res.status(200).json({ data: user, status: "You are successfully logged in" });
+			}
+		})
+		.catch(err => {
+			// Handle any errors from the database query
+			console.error("Error querying database:", err);
+			return res.status(500).json("Error querying database");
+		});
+});
+
+
+
 
 app.put("/myinfo/:id", (req, res) => {
 	const { name, headline } = req.body;
 	const { id } = req.params;
 
-	req.session.name = name;
-	req.session.headline = headline;
+	req.session.userData.name = name;
+	req.session.userData.headline = headline;
 	const email = req.session.email;
 
 	if (!email) {
@@ -279,7 +516,7 @@ db.raw(`
         AND profiles.email = ?
         AND profile_info.profile_id = ?
       RETURNING *;
-	`, [req.session.name, req.session.headline, email , id])
+	`, [req.session.userData.name, req.session.userData.headline, email , id])
 .then(info => {
 	// res.json(info.rows)
 	if (info.rows.length > 0) {
