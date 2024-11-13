@@ -261,9 +261,12 @@ app.get("/*", (req, res) => {
 app.post("/signup", (req, res) => {
 	// const { name, email, password } = req.body;
 	const { email} = req.body;
-	// const name = "Your name";
-	// const skill = "Your skills"
-	// const headline = "Your headline"
+	const name = "Your name";
+	const skill = "Your skills";
+	const headline = "Your headline";
+	const description = "description";
+  const image = "https://png.pngitem.com/pimgs/s/78-786293_1240-x-1240-0-avatar-profile-icon-png.png";
+
 
 	const usersData = {
 		description: "description",
@@ -288,13 +291,17 @@ app.post("/signup", (req, res) => {
 		skill: "your skills"
 	}
 
-	req.session.userData = usersData;
+	// req.session.userData = usersData;
 	// req.session.email = usersData.email;
 	req.session.email = email;
+	req.session.name = name;
+	req.session.headline = headline;
+	req.session.skill = skill;
+	req.session.image = image;
+	req.session.description = description;
+
 
 	// req.session.email = email;
-	// req.session.name = name;
-	// req.session.headline = headline;
 
 	if (!email) {
 		return res.status(400).json({Error: "Signup to use the App"})
@@ -324,7 +331,7 @@ app.post("/signup", (req, res) => {
 
 db("profiles")
   .select("*")
-  .where({ email }) // Check if email exists
+  .where({ email: req.session.email }) // Check if email exists
   .then((existingProfiles) => {
     console.log(existingProfiles);
     if (existingProfiles.length > 0) {
@@ -333,7 +340,7 @@ db("profiles")
 
     // Insert into "profiles" table if the email does not exist
     db("profiles")
-      .insert({ email })
+      .insert({ email: req.session.email })
       .returning("*")
       .then((profile) => {
         const profileId = profile[0].id;
@@ -341,7 +348,7 @@ db("profiles")
 
         // Insert into "profile_info" table
         db("profile_info")
-          .insert({ name: req.session.userData.name, headline: req.session.userData.headline, profile_id: profileId })
+          .insert({ name: req.session.name, headline: req.session.headline, profile_id: profileId })
           .returning("*")
           .then((profileInfo) => {
             console.log("Profile Info:", profileInfo);
@@ -349,7 +356,7 @@ db("profiles")
             // Insert into "skills" table
             db("skills")
               .insert({
-                skill: req.session.userData.skill,
+                skill: req.session.skill,
                 profile_id: profileId,
               })
               .returning("*")
@@ -359,7 +366,7 @@ db("profiles")
                 // Insert into "about" table
                 db("about")
                   .insert({
-                    description: req.session.userData.description,
+                    description: req.session.description,
                     profile_id: profileId,
                   })
                   .returning("*")
@@ -367,7 +374,7 @@ db("profiles")
                     // return res.json(aboutInfo);
                     // return res.json("Signup successfully!")
                     db("profile_photo")
-                      .insert({image: req.session.userData.image, profile_id: profileId})
+                      .insert({image: req.session.image, profile_id: profileId})
                       .returning("*")
                       .then((photo) => {
                       	return res.json("signup successfully!")
@@ -444,9 +451,15 @@ app.post("/login", (req, res, next) => {
 	// req.session.userData.email;
 	// req.session.userData.email = email;
 	req.session.email = email;
+	// req.session.name = name;
+	// req.session.userData.email = email;
 
-	console.log("session", req.session.userData);
+	console.log("session", req.session.email);
 	console.log("name", req.session.name);
+	console.log("headline", req.session.headline);
+	console.log("skill", req.session.skill);
+	console.log("description", req.session.description);
+	console.log("image", req.session.image);
 
 	// If email is not provided, return a 404 error
 	if (!email) {
@@ -468,7 +481,7 @@ app.post("/login", (req, res, next) => {
 				});
 			} else {
 				// If the user exists, return the user data with a success message
-				console.log("User data:", req.session.userData);
+				console.log("User data:", req.session.name);
 				return res.status(200).json({ data: user, status: "You are successfully logged in" });
 			}
 		})

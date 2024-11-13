@@ -34,7 +34,7 @@ function getOneProfileInfo(req, res) {
 
 	db("profiles")
 	  .select("*")
-	  .where({email: req.session.email, id: id})
+	  .where({email: req.session.email, id})
 	  .then(user => {
 	  	console.log(user)
 
@@ -197,7 +197,8 @@ function getOneProfileInfo(req, res) {
 
 // GET Profile's Information
 function getProfileInfo(req, res) {
-	const email = req.session.userData.email;
+	const email = req.session.email;
+	// const email = req.session.email;
 	// const profileName = req.session.email;
 	// const profileHeadline = req.session.headline;
 
@@ -319,9 +320,12 @@ function editProfileInfo(req, res) {
 	const { name, headline } = req.body;
 	const { id } = req.params;
 
+	// req.session.name = name;
+	const email = req.session.email;
 	req.session.name = name;
 	req.session.headline = headline;
-	const email = req.session.email;
+	// req.session.headline = headline;
+
 
 	if (!name || !headline) {
 		return res.status(400).json({ Error: "name & headline are needed" });
@@ -332,22 +336,41 @@ function editProfileInfo(req, res) {
 		return res.status(400).json("Login to update profile info");
 	} 
 
-console.log(req.session.name);
-console.log(headline);
-console.log(id)
+console.log("name ---------", req.session.name);
+console.log("headline ---------", headline);
+console.log("id ---------", id)
+console.log("email ---------", email)
 
-	editProfileInfoModel(req.session.name, req.session.headline, email, id)
-		.then((info) => {
-			if (info.rows.length > 0) {
-				return res.status(200).json(info.rows);
-			} else {
-				return res.status(404).json("User exists but not found email to update")
-			}
+
+editProfileInfoModel(name, headline,id)
+     .then(info => {
+     	console.log(info)
+     	return res.json({
+     		message: "profile info updated successfully!",
+         Data: info,
+     })
+     })
+
+
+	// editProfileInfoModel( name, headline, email, id)
+	// 	.then((info) => {
+	// 		if (info.length > 0) {
+	// 			console.log("info", info)
+	// 			return res.status(200).json(info.rows);
+	// 		} else {
+	// 			return res.status(404).json("User exists but not found email to update")
+	// 		}
+
+	// 		// return res.json(info.rows)
+
 		  
-		})
-		.catch(err => {
-			res.status(500).json({error: `${err}`});
-		})
+	// 	})
+	// 	.catch(err => {
+	// 		res.status(500).json({error: `${err}`});
+	// 	})
+
+
+
 
 }
 
