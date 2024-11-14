@@ -232,6 +232,7 @@ app.get("/all-users/:id", isAuthenticated, (req, res, next) => {
 	  .where({id: id})
 	  .then(profile => {
 	  	// res.json(profile)
+	  	if (profile.length > 0) {
 	  	const profileId = profile[0].id
 	  	return db("profile_info")
 	  	         .select("*")
@@ -239,6 +240,9 @@ app.get("/all-users/:id", isAuthenticated, (req, res, next) => {
 	  	         .then(info => {
 	  	         	res.json(info)
 	  	         })
+	  	} else {
+	  		return res.json({message: "user doesn't exists"})
+	  	}
 	  })
 })
 
