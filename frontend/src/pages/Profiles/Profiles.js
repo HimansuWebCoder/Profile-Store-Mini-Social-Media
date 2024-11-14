@@ -70,7 +70,7 @@ function Profiles({ mode, setMode }) {
 					className="profiles-info-container"
 				>
 					
-					<Link to={`/user/${user.id}`}>
+					<Link to={`/user/${user.profile_id}`}>
 					   <UsersPhoto img={user.image} />
 					</Link>
 					<div>

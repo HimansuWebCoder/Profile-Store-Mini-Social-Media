@@ -227,23 +227,32 @@ app.get("/all-users/:id", isAuthenticated, (req, res, next) => {
 
 	// const email = req.session.email;
 
-	db("profiles")
-	  .select("*")
-	  .where({id: id})
-	  .then(profile => {
-	  	// res.json(profile)
-	  	if (profile.length > 0) {
-	  	const profileId = profile[0].id
-	  	return db("profile_info")
-	  	         .select("*")
-	  	         .where({profile_id: profileId})
-	  	         .then(info => {
-	  	         	res.json(info)
-	  	         })
-	  	} else {
-	  		return res.json({message: "user doesn't exists"})
-	  	}
-	  })
+	// db("profiles")
+	//   .select("*")
+	//   .where({id: id})
+	//   .then(profile => {
+	//   	// res.json(profile)
+	//   	if (profile.length > 0) {
+	//   	const profileId = profile[0].id
+	//   	return db("profile_info")
+	//   	         .select("*")
+	//   	         .where({profile_id: profileId})
+	//   	         .then(info => {
+	//   	         	res.json(info)
+	//   	         })
+	//   	} else {
+	//   		return res.json({message: "user doesn't exists"})
+	//   	}
+	//   })
+
+	  db("profile_info")
+	     .join("profiles", "profile_info.profile_id", "=", "profiles.id")
+	     .select("*")
+	     .where({profile_id: id})
+	     .then(user => {
+	     	console.log(user)
+	     	res.json(user)
+	     })
 })
 
 app.get("/all", (req, res) => {
