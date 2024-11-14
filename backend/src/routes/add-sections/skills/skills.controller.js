@@ -15,10 +15,7 @@ function getSkills(req, res) {
 		return res.status(404).json({Error: "Login to see user skills"})
 	}
 
-	getSkillsModel()
-	    .join("profiles", "skills.profile_id", "=", "profiles.id")
-	    .select("*")
-	    .where({email: email})
+	getSkillsModel(email)
 		.then((skillsData) => {
 			if (skillsData.length > 0) {
 				// either > 0 or !== 0
@@ -146,25 +143,58 @@ function editSkill(req, res) {
 // DELETE Skill
 function deleteSkill(req, res) {
 	const { id } = req.params;
+    const email = req.session.email;
 
-	deleteSkillModel(id)
-		.then((deletedSkill) => {
-			// res.json({ result: `Successfully Deleted: ${result[0]}` });
-			if (deletedSkill.length === 0) {
-				// or result.length > 0
-				return res.status(404).json({ Error: "Skill does not exist" });
-			} else {
-				return res.status(200).json({
-					message: "Skill Deleted Successfully",
+    if (!email) {
+    	return res.status(400).json({Error: "Login to delete skills"})
+    }
+
+    // db("profiles")
+    //   .select("*")
+    //   .where({email: email})
+    //   .then(profile => {
+    //   	const profileId = profile[0].id
+	// 	deleteSkillModel(id)
+	// 		.then((deletedSkill) => {
+	// 			// res.json({ result: `Successfully Deleted: ${result[0]}` });
+	// 			if (deletedSkill.length === 0) {
+	// 				// or result.length > 0
+	// 				return res.status(404).json({ Error: "Skill does not exist" });
+	// 			} else {
+	// 				return res.status(200).json({
+	// 					message: "Skill Deleted Successfully",
+	// 				});
+	// 			}
+	// 		})
+	// 		.catch((err) => {
+	// 			console.error(`Failed to delete skill: ${err}`);
+	// 			return res.status(500).json({
+	// 				error: "Internal Server Error",
+	// 			});
+	// 		});
+
+    //   })
+
+		deleteSkillModel(id)
+			.then((deletedSkill) => {
+				// res.json({ result: `Successfully Deleted: ${result[0]}` });
+				if (deletedSkill.length === 0) {
+					// or result.length > 0
+					return res.status(404).json({ Error: "Skill does not exist" });
+				} else {
+					return res.status(200).json({
+						message: "Skill Deleted Successfully",
+					});
+				}
+			})
+			.catch((err) => {
+				console.error(`Failed to delete skill: ${err}`);
+				return res.status(500).json({
+					error: "Internal Server Error",
 				});
-			}
-		})
-		.catch((err) => {
-			console.error(`Failed to delete skill: ${err}`);
-			return res.status(500).json({
-				error: "Internal Server Error",
 			});
-		});
+
+  
 }
 
 module.exports = {

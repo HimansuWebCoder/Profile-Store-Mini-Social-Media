@@ -152,51 +152,24 @@ app.put("/api/upload/:id", upload.single("avatar"), function (req, res, next) {
 			// Upload the image
 			const result = await cloudinary.uploader.upload(imagePath, options);
 			// console.log(result);
-
-
-	return db.raw(`
-      UPDATE profile_photo
-      SET image = ? 
-      FROM profiles 
-      WHERE profile_photo.profile_id = profiles.id 
-        AND profiles.email = ?
-        AND profile_photo.profile_id = ?
-      RETURNING *;
-	`, [image, email , id])
-	.then(photo => {
-     
-	  if (photo.length > 0) {
+			db("profile_photo")
+				.where({ profile_id: id })
+				.update({ image: result.url })
+				.returning("*")
+				.then((data) => {
+					if (data.length > 0) {
 						// or data.length !== 0 must not be zero either > 0 or !== 0
-						console.log(photo);
+						console.log(data);
 						return res.status(200).json({
 							message: "Profile photo updated successfully",
-							data: photo,
+							data: data,
 						});
 					} else {
 						return res.status(404).json({
 							Error: "Profile photo not found to update",
 						});
 					}
-				})
-
-			// db("profile_photo")
-			// 	.where({ id })
-			// 	.update({ image: result.url })
-			// 	.returning("*")
-			// 	.then((data) => {
-			// 		if (data.length > 0) {
-			// 			// or data.length !== 0 must not be zero either > 0 or !== 0
-			// 			console.log(data);
-			// 			return res.status(200).json({
-			// 				message: "Profile photo updated successfully",
-			// 				data: data,
-			// 			});
-			// 		} else {
-			// 			return res.status(404).json({
-			// 				Error: "Profile photo not found to update",
-			// 			});
-			// 		}
-			// 	});
+				});
 		} catch (error) {
 			console.error(error);
 			return res.status(500).json({

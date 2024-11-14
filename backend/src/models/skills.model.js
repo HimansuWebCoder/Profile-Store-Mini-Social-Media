@@ -1,9 +1,41 @@
 const db = require("../config/db");
 
-function getSkillsModel() {
+
+
+// you can also use raw sql
+// db.raw(`
+//     SELECT skills.*, profiles.* 
+//     FROM skills
+//     JOIN profiles ON skills.profile_id = profiles.id
+//     WHERE profiles.email = ?
+// `, [email]);
+
+
+
+// or more simple 
+// db("skills")
+//    .join("profiles", "skills.profile_id", "=", "profiles.id")
+//    .select(
+//        "skills.*",    // Selects all columns from skills with "skills." prefix
+//        "profiles.*"   // Selects all columns from profiles with "profiles." prefix
+//    )
+//    .where({ "profiles.email": email });
+
+function getSkillsModel(email) {
 	// return db.select("*").from("skills");
-	return db("skills").select("*");
+	return db("skills")
+	       .join("profiles", "skills.profile_id", "=", "profiles.id")
+	       .select(
+	    "skills.id as skill_id",
+       "skills.profile_id",
+       "skills.skill",
+       "profiles.id as profile_id",
+       "profiles.email",
+       "profiles.likes_count",
+       "profiles.password")
+	       .where({email: email})
 }
+	       // .returning("*"); // avoid this in get request this only need in INSERT, UPDATE, DELETE in here no need because this is by default select from ok!
 
 function postSkillModel(skillName, profileId) {
 	// return db("projects").insert({ project_url, profile_id }).returning("*");
@@ -21,7 +53,7 @@ function editSkillModel(id, skill) {
 }
 
 function deleteSkillModel(id) {
-	return db("skills").where({ profile_id: id }).del().returning("*");
+	return db("skills").where({ id }).del().returning("*");
 }
 
 module.exports = {

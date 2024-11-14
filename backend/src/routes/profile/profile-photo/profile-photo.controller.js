@@ -41,7 +41,7 @@ function getProfilePhoto(req, res, db) {
 function editProfilePhoto(req, res, db) {
 	// const id = req.params.profilePhotoId;
 	// const { profilePhotoId } = req.params;
-	// const { image, profileId } = req.body;
+	const { image } = req.body;
 	const email = req.session.email;
 	const { id } = req.params;
 
@@ -55,7 +55,7 @@ function editProfilePhoto(req, res, db) {
 	// 		.json({ Error: "image or profileId is required" });
 	// }
 
-	if (!image || !profileId) {
+	if (!image) {
 		return res
 			.status(400)
 			.json({ Error: "image or profileId is required" });
