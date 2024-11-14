@@ -20,6 +20,7 @@ function submitHandler() {
 		        navigate("/admin");
 		      } else {
 		        console.error("Login failed");
+		        alert("email incorrect or Login failed or")
 		      }
 		})
 		 .catch((error) => {

@@ -33,7 +33,7 @@ function Admin() {
 				  }, 2000);
 				} else {
 					alert("Login to see your admin")
-					// navigate("/login")
+					navigate("/login")
 				}
 			});
 	}, [location]);

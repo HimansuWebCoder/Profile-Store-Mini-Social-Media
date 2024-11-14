@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { apiUrl } from "../../utils/utils";
 import { ThemeContext } from "../../ThemeContext";
 import "./Profiles.css";
@@ -16,6 +16,7 @@ function Profiles({ mode, setMode }) {
 	const [loading, setLoading] = useState(true);
 	const { isDarkMode, toggleTheme } = useContext(ThemeContext);
 	// const [ profileImg, setProfileImg ] = useState("")
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		fetch(`${apiUrl}/all-users`, {
@@ -38,11 +39,15 @@ function Profiles({ mode, setMode }) {
 				// 	setProfileIntro(profilesData[0].headline)
 				// 	setLoading(false)
 				// })
-
-				setUsers(profilesData);
+                 if (profilesData) {
+					setUsers(profilesData);
+					setLoading(false)
+                   } else {
+                   	alert("Login to see Profiles")
+                   	navigate("/login")
+                   }
 				// setProfileIntro(profilesData);
 				// setProfileImg(profilesData)
-				setLoading(false)
 			});
 	}, []);
 
