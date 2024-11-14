@@ -20,7 +20,9 @@ function About() {
 				console.log("about data", aboutData);
 				setTimeout(() => {
 					setAbout(aboutData[0].description);
-					setAboutId(aboutData[0].id);
+					setAboutId(aboutData[0].profile_id);
+					console.log("about id:", aboutData[0].profile_id)
+					console.log("description:", aboutData)
 					setLoading(false);
 				}, 1000);
 			});

@@ -14,7 +14,10 @@ function SkillEdit() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		fetch(`${apiUrl}/api/skills`)
+		fetch(`${apiUrl}/api/skills`, {
+			method: "get",
+			credentials: "include"
+		})
 			.then((res) => res.json())
 			.then((skillsData) => {
 				console.log("skills data:", skillsData);

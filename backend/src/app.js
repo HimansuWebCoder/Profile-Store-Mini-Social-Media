@@ -36,30 +36,30 @@ require("dotenv").config();
 // );
 
 // for development and memory() store only
-app.use(
-	session({
-		secret: "@@@***###)))",
-		resave: false,
-		saveUninitialized: false,
-		cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24}, // 1 day expiration for session cookie
-	}),
-);
-
-// app.set('trust proxy', 1);
-
-// for production only
 // app.use(
 // 	session({
 // 		secret: "@@@***###)))",
 // 		resave: false,
 // 		saveUninitialized: false,
-// 		cookie: { 
-// 			secure: true,
-// 			httpOnly: true,  
-//             sameSite: "None", 
-// 		},
+// 		cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24}, // 1 day expiration for session cookie
 // 	}),
 // );
+
+// app.set('trust proxy', 1);
+
+// for production only
+app.use(
+	session({
+		secret: "@@@***###)))",
+		resave: false,
+		saveUninitialized: false,
+		cookie: { 
+			secure: true,
+			httpOnly: true,  
+            sameSite: "None", 
+		},
+	}),
+);
 
 
 // Configuration

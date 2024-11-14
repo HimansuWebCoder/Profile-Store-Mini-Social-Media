@@ -18,7 +18,8 @@ function SkillPost() {
 		fetch(`${apiUrl}/api/skills`, {
 			method: "post",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ skill: skillInput }),
+			body: JSON.stringify({ skillName: skillInput }),
+			credentials: "include"
 		})
 			.then((res) => res.json())
 			.then((skillData) => {
