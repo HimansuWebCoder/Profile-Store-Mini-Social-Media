@@ -34,21 +34,21 @@ function PopupEdit({ msg, redirect }) {
 					/>
 					<p>{msg}</p>
 					{/*You can only use redirect to admin*/}
-					{/*<Link id="link" to={redirect}>
+					<Link id="link" to={redirect}>
 											<img
 												id="popup-cancel-img"
 												src="/assets/images/cancel.png"
 												alt="cancel popup"
 											/>
-										</Link>*/}
+										</Link>
                        {/*You can hide after popup show to click this*/}
-					<Link id="link"  onClick={popupHide}>
+					{/*<Link id="link"  onClick={popupHide}>
 						<img
 							id="popup-cancel-img"
 							src="/assets/images/cancel.png"
 							alt="cancel popup"
 						/>
-					</Link>
+					</Link>*/}
 				</div>
 			)}
 		</div>
