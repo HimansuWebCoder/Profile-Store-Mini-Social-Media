@@ -33,10 +33,12 @@ function Admin() {
 				  }, 2000);
 				} else {
 					alert("Login to see your admin")
-					navigate("/login")
+					// navigate("/login")
 				}
 			});
 	}, [location]);
+
+	
 	return (
 		<div
 			style={{ backgroundColor: isDarkMode ? "#395B64" : "#092635" }}
