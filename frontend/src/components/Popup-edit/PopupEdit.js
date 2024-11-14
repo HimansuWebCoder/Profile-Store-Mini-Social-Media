@@ -5,6 +5,7 @@ import "./PopupEdit.css";
 
 function PopupEdit({ msg, redirect }) {
 	const [loader, setLoader] = useState(true);
+	const [hidePopup, setHidePopup] = useState("block");
 	useEffect(() => {
 		if (msg) {
 			setTimeout(() => setLoader(false), 1000);
@@ -16,8 +17,12 @@ function PopupEdit({ msg, redirect }) {
 	// 	setLoader(false);
 	// }, 1000);
 
+	function popupHide() {
+      setHidePopup("none")
+	}
+
 	return (
-		<div className="popup-edit-container">
+		<div style={{display: hidePopup }} className="popup-edit-container">
 			{loader ? (
 				<h2 id="popup-edit-header-loader">Loading...</h2>
 			) : (
@@ -28,7 +33,16 @@ function PopupEdit({ msg, redirect }) {
 						alt="check"
 					/>
 					<p>{msg}</p>
-					<Link id="link" to={redirect}>
+					{/*You can only use redirect to admin*/}
+					{/*<Link id="link" to={redirect}>
+											<img
+												id="popup-cancel-img"
+												src="/assets/images/cancel.png"
+												alt="cancel popup"
+											/>
+										</Link>*/}
+                       {/*You can hide after popup show to click this*/}
+					<Link id="link"  onClick={popupHide}>
 						<img
 							id="popup-cancel-img"
 							src="/assets/images/cancel.png"

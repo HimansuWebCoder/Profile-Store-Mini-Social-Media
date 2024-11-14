@@ -55,21 +55,23 @@ function SkillEdit() {
 								id="skill-edit-deleteBtn"
 								onClick={() => DeleteSkill(skill.skill_id)}
 							>
-								<img
+								{/*<img
 									className="skill-edit-img"
 									src="/assets/images/delete.png"
 									alt="delete skills"
-								/>
+								/>*/}
+							Delete
 							</button>
 							<button
 								id="skill-edit-cancelBtn"
 								onClick={() => navigate("/admin")}
 							>
-								<img
+								{/*<img
 									className="skill-edit-img"
 									src="/assets/images/cancel1.png"
 									alt="cancel"
-								/>
+								/>*/}
+							  Cancel
 							</button>
 						</>
 					))}
