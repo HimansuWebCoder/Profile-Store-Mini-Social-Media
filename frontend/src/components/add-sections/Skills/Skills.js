@@ -24,6 +24,7 @@ function Skills() {
 					setTimeout(() => {
 						setSkills(skills);
 						setError("");
+						console.log("all skills", skills)
 						setLoading(false);
 					}, 1000);
 				}

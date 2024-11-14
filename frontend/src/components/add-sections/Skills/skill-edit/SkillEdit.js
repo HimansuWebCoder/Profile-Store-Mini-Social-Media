@@ -31,6 +31,7 @@ function SkillEdit() {
 	function DeleteSkill(id) {
 		fetch(`${apiUrl}/api/skills/${id}`, {
 			method: "delete",
+			credentials: "include"
 		})
 			.then((res) => res.json())
 			.then((deletedSkillData) => {
@@ -47,12 +48,12 @@ function SkillEdit() {
 					<h1>Edit your skills</h1>
 					{skills.map((skill) => (
 						<>
-							<p id="skills-name" key={skill.id}>
+							<p id="skills-name" key={skill.skill_id}>
 								{skill.skill}
 							</p>
 							<button
 								id="skill-edit-deleteBtn"
-								onClick={() => DeleteSkill(skill.id)}
+								onClick={() => DeleteSkill(skill.skill_id)}
 							>
 								<img
 									className="skill-edit-img"
