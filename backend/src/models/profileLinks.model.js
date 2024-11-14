@@ -13,7 +13,7 @@ function editProfileLinkModel(id, urls) {
 	// if you need a specifi user so use profile_id
 	// you can name anything here that relate to original name from controller req.body name
 	return db("profile_links")
-		.where({ id }) // if same name from req.body and from database then there is no need to write double instead use destructuring and rest
+		.where({ profile_id: id }) // if same name from req.body and from database then there is no need to write double instead use destructuring and rest
 		.update(urls)
 		.returning("*");
 }

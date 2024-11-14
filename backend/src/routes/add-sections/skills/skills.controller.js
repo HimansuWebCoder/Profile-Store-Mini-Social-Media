@@ -5,6 +5,8 @@ const {
 	deleteSkillModel,
 } = require("../../../models/skills.model");
 
+const db = require("../../../config/db")
+
 // GET Skills
 function getSkills(req, res) {
 	const email = req.session.email;
@@ -48,10 +50,16 @@ function getSkills(req, res) {
 
 // POST Skills
 function postSkill(req, res) {
-	const { skill } = req.body;
+	const { skillName } = req.body;
 	// const { skill, profile_id } = req.body;
+	const email = req.session.email;
+	 req.session.skill = skillName;
 
-	if (!skill) {
+	if (!email) {
+		return res.status(400).json({Error: "Login to post skills"});
+	}
+
+	if (!skillName) {
 		return res.status(400).json({ error: "skillName  must required" });
 	}
 
@@ -61,28 +69,45 @@ function postSkill(req, res) {
 	// 		.json({ Error: "skillName & profileId must required" });
 	// }
 
-	postSkillModel(skill)
-		.then((skill) => {
-			return res.status(201).json({
-				message: "Skill added successfully",
-				data: skill,
-			});
-		})
-		.catch((error) => {
-			console.error(
-				`Failed to Insert skill to skills table in DB: ${error}`,
-			);
-			return res.status(500).json({
-				Error: "Internal Server Error",
-			});
-		});
+	db("profiles")
+	  .select("*")
+	  .where({email: email})
+	  .then(profile => {
+	  	const profileId = profile[0].id
+	  	console.log("profile id", profileId)
+	  	console.log("profiles", profile)
+
+		return postSkillModel(skillName, profileId)
+				.then((skill) => {
+					return res.status(201).json({
+						message: "Skill added successfully",
+						data: skill,
+					});
+				})
+				.catch((error) => {
+					console.error(
+						`Failed to Insert skill to skills table in DB: ${error}`,
+					);
+					return res.status(500).json({
+						Error: "Internal Server Error",
+					});
+				});
+
+	  })
+
 }
 
 // UPDATE Skill
 function editSkill(req, res) {
 	// const { skillName } = req.body;
-	const { skillName, profileId } = req.body;
-	const id = req.params.skillId;
+	// const { skillName, profileId } = req.body;
+	const { skillName } = req.body;
+	const id = req.params.id;
+	const email = req.session.email;
+
+	if (!email) {
+		return res.status(400).json({Error: "You need to login to update skills"})
+	}
 
 	if (!skillName) {
 		return res
@@ -90,11 +115,13 @@ function editSkill(req, res) {
 			.json({ Error: "skillName and profileId must needed" });
 	}
 
-	db("skills")
+		// .where({ id: id, profile_id: profileId })
 		// .where({ id: id })
-		.where({ id: id, profile_id: profileId })
 		// .where({ profile_id: profileId }) // because when I insert before skill in skills table I did not include profile_id foreign key so id: id not matched so only profile_id: profileId give if matched then I did this ({id: id, profile_id: profileId});
+
+	db("skills")
 		.update({ skill: skillName })
+		.where({profile_id: id})
 		.returning("*")
 		.then((skillsData) => {
 			if (skillsData.length !== 0) {

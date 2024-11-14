@@ -48,11 +48,18 @@ function editAboutProfile(req, res) {
 	const { description } = req.body;
 	const { id } = req.params;
 	// const { description, profile_id } = req.body;
+	const email = req.session.email;
+	req.session.description = description;
 
 	if (!description) {
 		return res
 			.status(400)
 			.json({ Error: "description or profileId must needed" });
+	}
+
+
+	if (!email) {
+		return res.status(400).json({Error: "You need to login to update about profile"})
 	}
 
 	// if (!description || !profile_id) {

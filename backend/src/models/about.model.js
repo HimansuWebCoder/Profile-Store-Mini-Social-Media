@@ -10,7 +10,7 @@ function getAboutModel() {
 function editAboutModel(id, description) {
 	// anything name you can give here but that must matched to controller's models actual value used
 	return db("about")
-		.where({ id })
+		.where({ profile_id: id })
 		.update({ description }) // this is because description : description is same so only one we can give one, or if your req value is different you must give otherwise get error
 		.returning("*");
 }
