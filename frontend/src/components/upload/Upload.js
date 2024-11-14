@@ -39,6 +39,7 @@ function Upload() {
 				{
 					method: "put",
 					body: formData,
+					credentials: "include"
 				},
 			);
 

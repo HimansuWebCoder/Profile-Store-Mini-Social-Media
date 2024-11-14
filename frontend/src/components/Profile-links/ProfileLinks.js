@@ -17,7 +17,10 @@ function ProfileLinks() {
 	const [links, setLinks] = useState([]);
 
 	useEffect(() => {
-		fetch(`${apiUrl}/api/profile-links`)
+		fetch(`${apiUrl}/api/profile-links`, {
+			method: "get",
+			credentials: "include"
+		})
 			.then((res) => res.json())
 			.then((profileLinks) => {
 				setLinks(profileLinks);

@@ -89,11 +89,19 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParserMiddleware);
 app.use(corsMiddleware);
 
+// function isAuthenticated(req, res, next) {
+// 	if(req.session.email) {
+// 		next();
+// 	} else {
+// 		res.status(401).json({message: "Unauthorized, Please log in first."});
+// 	}
+// }
+
 function isAuthenticated(req, res, next) {
-	if(req.session.email) {
+	if (req.session.email) {
 		next();
 	} else {
-		res.status(401).json({message: "Unauthorized, Please log in first."});
+		res.status(401).json({message: "Unauthorized, please log in first."});
 	}
 }
 
@@ -212,6 +220,26 @@ app.get("/all-users", isAuthenticated, (req, res, next) => {
 	  .catch(error => {
 	  	next(error);
 	  });
+})
+
+app.get("/all-users/:id", isAuthenticated, (req, res, next) => {
+	const {id} = req.params;
+
+	// const email = req.session.email;
+
+	db("profiles")
+	  .select("*")
+	  .where({id: id})
+	  .then(profile => {
+	  	// res.json(profile)
+	  	const profileId = profile[0].id
+	  	return db("profile_info")
+	  	         .select("*")
+	  	         .where({profile_id: profileId})
+	  	         .then(info => {
+	  	         	res.json(info)
+	  	         })
+	  })
 })
 
 app.get("/all", (req, res) => {

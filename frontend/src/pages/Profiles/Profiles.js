@@ -17,6 +17,7 @@ function Profiles({ mode, setMode }) {
 	const { isDarkMode, toggleTheme } = useContext(ThemeContext);
 	// const [ profileImg, setProfileImg ] = useState("")
 	const navigate = useNavigate();
+	const [ userId, setUserId ] = useState("");
 
 	useEffect(() => {
 		fetch(`${apiUrl}/all-users`, {
@@ -69,7 +70,9 @@ function Profiles({ mode, setMode }) {
 					className="profiles-info-container"
 				>
 					
-					<UsersPhoto img={user.image} />
+					<Link to={`/user/${user.id}`}>
+					   <UsersPhoto img={user.image} />
+					</Link>
 					<div>
                       <h2 >{user.name}</h2>
                       <h2 >{user.headline}</h2>
