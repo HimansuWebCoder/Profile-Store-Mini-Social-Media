@@ -263,10 +263,10 @@ app.get("/*", (req, res) => {
 app.post("/signup", (req, res) => {
 	// const { name, email, password } = req.body;
 	const { email} = req.body;
-	const name = null;
-	const skill = null;
-	const headline = null;
-	const description = null;
+	const name = "";
+	const skill = "";
+	const headline = "";
+	const description = "";
   const image = "https://png.pngitem.com/pimgs/s/78-786293_1240-x-1240-0-avatar-profile-icon-png.png";
 
 
