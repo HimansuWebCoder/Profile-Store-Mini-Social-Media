@@ -45,7 +45,8 @@ require("dotenv").config();
 // 	}),
 // );
 
-// app.set('trust proxy', 1);
+// Must set this proxy 
+app.set('trust proxy', 1);
 
 // for production only
 app.use(
