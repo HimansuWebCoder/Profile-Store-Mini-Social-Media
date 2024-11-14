@@ -22,7 +22,11 @@ function UserCard() {
 		.then(res => res.json())
 		.then(user => {
 			console.log(user)
+			if (user.length > 0) {
 			setUsers(user);
+			} else {
+				alert("user not found");
+			}
 
 		})
 	}, [])
