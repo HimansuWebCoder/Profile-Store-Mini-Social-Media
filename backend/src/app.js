@@ -250,8 +250,34 @@ app.get("/all-users/:id", isAuthenticated, (req, res, next) => {
 	     .select("*")
 	     .where({profile_id: id})
 	     .then(user => {
-	     	console.log(user)
-	     	res.json(user)
+	     	// console.log(user)
+	     	// res.json(user)
+	     	const userInfo = user;
+
+	     	if (user) {
+	     		return db("about")
+	     		       .select("*")
+	     		       .where({profile_id: id})
+	     		       .then(about => {
+	     		       	 // res.json(about)
+	     		       	// res.json({about: about, info: userInfo })
+
+	     		       	const aboutInfo = about;
+	     		       	  db("skills")
+	     		       	    .select("*")
+	     		       	    .where({profile_id: id})
+	     		       	    .then(skill => {
+	     		       	    	 // res.json({user: userInfo, about: aboutInfo, skill: skill })
+	     		       	    	return db("profile_photo")
+	     		       	    	        .select("*")
+	     		       	    	        .where({profile_id: id})
+	     		       	    	        .then(photo => {
+	     		       	    	        	const userPhoto = photo;
+	     		       	    	        	res.json({user: userInfo, about: aboutInfo, skill: skill, profilePhoto: userPhoto })
+	     		       	    	        })
+	     		       	    })
+	     		       })
+	     	}
 	     })
 })
 
