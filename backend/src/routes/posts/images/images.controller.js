@@ -102,29 +102,34 @@ function editImage(req, res, db) {
 
 function deleteImage(req, res, db) {
 	// res.send("delete images");
+	const { id } = req.params;
 	const email = req.session.email;
 
 	if (!email) {
 		return res.status(400).json({Error: "Login to delete post"});
 	}
 
-	const { id } = req.params;
-
 	db("profiles")
-	   .where({id, email: email})
-	   .then(user => {
-	   	// console.log(user)
-	   	// const userId = user
-		return db("images")
-			.del()
-			.where({ id })
-			.returning("*")
-			.then((deletedImg) => {
-				res.json({
-					message: "deleted image Successfully",
-				});
-			});
-	   })
+	  .join("images", "profiles.id", "=", "images.profile_id")
+	  .select("images.id as image_id")
+	  .where({"images.id": id, email: email})
+	  .first()
+	  .then(images => {
+	  	 if (!images) {
+	      return res.status(404).json("No image found for this post.");
+	    }
+	     // const imageId = images.image_id;
+	    console.log(images)
+
+	  	console.log(images)
+	  	return db("images")
+		      .where({id: images.image_id}) // Delete images with matching IDs
+		      .del()
+		      .returning("*")
+		      .then(deleteImg => {
+		      	return res.json("post deleted successfully")
+		      })
+	  	})
 }
 
 module.exports = {
