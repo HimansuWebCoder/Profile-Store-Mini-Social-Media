@@ -51,8 +51,8 @@ function postImage(req, res) {
 		return res.status(400).json({Error: "Login to post images"});
 	}
 
-	const fullImgUrl = `http://localhost:8000/uploads/${req.file.filename}`;
-	// const fullImgUrl = `https://profile-store-mini-social-media.onrender.com/uploads/${req.file.filename}`;
+	// const fullImgUrl = `http://localhost:8000/uploads/${req.file.filename}`;
+	const fullImgUrl = `https://profile-store-mini-social-media.onrender.com/uploads/${req.file.filename}`;
 
 	db("profiles")
 	   .select("*")
@@ -102,16 +102,29 @@ function editImage(req, res, db) {
 
 function deleteImage(req, res, db) {
 	// res.send("delete images");
+	const email = req.session.email;
+
+	if (!email) {
+		return res.status(400).json({Error: "Login to delete post"});
+	}
+
 	const { id } = req.params;
-	db("images")
-		.del()
-		.where({ id })
-		.returning("*")
-		.then((deletedImg) => {
-			res.json({
-				message: "deleted image Successfully",
+
+	db("profiles")
+	   .where({id, email: email})
+	   .then(user => {
+	   	// console.log(user)
+	   	// const userId = user
+		return db("images")
+			.del()
+			.where({ id })
+			.returning("*")
+			.then((deletedImg) => {
+				res.json({
+					message: "deleted image Successfully",
+				});
 			});
-		});
+	   })
 }
 
 module.exports = {
