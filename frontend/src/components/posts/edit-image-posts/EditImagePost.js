@@ -43,6 +43,7 @@ function EditImagePost() {
 			const response = await fetch(`${apiUrl}/api/posts/images/${id}`, {
 				method: "put",
 				body: formData,
+				credentials: "include"
 			});
 
 			if (response.ok) {

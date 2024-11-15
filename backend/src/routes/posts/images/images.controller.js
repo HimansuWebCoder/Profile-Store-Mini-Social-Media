@@ -80,24 +80,54 @@ function postImage(req, res) {
 }
 
 function editImage(req, res, db) {
+	const id = req.params.id;
+	// const { image } = req.body;
 	// const fullImgUrl = `http://localhost:8000/uploads/${req.file.filename}`;
 	const fullImgUrl = `https://profile-store-mini-social-media.onrender.com/uploads/${req.file.filename}`;
 
-	const { image } = req.body;
-	const id = req.params.id;
-	db("images")
-		.where({ id: id })
-		.update({ image_url: fullImgUrl })
-		.returning("*")
-		.then((img) => {
-			res.json({
-				message: "ImagePost updated Successfully",
-				data: img,
-			});
-		})
-		.catch((error) => {
-			res.json(error);
-		});
+	const email = req.session.email;
+
+	if (!email) {
+		return res.status(400).json({Error: "Login to update post"});
+	}
+
+
+
+	// db("images")
+	// 	.where({ id: id })
+	// 	.update({ image_url: fullImgUrl })
+	// 	.returning("*")
+	// 	.then((img) => {
+	// 		res.json({
+	// 			message: "ImagePost updated Successfully",
+	// 			data: img,
+	// 		});
+	// 	})
+	// 	.catch((error) => {
+	// 		res.json(error);
+	// 	});
+
+	db("profiles")
+	  .join("images", "profiles.id", "=", "images.profile_id")
+	  .select("images.id as image_id")
+	  .where({"images.id": id, email: email})
+	  .first()
+	  .then(images => {
+	  	if (!images) {
+	  		return res.status(404).json("No image found to update this post")
+	  	}
+
+	  	console.log(images)
+
+	  	return db("images")
+	  	      .update({image_url: fullImgUrl})
+	  	      .where({id: images.image_id})
+	  	      .returning("*")
+	  	      .then(updateImg => {
+	  	      	return res.json("Update post successfully!");
+	  	      })
+
+	  })
 }
 
 function deleteImage(req, res, db) {
@@ -121,7 +151,6 @@ function deleteImage(req, res, db) {
 	     // const imageId = images.image_id;
 	    console.log(images)
 
-	  	console.log(images)
 	  	return db("images")
 		      .where({id: images.image_id}) // Delete images with matching IDs
 		      .del()
