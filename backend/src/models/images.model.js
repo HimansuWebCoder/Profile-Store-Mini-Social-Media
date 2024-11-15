@@ -1,13 +1,14 @@
 const db = require("../config/db");
 
 function getImagesModel() {
-	return db("images").returning("image_url");
+	return db("profiles")
+	       .select("*");
 }
 
-function postImageModel(image) {
+function postImageModel(image, id) {
 	return db("images")
+		.insert({ image_url: image, profile_id: id })
 		.returning("image_url") // or we can return "*" all
-		.insert({ image_url: image });
 }
 
 module.exports = {

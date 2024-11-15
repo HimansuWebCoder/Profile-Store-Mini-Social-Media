@@ -7,10 +7,21 @@ const {
 } = require("../../../models/images.model");
 
 function getImages(req, res) {
+
+	const email = req.session.email;
+    
+    if (!email) {
+		return res.status(400).json({Error: "Login to see images"});
+	}
+
 	getImagesModel()
-		.then((img) => {
-			// console.log("fetched images:", img);
-			res.status(200).json(img);
+	    .join("images", "profiles.id", "=", "images.profile_id")
+	    .join("profile_info", "profiles.id", "=", "profile_info.profile_id")
+	    .join("profile_photo", "profiles.id", "=", "profile_photo.profile_id")
+	    .select("*", "images.id as image_id")
+		.then((usersPost) => {
+			console.log(usersPost)
+			return res.json(usersPost)
 		})
 		.catch((err) => {
 			res.status(500).json({ err: "Internal server error" });
@@ -31,24 +42,41 @@ function getImages(req, res) {
 
 function postImage(req, res) {
 	const { image } = req.body;
-	console.log("uploaded file: ", req.file);
-	console.log("uploaded file: ", req.body);
+	// console.log("uploaded file: ", req.file);
+	// console.log("uploaded file: ", req.body);
 
-	// const fullImgUrl = `http://localhost:8000/uploads/${req.file.filename}`;
-	const fullImgUrl = `https://profile-store-mini-social-media.onrender.com/uploads/${req.file.filename}`;
+	const email = req.session.email;
 
-	postImageModel(fullImgUrl)
-		.then((image) => {
-			console.log(image);
-			res.status(200).json({
-				message: "Post Uploaded Successfully",
-				data: image,
-			});
-		})
-		.catch((err) => {
-			res.status(500).json({ err: "Internal Server Error" });
-			console.log("Error happend insert images to DB", err);
-		});
+	if (!email) {
+		return res.status(400).json({Error: "Login to post images"});
+	}
+
+	const fullImgUrl = `http://localhost:8000/uploads/${req.file.filename}`;
+	// const fullImgUrl = `https://profile-store-mini-social-media.onrender.com/uploads/${req.file.filename}`;
+
+	db("profiles")
+	   .select("*")
+	   .where({email: email})
+	   .then(user => {
+	   	   const userId = user[0].id
+	   	  return postImageModel(fullImgUrl, userId)
+	   	         .then(postImage => {
+	   	         	return res.json({message: "poste successfully", data: postImage})
+	   	         })
+	   })
+
+	// postImageModel(fullImgUrl)
+	// 	.then((image) => {
+	// 		console.log(image);
+	// 		res.status(200).json({
+	// 			message: "Post Uploaded Successfully",
+	// 			data: image,
+	// 		});
+	// 	})
+	// 	.catch((err) => {
+	// 		res.status(500).json({ err: "Internal Server Error" });
+	// 		console.log("Error happend insert images to DB", err);
+	// 	});
 }
 
 function editImage(req, res, db) {

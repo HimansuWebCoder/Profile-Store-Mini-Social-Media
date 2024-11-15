@@ -26,6 +26,7 @@ function CreatePost() {
 			const response = await fetch(`${apiUrl}/api/posts/images`, {
 				method: "post",
 				body: formData,
+				credentials: "include"
 			});
 
 			if (response.ok) {

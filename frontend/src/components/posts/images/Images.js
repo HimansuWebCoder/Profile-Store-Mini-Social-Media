@@ -19,7 +19,10 @@ function Images() {
 	const [loader, setLoader] = useState(true);
 	const location = useLocation();
 	useEffect(() => {
-		fetch(`${apiUrl}/api/posts/images`)
+		fetch(`${apiUrl}/api/posts/images`, {
+			method: "get",
+			credentials: "include"
+		})
 			.then((res) => res.json())
 			.then((images) => {
 				console.log(images);
@@ -46,7 +49,10 @@ function Images() {
 	}
 
 	useEffect(() => {
-		fetch(`${apiUrl}/api/profiles`)
+		fetch(`${apiUrl}/api/profiles`, {
+			method: "get",
+			credentials: "include"
+		})
 			.then((res) => res.json())
 			.then((peopleLikes) => {
 				setLike(peopleLikes[3].likes_count);
@@ -104,7 +110,7 @@ function Images() {
 							// 		: "1px solid white",
 							// }}
 							className="post-sub-container"
-							key={img.id}
+							key={img.image_id}
 						>
 							<div
 								style={{
@@ -120,13 +126,14 @@ function Images() {
 									className="post-logo-edit-container"
 								>
 									<div className="profile-posted-img-main-container">
-										<ProfilePhoto
-											imgSrc="/assets/images/user.png"
-											className="profile-main-img-posted-container"
-										/>
+										<img style={{maxWidth: "50px", aspectRatio: "1 / 1", borderRadius: "50%"}} src={img.image} />
+									</div>
+									<div style={{width:"60%"}}>
+										<h3 style={{fontSize: "1rem"}}>{img.name}</h3>
+										<p style={{fontSize: "0.9rem"}}>{img.headline}</p>
 									</div>
 									<div>
-										<Link to={`/posts/${img.id}`}>
+										<Link to={`/posts/${img.image_id}`}>
 											<img
 												className="posted-image-logo"
 												src="/assets/images/menu.png"

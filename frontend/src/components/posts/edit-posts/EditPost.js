@@ -16,6 +16,7 @@ function EditPost({ redirectTo }) {
 	function deletePost() {
 		fetch(`${apiUrl}/api/posts/images/${id}`, {
 			method: "delete",
+			credentials: "include"
 		}).then(() => {
 			navigate("/posts");
 		});
@@ -26,6 +27,7 @@ function EditPost({ redirectTo }) {
 			method: "put",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ image_url: editPost }),
+			credentials: "include"
 		});
 	}
 
