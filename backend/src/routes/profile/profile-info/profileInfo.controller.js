@@ -9,6 +9,7 @@ const db = require("../../../config/db");
 
 function getOneProfileInfo(req, res) {
 	const email = req.session.email;
+	const password = req.session.password;
 	const { id } = req.params;
 
 	if (!email) {
@@ -34,7 +35,7 @@ function getOneProfileInfo(req, res) {
 
 	db("profiles")
 	  .select("*")
-	  .where({email: req.session.email, id})
+	  .where({email: req.session.email, id, password: req.session.password})
 	  .then(user => {
 	  	console.log(user)
 

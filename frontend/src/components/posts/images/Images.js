@@ -64,10 +64,14 @@ function Images() {
 			method: "post",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ profile_id: 1 }),
+			credentials: "include"
 		})
 			.then((res) => res.json())
 			.then(() => {
-				fetch(`${apiUrl}/api/profiles`)
+				fetch(`${apiUrl}/api/profiles`, {
+					method: "get",
+					credentials: "include"
+				})
 					.then((res) => res.json())
 					.then((peopleLikes) => {
 						setLike(peopleLikes[3].likes_count);

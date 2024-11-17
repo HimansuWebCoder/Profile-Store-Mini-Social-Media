@@ -49,7 +49,8 @@ function EditImagePost() {
 			if (response.ok) {
 				const data = await response.json();
 				console.log("File uploaded successfully:", data);
-				setPopupMessage(data.message);
+				// setPopupMessage(data.message);
+				setPopupMessage("Updated post successfully!");
 				// Redirect or handle success as needed
 			} else {
 				console.error("Failed to upload file");

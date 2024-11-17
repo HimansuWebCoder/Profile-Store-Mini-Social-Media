@@ -8,6 +8,10 @@ function getProfilePhoto(req, res, db) {
 	// 		res.json(data);
 	// 	})
 	const email = req.session.email;
+	const password = req.session.password;
+
+	console.log("profile photo access:", email)
+	console.log("profile photo access:", password)
 
 	if (!email) {
 		return res.status(400).json({Error: "You need to login to see profile photo"})
@@ -16,7 +20,7 @@ function getProfilePhoto(req, res, db) {
 	db("profile_photo")
 	    .join("profiles", "profile_photo.profile_id", "=", "profiles.id")
 	    .select("*")
-	    .where({email: req.session.email})
+	    .where({email: email, password: password})
 	    .then(data => {
 	    	return res.json(data)
 	    })

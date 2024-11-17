@@ -302,12 +302,14 @@ app.get("/*", (req, res) => {
 
 app.post("/signup", (req, res) => {
 	// const { name, email, password } = req.body;
-	const { email} = req.body;
-	const name = "";
+	const {name, email, password} = req.body;
+	// const name = "";
 	const skill = "";
 	const headline = "";
 	const description = "";
   const image = "https://png.pngitem.com/pimgs/s/78-786293_1240-x-1240-0-avatar-profile-icon-png.png";
+  const github_url = "";
+  
 
 
 	const usersData = {
@@ -336,11 +338,13 @@ app.post("/signup", (req, res) => {
 	// req.session.userData = usersData;
 	// req.session.email = usersData.email;
 	req.session.email = email;
+	req.session.password = password;
 	req.session.name = name;
 	req.session.headline = headline;
 	req.session.skill = skill;
 	req.session.image = image;
 	req.session.description = description;
+	req.session.github_url = github_url;
 
 
 	// req.session.email = email;
@@ -348,6 +352,11 @@ app.post("/signup", (req, res) => {
 	if (!email) {
 		return res.status(400).json({Error: "Signup to use the App"})
 	}
+
+	if (!email || !password) {
+		return res.status(400).json({Error: "Email and Password needed to signup"});
+	}
+
    
    // db("profiles")
    //   .select("*")
@@ -382,7 +391,7 @@ db("profiles")
 
     // Insert into "profiles" table if the email does not exist
     db("profiles")
-      .insert({ email: req.session.email })
+      .insert({ email: req.session.email, password: req.session.password })
       .returning("*")
       .then((profile) => {
         const profileId = profile[0].id;
@@ -486,13 +495,14 @@ db("profiles")
 // })
 
 app.post("/login", (req, res, next) => {
-	const { email } = req.body;
+	const { email, password } = req.body;
 
 	// If the email is provided, store it in the session
 	// req.session.userData = { email };  // Use an object to store user-related data
 	// req.session.userData.email;
 	// req.session.userData.email = email;
 	req.session.email = email;
+	req.session.password = password;
 	// req.session.name = name;
 	// req.session.userData.email = email;
 
@@ -504,14 +514,14 @@ app.post("/login", (req, res, next) => {
 	console.log("image", req.session.image);
 
 	// If email is not provided, return a 404 error
-	if (!email) {
+	if (!email || !password) {
 		return res.status(404).json("Login data is required");
 	}
 
 	// Check the database for the user with the provided email
-	db("profiles")
+	db("profiles ")
 		.select("*")
-		.where({ email: req.session.email })
+		.where({ email: req.session.email, password: req.session.password })
 		.then(user => {
 			// If no user is found, destroy the session and return an error message
 			if (!user.length) {
