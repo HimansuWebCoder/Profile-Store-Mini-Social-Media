@@ -8,11 +8,11 @@ const {
 
 function getImages(req, res) {
 
-	const email = req.session.email;
+	// const email = req.session.email;
     
-    if (!email) {
-		return res.status(400).json({Error: "Login to see images"});
-	}
+    // if (!email) {
+	// 	return res.status(400).json({Error: "Login to see images"});
+	// }
 
 	getImagesModel()
 	    .join("images", "profiles.id", "=", "images.profile_id")

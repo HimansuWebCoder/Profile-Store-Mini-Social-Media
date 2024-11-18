@@ -14,7 +14,6 @@ const shareData = {
 
 function Images() {
 	const [postImages, setPostImages] = useState([]);
-	const [like, setLike] = useState("");
 	const { isDarkMode, toggleTheme } = useContext(ThemeContext);
 	const [loader, setLoader] = useState(true);
 	const location = useLocation();
@@ -48,36 +47,34 @@ function Images() {
 		}
 	}
 
-	useEffect(() => {
-		fetch(`${apiUrl}/api/profiles`, {
-			method: "get",
-			credentials: "include"
-		})
-			.then((res) => res.json())
-			.then((peopleLikes) => {
-				setLike(peopleLikes[10].likes_count);
-			});
-	}, []);
+	// useEffect(() => {
+	// 	fetch(`${apiUrl}/api/profiles`, {
+	// 		method: "get",
+	// 		credentials: "include"
+	// 	})
+	// 		.then((res) => res.json())
+	// 		.then((peopleLikes) => {
+	// 			setLike(peopleLikes[10].likes_count);
+	// 		});
+	// }, []);
 
-	function likebtn() {
+	function likebtn(id) {
+
 		fetch(`${apiUrl}/api/posts/likes`, {
 			method: "post",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ like: 1 }),
+			body: JSON.stringify({ like: 1, image_id: id }),
 			credentials: "include"
 		})
-			.then((res) => res.json())
-			.then(() => {
-				fetch(`${apiUrl}/api/profiles`, {
-					method: "get",
-					credentials: "include"
-				})
-					.then((res) => res.json())
-					.then((peopleLikes) => {
-						console.log("peoples likes",peopleLikes)
-						setLike(peopleLikes[10].likes_count);
-					});
-			});
+		.then(() => {
+      // Refetch images to update likes_count from the database
+      fetch(`${apiUrl}/api/posts/images`, {
+        method: "get",
+        credentials: "include",
+      })
+        .then((res) => res.json())
+        .then((images) => setPostImages(images));
+     });
 	}
 
 	return (
@@ -166,12 +163,12 @@ function Images() {
 									<div className="user-response-container">
 										<div>
 											<img
-												onClick={likebtn}
+												onClick={() => likebtn(img.image_id)}
 												className="posted-image-emojis"
 												src="/assets/images/like.png"
 												alt="like"
 											/>
-											<span id="like-count">{like}</span>
+											<span id="like-count">{img.likes_count}</span>
 										</div>
 										<h4>Like</h4>
 									</div>
