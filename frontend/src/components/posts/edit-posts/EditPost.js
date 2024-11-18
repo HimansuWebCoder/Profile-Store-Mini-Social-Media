@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { upload } from "../../upload/Upload";
 import { apiUrl } from "../../../utils/utils";
 import "./EditPost.css";
@@ -8,10 +8,11 @@ function EditPost({ redirectTo }) {
 	const [editPost, setEditPost] = useState("");
 	const location = useLocation();
 	const navigate = useNavigate();
-	const id = location.pathname.split("/")[2];
-	useEffect(() => {
-		console.log(location.pathname.split("/")[2]);
-	}, []);
+	// const id = location.pathname.split("/")[2];
+	const { id } = useParams();
+	// useEffect(() => {
+	// 	console.log(location.pathname.split("/")[2]);
+	// }, []);
 
 	function deletePost() {
 		fetch(`${apiUrl}/api/posts/images/${id}`, {

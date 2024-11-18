@@ -7,7 +7,7 @@ function ProfileLogo() {
 			<Link to="/">
 				<img
 					id="logo-image"
-					src="/assets/images/Profile_Logo.png"
+					src="/assets/images/user.png"
 					alt="Profile_logo"
 				/>
 			</Link>

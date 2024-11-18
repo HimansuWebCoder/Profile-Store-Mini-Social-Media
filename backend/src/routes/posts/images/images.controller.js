@@ -61,7 +61,7 @@ function postImage(req, res) {
 	   	   const userId = user[0].id
 	   	  return postImageModel(fullImgUrl, userId)
 	   	         .then(postImage => {
-	   	         	return res.json({message: "poste successfully", data: postImage})
+	   	         	return res.json({message: "Post Uploaded Successfully!", data: postImage})
 	   	         })
 	   })
 
@@ -86,6 +86,7 @@ function editImage(req, res, db) {
 	const fullImgUrl = `https://profile-store-mini-social-media.onrender.com/uploads/${req.file.filename}`;
 
 	const email = req.session.email;
+	const password = req.session.password;
 
 	if (!email) {
 		return res.status(400).json({Error: "Login to update post"});
@@ -110,22 +111,24 @@ function editImage(req, res, db) {
 	db("profiles")
 	  .join("images", "profiles.id", "=", "images.profile_id")
 	  .select("images.id as image_id")
-	  .where({"images.id": id, email: email})
+	  .where({"images.id": id, email: email, password: password})
 	  .first()
 	  .then(images => {
 	  	if (!images) {
 	  		return res.status(404).json("No image found to update this post")
+	  	} else {
+	  		
+		  	return db("images")
+		  	      .update({image_url: fullImgUrl})
+		  	      .where({id: images.image_id})
+		  	      .returning("*")
+		  	      .then(updateImg => {
+		  	      	return res.json("Post Updated Successfully!");
+		  	      })
 	  	}
 
 	  	console.log(images)
 
-	  	return db("images")
-	  	      .update({image_url: fullImgUrl})
-	  	      .where({id: images.image_id})
-	  	      .returning("*")
-	  	      .then(updateImg => {
-	  	      	return res.json("Update post successfully!");
-	  	      })
 
 	  })
 }
@@ -134,6 +137,7 @@ function deleteImage(req, res, db) {
 	// res.send("delete images");
 	const { id } = req.params;
 	const email = req.session.email;
+	const password = req.session.password;
 
 	if (!email) {
 		return res.status(400).json({Error: "Login to delete post"});
@@ -142,7 +146,7 @@ function deleteImage(req, res, db) {
 	db("profiles")
 	  .join("images", "profiles.id", "=", "images.profile_id")
 	  .select("images.id as image_id")
-	  .where({"images.id": id, email: email})
+	  .where({"images.id": id, email: email, password: password})
 	  .first()
 	  .then(images => {
 	  	 if (!images) {

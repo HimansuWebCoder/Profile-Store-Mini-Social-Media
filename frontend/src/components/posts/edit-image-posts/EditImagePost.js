@@ -9,12 +9,12 @@ function EditImagePost() {
 	const [popupMessage, setPopupMessage] = useState(null);
 	const location = useLocation();
 	const navigate = useNavigate();
-	const imgPostId = location.pathname.split("/")[3];
+	// const imgPostId = location.pathname.split("/")[3];
 	const { id } = useParams();
-	useEffect(() => {
-		console.log(imgPostId);
-		console.log("my editimage edit image id: ", id);
-	}, []);
+	// useEffect(() => {
+	// 	console.log(imgPostId);
+	// 	console.log("my editimage edit image id: ", id);
+	// }, []);
 
 	// function editImgPostHandler() {
 	// 	fetch(`${apiUrl}/api/posts/images/${imgPostId}`, {
