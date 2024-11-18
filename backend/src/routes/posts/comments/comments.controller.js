@@ -5,6 +5,8 @@ const {
 	deleteCommentModel,
 } = require("../../../models/comment.model");
 
+const db = require("../../../config/db");
+
 function getComments(req, res) {
 	getCommentModel()
 		.then((comments) => {
@@ -18,16 +20,32 @@ function getComments(req, res) {
 
 function postComment(req, res) {
 	const { comment } = req.body;
-	postCommentModel(comment)
-		.then((comments) => {
-			res.json({
-				data: comments,
-				message: "comment added successfully!",
-			});
-		})
-		.catch((error) => {
-			res.status(500).json({ Error: `Internal Server Error: ${error}` });
-		});
+
+	const email = req.session.email;
+
+	if (!email) {
+		return res.status(400).json({Error: "Login to comment"});
+	}
+
+	db("profiles")
+	   .select("*")
+	   .where({email})
+	   .then(user => {
+	   	const profileId = user[0].id
+	  	console.log("profile id", profileId)
+
+			postCommentModel(comment, profileId)
+				.then((comments) => {
+					res.json({
+						data: comments,
+						message: "comment added successfully!",
+					});
+				})
+				.catch((error) => {
+					res.status(500).json({ Error: `Internal Server Error: ${error}` });
+				});
+
+	   })
 }
 
 function editComment(req, res) {

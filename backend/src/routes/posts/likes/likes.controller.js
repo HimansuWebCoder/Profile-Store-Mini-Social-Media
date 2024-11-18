@@ -4,9 +4,18 @@ const db = require("../../../config/db");
 
 function getLikes(req, res, db) {
 	// res.send("get likes");
+
+	const email = req.session.email;
+	const password = req.session.password;
+
+	if (!email && !password) {
+		return res.status(400).json({Error: "Login to show likes"})
+	}
+
 	try {
-		db.select("*")
-			.from("likes")
+		db("profiles")
+		    .select("*")
+		    .where({email: email , password: password})
 			.then((likes) => {
 				console.log("these are my likes", likes);
 				res.json(likes);
@@ -53,12 +62,14 @@ function getLikes(req, res, db) {
 // }
 
 function postLike(req, res, db) {
-	const { profile_id } = req.body; // profile_id is the ID of the profile being liked
+	const { like } = req.body; // profile_id is the ID of the profile being liked
+ 
+ 
 
-	if (profile_id) {
+	if (like) {
 		// Increment the likes_count for the given profile_id
 		db("profiles")
-			.where("id", "=", profile_id) // `id` is the primary key in the `profiles` table
+			.where("id", "=", like) // `id` is the primary key in the `profiles` table
 			.increment("likes_count", 1) // Increment likes_count by 1
 			.returning("likes_count") // Return the updated likes_count
 			.then((updatedLikesCount) => {

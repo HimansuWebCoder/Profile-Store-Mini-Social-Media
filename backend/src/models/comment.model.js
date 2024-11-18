@@ -4,8 +4,9 @@ function getCommentModel() {
 	return db.select("*").from("comments");
 }
 
-function postCommentModel(comment) {
-	return db("comments").returning("*").insert({ comment });
+function postCommentModel(comment, id) {
+	// return db("comments").returning("*").insert({ comment });
+	return db("comments").insert({comment, profile_id: id}).returning("*")
 }
 
 function editCommentModel(id, comment) {

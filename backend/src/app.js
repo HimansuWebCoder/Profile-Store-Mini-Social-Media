@@ -98,7 +98,7 @@ app.use(corsMiddleware);
 // }
 
 function isAuthenticated(req, res, next) {
-	if (req.session.email) {
+	if (req.session.email && req.session.password) {
 		next();
 	} else {
 		res.status(401).json({message: "Unauthorized, please log in first."});
@@ -194,7 +194,7 @@ app.put("/api/upload/:id", upload.single("avatar"), function (req, res, next) {
 // API Routers
 app.use("/api", apiRouter);
 
-app.get("/likes", (req, res) => {
+app.get("/likes", isAuthenticated, (req, res, next) => {
   const email = req.session.email;
 if (!email) {
 	return res.json("you need to login to get likes")

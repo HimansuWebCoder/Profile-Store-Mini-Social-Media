@@ -55,7 +55,7 @@ function Images() {
 		})
 			.then((res) => res.json())
 			.then((peopleLikes) => {
-				setLike(peopleLikes[3].likes_count);
+				setLike(peopleLikes[10].likes_count);
 			});
 	}, []);
 
@@ -63,7 +63,7 @@ function Images() {
 		fetch(`${apiUrl}/api/posts/likes`, {
 			method: "post",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ profile_id: 1 }),
+			body: JSON.stringify({ like: 1 }),
 			credentials: "include"
 		})
 			.then((res) => res.json())
@@ -74,7 +74,8 @@ function Images() {
 				})
 					.then((res) => res.json())
 					.then((peopleLikes) => {
-						setLike(peopleLikes[3].likes_count);
+						console.log("peoples likes",peopleLikes)
+						setLike(peopleLikes[10].likes_count);
 					});
 			});
 	}
