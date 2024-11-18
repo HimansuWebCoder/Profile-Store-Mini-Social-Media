@@ -35,17 +35,24 @@ require("dotenv").config();
 // 	}),
 // );
 
+// Cors middleware should come first before session management
+const corsMiddleware = require("./middlewares/corsMiddleware");
+app.use(corsMiddleware);
+
 // for development and memory() store only
 // app.use(
 // 	session({
 // 		secret: "@@@***###)))",
 // 		resave: false,
 // 		saveUninitialized: false,
-// 		cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24}, // 1 day expiration for session cookie
+// 		cookie: {
+// 		 secure: false,
+// 		 maxAge: 1000 * 60 * 60 * 24
+// 		 }, // 1 day expiration for session cookie
 // 	}),
 // );
 
-// Must set this proxy 
+// Must set this proxy for production
 app.set('trust proxy', 1);
 
 // for production only
@@ -74,7 +81,6 @@ cloudinary.config({
 // Import Middlewares
 app.use(morgan("tiny"));
 const bodyParserMiddleware = require("./middlewares/bodyParserMiddleware");
-const corsMiddleware = require("./middlewares/corsMiddleware");
 
 // app.use(
 // 	session({
@@ -87,7 +93,6 @@ const corsMiddleware = require("./middlewares/corsMiddleware");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParserMiddleware);
-app.use(corsMiddleware);
 
 // function isAuthenticated(req, res, next) {
 // 	if(req.session.email) {
