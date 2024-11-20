@@ -42,6 +42,7 @@ function getImages(req, res) {
 	// 	});
 }
 
+
 function postImage(req, res) {
 	const { image } = req.body;
 	// console.log("uploaded file: ", req.file);

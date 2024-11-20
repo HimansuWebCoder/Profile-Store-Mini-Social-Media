@@ -227,6 +227,20 @@ app.get("/all-users", isAuthenticated, (req, res, next) => {
 	  });
 })
 
+app.get("/images/:id", (req, res) => {
+   const { id } = req.params;
+
+   const email = req.session.email;
+
+   db("images")
+     .select("*")
+     .where({id})
+     .then(image => {
+     	res.json(image);
+     })	
+})
+
+
 app.get("/all-users/:id", isAuthenticated, (req, res, next) => {
 	const {id} = req.params;
 

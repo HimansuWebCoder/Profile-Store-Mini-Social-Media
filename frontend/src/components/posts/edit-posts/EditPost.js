@@ -14,6 +14,7 @@ function EditPost({ redirectTo }) {
 	// 	console.log(location.pathname.split("/")[2]);
 	// }, []);
 
+
 	function deletePost() {
 		fetch(`${apiUrl}/api/posts/images/${id}`, {
 			method: "delete",
@@ -22,6 +23,18 @@ function EditPost({ redirectTo }) {
 			navigate("/posts");
 		});
 	}
+
+	// useEffect(() => {
+	// 	fetch(`${apiUrl}/images/${id}`, {
+	// 		method: "get"
+	// 	})
+	// 	.then(res => res.json())
+	// 	.then(img => {
+	// 		console.log(img);
+	// 		console.log(img[0].public_id)
+	// 		setImgPublicId(img[0].public_id)
+	// 	})
+	// }, [])
 
 	function editImagePost() {
 		fetch(`${apiUrl}/api/posts/images/${id}`, {
@@ -36,7 +49,7 @@ function EditPost({ redirectTo }) {
 		<div className="editpost-container">
 			<div className="editpost-sub-container">
 				<div id="cancel-img-edit">
-					<Link class="edit-img-cancel-link" to="/posts">
+					<Link className="edit-img-cancel-link" to="/posts">
 						Cancel
 					</Link>
 				</div>

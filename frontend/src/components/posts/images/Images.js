@@ -24,7 +24,7 @@ function Images() {
 		})
 			.then((res) => res.json())
 			.then((images) => {
-				console.log(images);
+				// console.log(images);
 				setTimeout(() => {
 					setPostImages(images);
 					setLoader(false);
