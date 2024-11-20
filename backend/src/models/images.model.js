@@ -5,9 +5,9 @@ function getImagesModel() {
 	       .select("*");
 }
 
-function postImageModel(image, id) {
+function postImageModel(image, id, publicId) {
 	return db("images")
-		.insert({ image_url: image, profile_id: id })
+		.insert({ image_url: image, profile_id: id, public_id: publicId })
 		.returning("image_url") // or we can return "*" all
 }
 

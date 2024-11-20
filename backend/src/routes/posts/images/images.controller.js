@@ -1,6 +1,8 @@
 const db = require("../../../config/db");
 const upload = require("../../../config/config");
 const uploadImage = require("../../../config/cloudinary");
+const path = require("path");
+const cloudinary = require("cloudinary").v2;
 const {
 	getImagesModel,
 	postImageModel,
@@ -52,18 +54,49 @@ function postImage(req, res) {
 	}
 
 	// const fullImgUrl = `http://localhost:8000/uploads/${req.file.filename}`;
-	const fullImgUrl = `https://profile-store-mini-social-media.onrender.com/uploads/${req.file.filename}`;
+	// const fullImgUrl = `https://profile-store-mini-social-media.onrender.com/uploads/${req.file.filename}`;
+     
+     	const imagePath = req.file.path;
+     	console.log("image file", req.file);
+     	console.log("image file", req.file.path);
 
-	db("profiles")
-	   .select("*")
-	   .where({email: email})
-	   .then(user => {
-	   	   const userId = user[0].id
-	   	  return postImageModel(fullImgUrl, userId)
-	   	         .then(postImage => {
-	   	         	return res.json({message: "Post Uploaded Successfully!", data: postImage})
-	   	         })
-	   })
+	   const uploadImage = async (imagePath, res) => {
+		const options = {
+			use_filename: false,
+			unique_filename: true,
+			overwrite: true,
+		};
+
+		try {
+			// Upload the image
+			const result = await cloudinary.uploader.upload(imagePath, options);
+			const imageUrl = result.url;
+			const imgPublicId = result.public_id;
+			// console.log(result);
+				db("profiles")
+				   .select("*")
+				   .where({email: email})
+				   .then(user => {
+				   	   const userId = user[0].id
+				   	  return postImageModel(imageUrl, userId, imgPublicId)
+				   	         .then(postImage => {
+				   	         	// console.log(result)
+				   	         	return res.json({message: "Post Uploaded Successfully!", data: postImage})
+				   	         })
+				   })
+
+
+		} catch (error) {
+			console.error(error);
+			return res.status(500).json({
+				error: "error occurred when uploading image",
+			});
+		}
+	};
+
+	// console.log(uploadImage(imagePath));
+
+	uploadImage(imagePath, res);
 
 	// postImageModel(fullImgUrl)
 	// 	.then((image) => {
@@ -81,9 +114,9 @@ function postImage(req, res) {
 
 function editImage(req, res, db) {
 	const id = req.params.id;
-	// const { image } = req.body;
+	const { imagePublicId } = req.body;
 	// const fullImgUrl = `http://localhost:8000/uploads/${req.file.filename}`;
-	const fullImgUrl = `https://profile-store-mini-social-media.onrender.com/uploads/${req.file.filename}`;
+	// const fullImgUrl = `https://profile-store-mini-social-media.onrender.com/uploads/${req.file.filename}`;
 
 	const email = req.session.email;
 	const password = req.session.password;
@@ -92,6 +125,58 @@ function editImage(req, res, db) {
 		return res.status(400).json({Error: "Login to update post"});
 	}
 
+	const imagePath = req.file.path;
+ 	console.log("image file", req.file);
+ 	console.log("image file", req.file.path);
+
+	   const uploadImage = async (imagePath, res) => {
+		const options = {
+			use_filename: false,
+			unique_filename: true,
+			overwrite: true,
+		};
+
+		try {
+			// Upload the image
+			const result = await cloudinary.uploader.upload(imagePath, {public_id: imagePublicId, overwrite: true });
+			const imageUrl = result.url;
+			// console.log(result);
+				db("profiles")
+				  .join("images", "profiles.id", "=", "images.profile_id")
+				  .select("images.id as image_id")
+				  .where({"images.id": id, email: email, password: password})
+				  .first()
+				  .then(images => {
+				  	if (!images) {
+				  		return res.status(404).json("No image found to update this post")
+				  	} else {
+	  		
+				  	return db("images")
+				  	      .update({image_url: imageUrl})
+				  	      .where({id: images.image_id, public_id: imagePublicId})
+				  	      .returning("*")
+				  	      .then(updateImg => {
+				  	      	return res.json("Post Updated Successfully!");
+				  	      })
+	  	}
+
+	  	console.log(images)
+
+
+	  })
+
+
+		} catch (error) {
+			console.error(error);
+			return res.status(500).json({
+				error: "error occurred when uploading image",
+			});
+		}
+	};
+
+	// console.log(uploadImage(imagePath));
+
+	uploadImage(imagePath, res);
 
 
 	// db("images")
@@ -108,29 +193,29 @@ function editImage(req, res, db) {
 	// 		res.json(error);
 	// 	});
 
-	db("profiles")
-	  .join("images", "profiles.id", "=", "images.profile_id")
-	  .select("images.id as image_id")
-	  .where({"images.id": id, email: email, password: password})
-	  .first()
-	  .then(images => {
-	  	if (!images) {
-	  		return res.status(404).json("No image found to update this post")
-	  	} else {
+	// db("profiles")
+	//   .join("images", "profiles.id", "=", "images.profile_id")
+	//   .select("images.id as image_id")
+	//   .where({"images.id": id, email: email, password: password})
+	//   .first()
+	//   .then(images => {
+	//   	if (!images) {
+	//   		return res.status(404).json("No image found to update this post")
+	//   	} else {
 	  		
-		  	return db("images")
-		  	      .update({image_url: fullImgUrl})
-		  	      .where({id: images.image_id})
-		  	      .returning("*")
-		  	      .then(updateImg => {
-		  	      	return res.json("Post Updated Successfully!");
-		  	      })
-	  	}
+	// 	  	return db("images")
+	// 	  	      .update({image_url: fullImgUrl})
+	// 	  	      .where({id: images.image_id})
+	// 	  	      .returning("*")
+	// 	  	      .then(updateImg => {
+	// 	  	      	return res.json("Post Updated Successfully!");
+	// 	  	      })
+	//   	}
 
-	  	console.log(images)
+	//   	console.log(images)
 
 
-	  })
+	//   })
 }
 
 function deleteImage(req, res, db) {
