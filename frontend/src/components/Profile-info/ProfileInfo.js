@@ -8,6 +8,7 @@ function ProfileInfo() {
 	const [name, setName] = useState("");
 	const [headline, setHeadline] = useState("");
 	const [loading, setLoading] = useState(true);
+	const [images, setImages] = useState([]);
 
 	const [profileId, setProfileId] = useState(null);
 	const location = useLocation();
@@ -30,7 +31,9 @@ function ProfileInfo() {
 					setName(profileInfoData[0].name);
 					setHeadline(profileInfoData[0].headline);
 					setProfileId(profileInfoData[0].profile_id);
+					setImages(profileInfoData)
 					console.log("profile id", profileInfoData[0].profile_id)
+					console.log("all my info data", profileInfoData)
 					setLoading(false);
 				}, 1000);
 			} catch (error) {

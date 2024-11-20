@@ -214,6 +214,7 @@ function getProfileInfo(req, res) {
 
      db("profiles")
         .join("profile_info", "profiles.id", "=", "profile_info.profile_id")
+        .join("images", "profiles.id", "=", "images.profile_id")
         .select("*")
         .where({email: email})
         .then(user => {

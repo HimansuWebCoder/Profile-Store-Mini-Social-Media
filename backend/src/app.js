@@ -232,6 +232,10 @@ app.get("/images/:id", (req, res) => {
 
    const email = req.session.email;
 
+   if (!email) {
+   	return res.status(400).json({Error: "Login to see your image"})
+   }
+
    db("images")
      .select("*")
      .where({id})
