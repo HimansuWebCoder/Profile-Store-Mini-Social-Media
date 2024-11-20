@@ -296,7 +296,14 @@ app.get("/all-users/:id", isAuthenticated, (req, res, next) => {
 	     		       	    	        .where({profile_id: id})
 	     		       	    	        .then(photo => {
 	     		       	    	        	const userPhoto = photo;
-	     		       	    	        	res.json({user: userInfo, about: aboutInfo, skill: skill, profilePhoto: userPhoto })
+	     		       	    	        	// res.json({user: userInfo, about: aboutInfo, skill: skill, profilePhoto: userPhoto })
+	     		       	    	        	return db("images")
+	     		       	    	        	      .select("*")
+	     		       	    	        	      .where({profile_id: id})
+	     		       	    	        	      .then(image => {
+	     		       	    	        	      	const images = image;
+	     		       	    	        	      	res.json({user: userInfo, about: aboutInfo, skill: skill, profilePhoto: userPhoto, posteImages: images })
+	     		       	    	        	      })
 	     		       	    	        })
 	     		       	    })
 	     		       })
