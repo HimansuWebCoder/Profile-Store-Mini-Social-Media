@@ -212,19 +212,41 @@ function getProfileInfo(req, res) {
 	profileInfoGetModel()
 		.then((profileInfoData) => {
 
-     db("profiles")
-        .join("profile_info", "profiles.id", "=", "profile_info.profile_id")
-        .join("images", "profiles.id", "=", "images.profile_id")
-        .select("*")
-        .where({email: email})
-        .then(user => {
-        	// return res.json(user)
-        	if (user.length > 0) {
-        		return res.json(user)
-        	} else {
-        		return res.json("user exist but not found any data")
-        	}
-        })
+     // db("profiles")
+     //    .join("profile_info", "profiles.id", "=", "profile_info.profile_id")
+     //    .join("images", "profiles.id", "=", "images.profile_id")
+     //    .select("*")
+     //    .where({email: email})
+     //    .then(user => {
+     //    	// return res.json(user)
+     //    	if (user.length > 0) {
+     //    		return res.json(user)
+     //    	} else {
+     //    		return res.json({status: "user exist but not found any data"})
+     //    	}
+     //    })
+
+			db("profiles")
+			   .select("*")
+			   .where({email})
+			   .then(user => {
+			   	   const oneUser = user;
+			   	   const userId = user[0].id;
+			   	   console.log("profile user:", oneUser)
+			   	    return db("profile_info")
+			   	             .select("*")
+			   	             .where({profile_id: userId})
+			   	             .then(info => {
+			   	             	const userInfo = info;
+			   	             	// return res.json({userProfile: oneUser, userInfo: info })
+			   	             	return db("images")
+			   	             	       .select("*")
+			   	             	       .where({profile_id: userId})
+			   	             	       .then(image => {
+			   	             	       	return res.json({userProfile: oneUser, userinfo: userInfo, userImages: image})
+			   	             	       })
+			   	             })
+			   })
 
 			// or > 0
 		// 	if (profileInfoData.length !== 0) {
