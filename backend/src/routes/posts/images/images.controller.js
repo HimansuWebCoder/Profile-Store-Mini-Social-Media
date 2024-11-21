@@ -71,7 +71,7 @@ function postImage(req, res) {
 		try {
 			// Upload the image
 			const result = await cloudinary.uploader.upload(imagePath, options);
-			const imageUrl = result.url;
+			const imageUrl = result.secure_url;
 			const imgPublicId = result.public_id;
 			// console.log(result);
 				db("profiles")
@@ -81,7 +81,7 @@ function postImage(req, res) {
 				   	   const userId = user[0].id
 				   	  return postImageModel(imageUrl, userId, imgPublicId)
 				   	         .then(postImage => {
-				   	         	// console.log(result)
+				   	         	console.log(result)
 				   	         	return res.json({message: "Post Uploaded Successfully!", data: postImage})
 				   	         })
 				   })
