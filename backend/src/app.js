@@ -231,6 +231,7 @@ app.get("/images/:id", (req, res) => {
    const { id } = req.params;
 
    // const email = req.session.email;
+   console.log("Login user is:-", req.session.email)
 
    // if (!email) {
    // 	return res.status(400).json({Error: "Login to see your image"})
