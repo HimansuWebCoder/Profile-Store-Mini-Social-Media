@@ -8,7 +8,7 @@ function ProfileInfo() {
 	const [name, setName] = useState("");
 	const [headline, setHeadline] = useState("");
 	const [loading, setLoading] = useState(true);
-	const [images, setImages] = useState([]);
+	
 
 	const [profileId, setProfileId] = useState(null);
 	const location = useLocation();

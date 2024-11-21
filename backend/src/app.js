@@ -230,11 +230,11 @@ app.get("/all-users", isAuthenticated, (req, res, next) => {
 app.get("/images/:id", (req, res) => {
    const { id } = req.params;
 
-   const email = req.session.email;
+   // const email = req.session.email;
 
-   if (!email) {
-   	return res.status(400).json({Error: "Login to see your image"})
-   }
+   // if (!email) {
+   // 	return res.status(400).json({Error: "Login to see your image"})
+   // }
 
    db("images")
      .select("*")
