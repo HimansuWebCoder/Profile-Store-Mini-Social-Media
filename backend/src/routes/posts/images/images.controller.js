@@ -140,7 +140,7 @@ function editImage(req, res, db) {
 		try {
 			// Upload the image
 			const result = await cloudinary.uploader.upload(imagePath, {public_id: imagePublicId, overwrite: true });
-			const imageUrl = result.url;
+			const imageUrl = result.secure_url;
 			// console.log(result);
 				db("profiles")
 				  .join("images", "profiles.id", "=", "images.profile_id")
