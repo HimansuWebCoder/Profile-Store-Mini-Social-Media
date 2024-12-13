@@ -1,9 +1,10 @@
 const cloudinary = require("cloudinary").v2;
+require("dotenv").config();
 
 cloudinary.config({
-	cloud_name: "dtiasevyl",
-	api_key: "411418114532979",
-	api_secret: "Y4GRLW3VVy2_RwrO9TV5YMfHKFI", // Click 'View API Keys' above to copy your API secret
+	cloud_name: process.env.CLOUDINARY_CLOUDNAME,
+	api_key: process.env.CLOUDINARY_API_KEY,
+	api_secret: process.env.CLOUDINARY_API_SECRET, // Click 'View API Keys' above to copy your API secret
 });
 
 const uploadImage = async (imagePath) => {

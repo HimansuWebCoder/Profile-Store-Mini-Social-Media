@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect,useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import Navbar from "../Navigation/Navbar";
 import Profiles from "../../pages/Profiles/Profiles";
@@ -10,10 +10,17 @@ import "./Layout.css";
 
 function Layout({ mode, setMode }) {
 	const { isDarkMode, toggleTheme } = useContext(ThemeContext);
+   const [data, setData] = useState(null);
+ 
+ function handleLogin() {
+ 	window.location.href = "http://localhost:8000/auth/google";
+ }
+
 
 	return (
 		<div className="layout-container">
 			<Navbar mode={mode} setMode={setMode} />
+		 <h1 onClick={handleLogin}>Login</h1>
 			<div
 				style={{
 					background: isDarkMode ? "#F7F9F2" : "#433D8B",

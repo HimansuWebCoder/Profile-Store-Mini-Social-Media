@@ -6,8 +6,15 @@ const {
 } = require("./profile-photo.controller");
 const profilePhotoRouter = express.Router();
 
+const ensureAuthenticated = (req, res, next) => {
+	if (req.isAuthenticated()) {
+		return next();
+	}
+	res.redirect('/');
+};
+
 // GET profile-photo
-profilePhotoRouter.get("/", (req, res) => {
+profilePhotoRouter.get("/", ensureAuthenticated, (req, res) => {
 	getProfilePhoto(req, res, db);
 });
 

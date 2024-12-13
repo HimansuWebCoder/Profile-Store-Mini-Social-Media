@@ -10,11 +10,11 @@ function Login() {
     const navigate = useNavigate();
 
 function submitHandler() {
-		fetch(`${apiUrl}/login`, {
+		fetch(`${apiUrl}/auth/google`, {
 			    method: "post",
 				headers: {"Content-Type": "application/json"},
 				body: JSON.stringify({email: loginInput, password: password}),
-				credentials: "include"
+				// credentials: "include"
 		})
 		.then((response) => {
            if (response.ok) {
