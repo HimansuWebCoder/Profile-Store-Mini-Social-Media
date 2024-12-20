@@ -21,6 +21,7 @@ function getImages(req, res) {
 	    .join("profile_info", "profiles.id", "=", "profile_info.profile_id")
 	    .join("profile_photo", "profiles.id", "=", "profile_photo.profile_id")
 	    .select("*", "images.id as image_id")
+	    .orderBy("image_id", "desc")
 		.then((usersPost) => {
 			console.log(usersPost)
 			return res.json(usersPost)
@@ -54,7 +55,7 @@ function postImage(req, res) {
 		return res.status(400).json({Error: "Login to post images"});
 	}
 
-	// const fullImgUrl = `http://localhost:8000/uploads/${req.file.filename}`;
+	const fullImgUrl = `http://localhost:8000/uploads/${req.file.filename}`;
 	// const fullImgUrl = `https://profile-store-mini-social-media.onrender.com/uploads/${req.file.filename}`;
      
      	const imagePath = req.file.path;
@@ -79,7 +80,7 @@ function postImage(req, res) {
 				   .where({email: email})
 				   .then(user => {
 				   	   const userId = user[0].id
-				   	  return postImageModel(imageUrl, userId, imgPublicId)
+				   	  return postImageModel(imageUrl, userId, imgPublicId) // if use local then use fullImgUrl instead in production use imageUrl
 				   	         .then(postImage => {
 				   	         	console.log(result)
 				   	         	return res.json({message: "Post Uploaded Successfully!", data: postImage})
