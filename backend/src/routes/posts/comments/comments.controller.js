@@ -123,8 +123,8 @@ function postOneComment(req, res) {
 	.select("*")
 	.then(user => {
 		// const imgId = user[0].id
-		const profileId = user[0].email
-	  	console.log("profile id", profileId);
+		// const profileId = user[0].email
+	  	// console.log("profile id", profileId);
 	  	// console.log("users", user);
 	  	// console.log("image id", imgId);
 
