@@ -62,7 +62,9 @@ ALTER SEQUENCE public.about_id_seq OWNED BY public.about.id;
 CREATE TABLE public.comments (
     id integer NOT NULL,
     profile_id integer,
-    comment character varying(300)
+    comment character varying(300),
+    image_id integer,
+    profile_email text
 );
 
 
@@ -198,40 +200,6 @@ ALTER SEQUENCE public.languages_id_seq OWNED BY public.languages.id;
 
 
 --
--- Name: likes; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.likes (
-    id integer NOT NULL,
-    profile_id integer
-);
-
-
-ALTER TABLE public.likes OWNER TO postgres;
-
---
--- Name: likes_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public.likes_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER SEQUENCE public.likes_id_seq OWNER TO postgres;
-
---
--- Name: likes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public.likes_id_seq OWNED BY public.likes.id;
-
-
---
 -- Name: profile_info; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -239,7 +207,8 @@ CREATE TABLE public.profile_info (
     id integer NOT NULL,
     profile_id integer,
     name character varying(100) NOT NULL,
-    headline character varying(1000)
+    headline character varying(1000),
+    profile_email text
 );
 
 
@@ -316,7 +285,8 @@ ALTER SEQUENCE public.profile_links_id_seq OWNED BY public.profile_links.id;
 CREATE TABLE public.profile_photo (
     id integer NOT NULL,
     image text,
-    profile_id integer
+    profile_id integer,
+    profile_email text
 );
 
 
@@ -552,13 +522,6 @@ ALTER TABLE ONLY public.languages ALTER COLUMN id SET DEFAULT nextval('public.la
 
 
 --
--- Name: likes id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.likes ALTER COLUMN id SET DEFAULT nextval('public.likes_id_seq'::regclass);
-
-
---
 -- Name: profile_info id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -612,17 +575,6 @@ ALTER TABLE ONLY public.skills ALTER COLUMN id SET DEFAULT nextval('public.skill
 --
 
 COPY public.about (id, profile_id, description) FROM stdin;
-1	1	hello
-2	3	Hii, dosto mein harry huin have a very nice day
-22	64	
-23	65	
-24	66	
-25	67	
-27	69	
-28	71	
-31	74	
-32	75	
-33	76	
 \.
 
 
@@ -630,12 +582,7 @@ COPY public.about (id, profile_id, description) FROM stdin;
 -- Data for Name: comments; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.comments (id, profile_id, comment) FROM stdin;
-42	1	great nice app
-43	\N	hello himansu how are you 
-44	64	hello 
-45	1	hello himansu
-46	1	hello himansu how are you ?
+COPY public.comments (id, profile_id, comment, image_id, profile_email) FROM stdin;
 \.
 
 
@@ -652,14 +599,6 @@ COPY public.experiences (id, profile_id, experience) FROM stdin;
 --
 
 COPY public.images (id, profile_id, image_url, likes_count, public_id) FROM stdin;
-105	74	http://localhost:8000/uploads/Himansu_Nayak_Profile_Img.jpeg	2	\N
-102	76	http://localhost:8000/uploads/Himansu_Nayak_Profile_Img.jpeg	9	\N
-101	76	https://profile-store-mini-social-media.onrender.com/uploads/Himansu_Nayak_Profile_Img.jpeg	7	\N
-106	3	https://profile-store-mini-social-media.onrender.com/uploads/programmer-frustration.jpg	2	\N
-100	3	http://localhost:8000/uploads/1705380222712.jpeg	7	\N
-107	74	http://res.cloudinary.com/dtiasevyl/image/upload/v1732020592/yhtvqskelucda3rrbbdc.png	0	\N
-111	3	http://res.cloudinary.com/dtiasevyl/image/upload/v1732071758/fkdpktwkigsypfbnp4vo.png	1	fkdpktwkigsypfbnp4vo
-112	3	http://res.cloudinary.com/dtiasevyl/image/upload/v1732108507/nef3jxegq1fioya1n428.jpg	0	nef3jxegq1fioya1n428
 \.
 
 
@@ -672,33 +611,10 @@ COPY public.languages (id, profile_id, language) FROM stdin;
 
 
 --
--- Data for Name: likes; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.likes (id, profile_id) FROM stdin;
-1	1
-\.
-
-
---
 -- Data for Name: profile_info; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.profile_info (id, profile_id, name, headline) FROM stdin;
-36	64		
-37	65		
-38	66		
-41	69		
-42	71		
-39	67	gmail	I am gmail
-46	75	bapu pattnayak	
-47	76	sipu	
-45	74	Papu Kumar	Car Driver
-11	\N	Hello how are you 	\N
-12	\N	Hello how are you 	\N
-13	\N	Hello 	\N
-1	1	pro	sovler
-2	3	Harry kumar	Software Engineer
+COPY public.profile_info (id, profile_id, name, headline, profile_email) FROM stdin;
 \.
 
 
@@ -707,8 +623,6 @@ COPY public.profile_info (id, profile_id, name, headline) FROM stdin;
 --
 
 COPY public.profile_links (id, profile_info_id, profile_id, portfolio_url, github_url, linkedin_url, twitter_url, instagram_url, youtube_url, facebook_url) FROM stdin;
-20	2	1	\N	github.com	\N	\N	\N	\N	\N
-21	\N	3	\N	https://github.com/HimansuWebCoder	\N	\N	\N	\N	\N
 \.
 
 
@@ -716,18 +630,7 @@ COPY public.profile_links (id, profile_info_id, profile_id, portfolio_url, githu
 -- Data for Name: profile_photo; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.profile_photo (id, image, profile_id) FROM stdin;
-42	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9SRRmhH4X5N2e4QalcoxVbzYsD44C-sQv-w&s	3
-40	http://res.cloudinary.com/dtiasevyl/image/upload/v1731573720/ixgphjfjc44jx49j2kjp.png	1
-59	https://png.pngitem.com/pimgs/s/78-786293_1240-x-1240-0-avatar-profile-icon-png.png	64
-60	https://png.pngitem.com/pimgs/s/78-786293_1240-x-1240-0-avatar-profile-icon-png.png	65
-61	https://png.pngitem.com/pimgs/s/78-786293_1240-x-1240-0-avatar-profile-icon-png.png	66
-62	https://png.pngitem.com/pimgs/s/78-786293_1240-x-1240-0-avatar-profile-icon-png.png	67
-64	https://png.pngitem.com/pimgs/s/78-786293_1240-x-1240-0-avatar-profile-icon-png.png	69
-65	https://png.pngitem.com/pimgs/s/78-786293_1240-x-1240-0-avatar-profile-icon-png.png	71
-68	https://png.pngitem.com/pimgs/s/78-786293_1240-x-1240-0-avatar-profile-icon-png.png	74
-69	https://png.pngitem.com/pimgs/s/78-786293_1240-x-1240-0-avatar-profile-icon-png.png	75
-70	https://png.pngitem.com/pimgs/s/78-786293_1240-x-1240-0-avatar-profile-icon-png.png	76
+COPY public.profile_photo (id, image, profile_id, profile_email) FROM stdin;
 \.
 
 
@@ -736,19 +639,6 @@ COPY public.profile_photo (id, image, profile_id) FROM stdin;
 --
 
 COPY public.profiles (id, email, likes_count, password, google_id, name) FROM stdin;
-76	sipu@gmail.com	60	123	\N	\N
-74	Papu@gmail.com	25	123	\N	\N
-80	naikhimansu546@gmail.com	0	\N	116350854705144447093	Himansu Naik
-81	nayaksubrat9391@gmail.com	0	\N	101222651114772750056	Subrat
-3	h@gmail.com	37	123	\N	\N
-1	himansu@gmail.com	105	123	\N	\N
-64	hello2@gmail.com	7	12345	\N	\N
-65	hello3@gmail.com	7	12345	\N	\N
-66	email@gmail.com	7	123	\N	\N
-67	gmail@gmail.com	7	123	\N	\N
-69	mamuni@gmail.com	7	1223	\N	\N
-71	mamuni2@gmail.com	7	1223	\N	\N
-75	bapu@gmail.com	7	123	\N	\N
 \.
 
 
@@ -818,24 +708,6 @@ COPY public.sessions (sid, sess, expire) FROM stdin;
 --
 
 COPY public.skills (id, profile_id, skill) FROM stdin;
-207	3	mongodb
-212	3	painting
-213	3	hello
-216	64	
-217	65	
-218	66	
-219	67	
-221	69	
-222	71	
-225	74	
-226	75	
-227	76	
-164	\N	React.js
-165	1	html
-189	1	typescript
-190	1	remix
-192	1	helo
-193	1	Next.js
 \.
 
 
@@ -843,14 +715,14 @@ COPY public.skills (id, profile_id, skill) FROM stdin;
 -- Name: about_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.about_id_seq', 33, true);
+SELECT pg_catalog.setval('public.about_id_seq', 35, true);
 
 
 --
 -- Name: comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.comments_id_seq', 46, true);
+SELECT pg_catalog.setval('public.comments_id_seq', 116, true);
 
 
 --
@@ -864,7 +736,7 @@ SELECT pg_catalog.setval('public.experiences_id_seq', 1, false);
 -- Name: images_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.images_id_seq', 124, true);
+SELECT pg_catalog.setval('public.images_id_seq', 131, true);
 
 
 --
@@ -875,17 +747,10 @@ SELECT pg_catalog.setval('public.languages_id_seq', 1, false);
 
 
 --
--- Name: likes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.likes_id_seq', 20, true);
-
-
---
 -- Name: profile_info_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.profile_info_id_seq', 47, true);
+SELECT pg_catalog.setval('public.profile_info_id_seq', 49, true);
 
 
 --
@@ -899,14 +764,14 @@ SELECT pg_catalog.setval('public.profile_links_id_seq', 21, true);
 -- Name: profile_photo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.profile_photo_id_seq', 70, true);
+SELECT pg_catalog.setval('public.profile_photo_id_seq', 72, true);
 
 
 --
 -- Name: profiles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.profiles_id_seq', 81, true);
+SELECT pg_catalog.setval('public.profiles_id_seq', 83, true);
 
 
 --
@@ -927,7 +792,7 @@ SELECT pg_catalog.setval('public.saved_posts_id_seq', 1, false);
 -- Name: skills_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.skills_id_seq', 227, true);
+SELECT pg_catalog.setval('public.skills_id_seq', 229, true);
 
 
 --
@@ -968,14 +833,6 @@ ALTER TABLE ONLY public.images
 
 ALTER TABLE ONLY public.languages
     ADD CONSTRAINT languages_pkey PRIMARY KEY (id);
-
-
---
--- Name: likes likes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.likes
-    ADD CONSTRAINT likes_pkey PRIMARY KEY (id);
 
 
 --
@@ -1067,6 +924,22 @@ ALTER TABLE ONLY public.skills
 
 
 --
+-- Name: comments comments_image_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comments
+    ADD CONSTRAINT comments_image_id_fkey FOREIGN KEY (image_id) REFERENCES public.images(id);
+
+
+--
+-- Name: comments comments_profile_email_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comments
+    ADD CONSTRAINT comments_profile_email_fkey FOREIGN KEY (profile_email) REFERENCES public.profiles(email);
+
+
+--
 -- Name: profile_links fk_profile; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1131,14 +1004,6 @@ ALTER TABLE ONLY public.saved_posts
 
 
 --
--- Name: likes fk_profile; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.likes
-    ADD CONSTRAINT fk_profile FOREIGN KEY (profile_id) REFERENCES public.profiles(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
 -- Name: profile_photo fk_profile; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1160,6 +1025,22 @@ ALTER TABLE ONLY public.profile_links
 
 ALTER TABLE ONLY public.profile_info
     ADD CONSTRAINT profile_info FOREIGN KEY (profile_id) REFERENCES public.profiles(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: profile_info profile_info_profile_email_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.profile_info
+    ADD CONSTRAINT profile_info_profile_email_fkey FOREIGN KEY (profile_email) REFERENCES public.profiles(email);
+
+
+--
+-- Name: profile_photo profile_photo_profile_email_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.profile_photo
+    ADD CONSTRAINT profile_photo_profile_email_fkey FOREIGN KEY (profile_email) REFERENCES public.profiles(email);
 
 
 --
@@ -1246,20 +1127,6 @@ GRANT ALL ON TABLE public.languages TO profile_store_admin;
 --
 
 GRANT ALL ON SEQUENCE public.languages_id_seq TO profile_store_admin;
-
-
---
--- Name: TABLE likes; Type: ACL; Schema: public; Owner: postgres
---
-
-GRANT ALL ON TABLE public.likes TO profile_store_admin;
-
-
---
--- Name: SEQUENCE likes_id_seq; Type: ACL; Schema: public; Owner: postgres
---
-
-GRANT ALL ON SEQUENCE public.likes_id_seq TO profile_store_admin;
 
 
 --

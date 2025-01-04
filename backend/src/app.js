@@ -103,12 +103,13 @@ app.use(bodyParserMiddleware);
 // }
 
 function isAuthenticated(req, res, next) {
-	if (req.session.email && req.session.password) {
+	if (req.session.email && req.session.id && req.session.password) {
 		next();
 	} else {
 		res.status(401).json({message: "Unauthorized, please log in first."});
 	}
 }
+
 
 app.use(express.static(path.join(__dirname, "./public")));
 
@@ -432,7 +433,7 @@ db("profiles")
 
         // Insert into "profile_info" table
         db("profile_info")
-          .insert({ name: req.session.name, headline: req.session.headline, profile_id: profileId })
+          .insert({ name: req.session.name, headline: req.session.headline, profile_id: profileId, profile_email: req.session.email })
           .returning("*")
           .then((profileInfo) => {
             console.log("Profile Info:", profileInfo);
@@ -458,7 +459,7 @@ db("profiles")
                     // return res.json(aboutInfo);
                     // return res.json("Signup successfully!")
                     db("profile_photo")
-                      .insert({image: req.session.image, profile_id: profileId})
+                      .insert({image: req.session.image, profile_id: profileId, profile_email: req.session.email})
                       .returning("*")
                       .then((photo) => {
                       	return res.json("signup successfully!")

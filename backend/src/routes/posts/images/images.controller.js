@@ -12,16 +12,16 @@ function getImages(req, res) {
 
 	const email = req.session.email;
     
-    if (!email) {
-		return res.status(400).json({Error: "Login to see images"});
-	}
+    // if (!email) {
+	// 	return res.status(400).json({Error: "Login to see images"});
+	// }
 
 	getImagesModel()
 	    .join("images", "profiles.id", "=", "images.profile_id")
 	    .join("profile_info", "profiles.id", "=", "profile_info.profile_id")
 	    .join("profile_photo", "profiles.id", "=", "profile_photo.profile_id")
 	    .select("*", "images.id as image_id")
-	    .orderBy("image_id", "desc")
+	    .orderBy("images.id", "desc")
 		.then((usersPost) => {
 			console.log(usersPost)
 			return res.json(usersPost)
@@ -164,8 +164,10 @@ function editImage(req, res, db) {
 
 	  	console.log(images)
 
-
 	  })
+
+
+			  
 
 
 		} catch (error) {
