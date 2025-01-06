@@ -31,6 +31,21 @@ function getImages(req, res) {
 			console.log("Error occurred to retrieve image from DATABASE", err);
 		});
 
+		// getImagesModel()
+	    // .leftJoin("profile_info", "images.profile_email", "=", "profile_info.profile_email")
+	    // .leftJoin("profile_photo", "images.profile_email", "=", "profile_photo.profile_email")
+	    // .leftJoin("likes", "images.profile_email", "=", "likes.profile_email")
+	    // .select("*", "images.id as image_id")
+	    // .orderBy("images.id", "desc")
+		// .then((usersPost) => {
+		// 	console.log(usersPost)
+		// 	return res.json(usersPost)
+		// })
+		// .catch((err) => {
+		// 	res.status(500).json({ err: "Internal server error" });
+		// 	console.log("Error occurred to retrieve image from DATABASE", err);
+		// });
+
 	// db("images")
 	// 	.join("profiles", "images.profile_id", "profiles.id")
 	// 	.select("*")
@@ -80,7 +95,7 @@ function postImage(req, res) {
 				   .where({email: email})
 				   .then(user => {
 				   	   const userId = user[0].id
-				   	  return postImageModel(imageUrl, userId, imgPublicId) // if use local then use fullImgUrl instead in production use imageUrl
+				   	  return postImageModel(fullImgUrl, userId, imgPublicId) // if use local then use fullImgUrl instead in production use imageUrl
 				   	         .then(postImage => {
 				   	         	console.log(result)
 				   	         	return res.json({message: "Post Uploaded Successfully!", data: postImage})

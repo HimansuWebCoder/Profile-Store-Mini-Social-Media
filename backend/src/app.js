@@ -200,7 +200,7 @@ app.put("/api/upload/:id", upload.single("avatar"), function (req, res, next) {
 // API Routers
 app.use("/api", apiRouter);
 
-app.get("/likes", isAuthenticated, (req, res, next) => {
+app.get("/all-likes", isAuthenticated, (req, res, next) => {
   const email = req.session.email;
 if (!email) {
 	return res.json("you need to login to get likes")
@@ -228,6 +228,129 @@ app.get("/all-users", isAuthenticated, (req, res, next) => {
 	  });
 })
 
+app.get('/likes/:imageId', isAuthenticated, (req,res) => {
+	const { imageId } = req.params;
+	 const email = req.session.email;
+
+  if (!email) {
+  	res.status(400).json("email needed to get like post");
+  }
+ 
+ console.log(email);
+  db("likes")
+     .select("*")
+     .where({image_id: imageId})
+     .then(like => {
+         console.log(like)
+     	res.json(like);
+     })
+
+})
+
+app.get('/likes', isAuthenticated, (req, res) => {
+	 const email = req.session.email;
+ console.log(email);
+  db("likes")
+     .select("*")
+     .then(like => {
+      console.log(like.length)
+     	res.json(like);
+     })
+})
+
+app.post('/likes/:imageId', isAuthenticated, (req, res) => {
+	// const {profile_id, image_id} = req.body
+	const { imageId } = req.params;
+  
+  const email = req.session.email;
+
+  if (!email) {
+  	res.status(400).json("email needed to like post");
+  }
+
+
+  // db("likes")
+  //    .select("*")
+  //    .where({profile_email: email, id: imageId})
+  //    .first()
+  //    .then(like => {
+  //      console.log("user", like)
+  //      if (like) {
+  //      	res.json("user already exists");
+  //      } else {
+  //    	 db('likes')
+  //    	   .insert({profile_email: email, image_id: imageId})
+  //    	   .returning("*")
+  //    	   .then(likes => {
+  //    	   	 if (likes.length > 0) {
+  //    	   	 	res.json(likes);
+  //    	   	 } else {
+  //    	   	 res.json("you already liked");
+  //    	   	}
+  //    	   })
+
+  //      }
+  //    })
+
+  // First, check if the user has already liked the image in the 'likes' table
+db("likes")
+  .select("*")
+  .where({ profile_email: email, image_id: imageId })
+  .first()
+  .then(like => {
+    if (like) {
+      // If the like already exists, send a message indicating that
+      res.json("user already exists");
+    } else {
+      // If no like exists, insert the new like into the 'likes' table
+      db('likes')
+        .insert({ profile_email: email, image_id: imageId })
+        .returning("*")
+        .then(likes => {
+          if (likes.length > 0) {
+            // Return the inserted like data or success message
+            res.json(likes);
+          } else {
+            // Handle unexpected case where insertion failed
+            res.json("Error adding like");
+          }
+        })
+        .catch(error => {
+          // Handle errors during the insertion process
+          console.error(error);
+          res.status(500).json("Error adding like");
+        });
+    }
+  })
+  .catch(error => {
+    // Handle errors during the query for existing likes
+    console.error(error);
+    res.status(500).json("Error checking like status");
+  });
+
+
+	// db('likes').select("*")
+	// .where({profile_id, image_id})
+	// .first()
+	// .then(likes => {
+	// 	if (likes) {
+	// 		res.json("user already exists");
+	// 	} else {
+	// 		db('likes').
+	// 		insert({profile_id, image_id}).returning("*")
+	// 		.then(like => {
+	// 			// res.json(like);
+	// 			if (like) {
+	// 				res.json(like)
+	// 			} else {
+	// 				res.json("you already liked")
+	// 			}
+	// 		})
+	// 	}
+	// })
+
+})
+
 app.get("/images/:id", (req, res) => {
    const { id } = req.params;
 
@@ -245,6 +368,7 @@ app.get("/images/:id", (req, res) => {
      	res.json(image);
      })	
 })
+
 
 
 app.get("/all-users/:id", isAuthenticated, (req, res, next) => {

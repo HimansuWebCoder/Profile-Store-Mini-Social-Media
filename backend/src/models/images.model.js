@@ -5,6 +5,11 @@ function getImagesModel() {
 	       .select("*");
 }
 
+// function getImagesModel() {
+// 	return db("images")
+// 	       .select("*");
+// }
+
 function postImageModel(image, id, publicId) {
 	return db("images")
 		.insert({ image_url: image, profile_id: id, public_id: publicId })
