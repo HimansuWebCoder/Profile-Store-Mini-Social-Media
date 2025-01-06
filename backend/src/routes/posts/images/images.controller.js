@@ -95,7 +95,7 @@ function postImage(req, res) {
 				   .where({email: email})
 				   .then(user => {
 				   	   const userId = user[0].id
-				   	  return postImageModel(fullImgUrl, userId, imgPublicId) // if use local then use fullImgUrl instead in production use imageUrl
+				   	  return postImageModel(imageUrl, userId, imgPublicId) // if use local then use fullImgUrl instead in production use imageUrl
 				   	         .then(postImage => {
 				   	         	console.log(result)
 				   	         	return res.json({message: "Post Uploaded Successfully!", data: postImage})
