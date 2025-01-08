@@ -2,6 +2,7 @@ const express = require("express");
 const db = require("../../../config/db");
 const {
 	getImages,
+	getOneImage,
 	editImage,
 	deleteImage,
 	postImage,
@@ -11,6 +12,10 @@ const upload = require("../../../config/config");
 
 imagesRouter.get("/", (req, res) => {
 	getImages(req, res, db);
+});
+
+imagesRouter.get("/:id", (req, res) => {
+	getOneImage(req, res, db);
 });
 
 imagesRouter.post("/", upload.single("avatar"), (req, res, next) => {

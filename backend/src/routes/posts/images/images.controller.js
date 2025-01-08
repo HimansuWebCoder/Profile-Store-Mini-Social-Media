@@ -6,6 +6,7 @@ const cloudinary = require("cloudinary").v2;
 const {
 	getImagesModel,
 	postImageModel,
+	getOneImageModel,
 } = require("../../../models/images.model");
 
 function getImages(req, res) {
@@ -16,14 +17,17 @@ function getImages(req, res) {
 		return res.status(400).json({Error: "Login to see images"});
 	}
 
+	    // .select("images.id", "images.image_url", "" "images.created_at", "profile_photo.image", "profile_info.name", "profile_info.headline", "images.id as image_id")
 	getImagesModel()
-	    .join("images", "profiles.id", "=", "images.profile_id")
-	    .join("profile_info", "profiles.id", "=", "profile_info.profile_id")
-	    .join("profile_photo", "profiles.id", "=", "profile_photo.profile_id")
-	    .select("*", "images.id as image_id")
+	    .leftJoin("profile_info", "images.profile_id", "=", "profile_info.profile_id")
+	    .leftJoin("profile_photo", "images.profile_id", "=", "profile_photo.profile_id")
+	    .leftJoin("likes", "images.id", "=", "likes.image_id")
+	    .leftJoin("comments", "images.id", "=", "comments.image_id")
+	    .select("images.id", "images.image_url", "images.created_at", "profile_photo.image", "profile_info.name", "profile_info.headline", db.raw("array_agg(DISTINCT comments.comment) AS comment_names"), db.raw("count(DISTINCT likes.id) as likes_count"))
+	    .groupBy("images.id", "images.image_url", "images.created_at", "profile_photo.image", "profile_info.name", "profile_info.headline")
 	    .orderBy("images.id", "desc")
 		.then((usersPost) => {
-			console.log(usersPost)
+			console.log(usersPost) 
 			return res.json(usersPost)
 		})
 		.catch((err) => {
@@ -56,6 +60,28 @@ function getImages(req, res) {
 	// 	.catch((err) => {
 	// 		res.json(err);
 	// 	});
+}
+
+function getOneImage(req, res) {
+    const { id } = req.params;
+     
+    getOneImageModel()
+	    .leftJoin("profile_info", "images.profile_id", "=", "profile_info.profile_id")
+	    .leftJoin("profile_photo", "images.profile_id", "=", "profile_photo.profile_id")
+	    .leftJoin("likes", "images.id", "=", "likes.image_id")
+	    .leftJoin("comments", "images.id", "=", "comments.image_id")
+	    .where({"images.id": id})
+	    .select("images.id", "images.image_url", "images.created_at", "profile_photo.image", "profile_info.name", "profile_info.headline", db.raw("array_agg(DISTINCT comments.comment) AS comment_names"), db.raw("count(DISTINCT likes.id) as likes_count"))
+	    .groupBy("images.id", "images.image_url", "images.created_at", "profile_photo.image", "profile_info.name", "profile_info.headline")
+	    .orderBy("images.id", "desc")
+		.then((usersPost) => {
+			console.log(usersPost) 
+			return res.json(usersPost)
+		})
+		.catch((err) => {
+			res.status(500).json({ err: "Internal server error" });
+			console.log("Error occurred to retrieve image from DATABASE", err);
+		});
 }
 
 
@@ -271,6 +297,7 @@ function deleteImage(req, res, db) {
 
 module.exports = {
 	getImages,
+	getOneImage,
 	postImage,
 	editImage,
 	deleteImage,

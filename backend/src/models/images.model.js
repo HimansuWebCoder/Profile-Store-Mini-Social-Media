@@ -1,14 +1,19 @@
 const db = require("../config/db");
 
+// function getImagesModel() {
+// 	return db("profiles")
+// 	       .select("profiles.id");
+// }
+
 function getImagesModel() {
-	return db("profiles")
-	       .select("*");
+	return db("images")
+	       .select("images.id", "images.image_url", "images.created_at");
 }
 
-// function getImagesModel() {
-// 	return db("images")
-// 	       .select("*");
-// }
+function getOneImageModel() {
+	return db("images")
+	       .select("images.id", "images.image_url", "images.created_at");
+}
 
 function postImageModel(image, id, publicId) {
 	return db("images")
@@ -19,4 +24,6 @@ function postImageModel(image, id, publicId) {
 module.exports = {
 	getImagesModel,
 	postImageModel,
+	getOneImageModel
 };
+

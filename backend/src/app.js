@@ -219,7 +219,7 @@ app.get("/all-users", isAuthenticated, (req, res, next) => {
 	db("profiles")
 	  .join("profile_info", "profiles.id", "=", "profile_info.profile_id")
 	  .join("profile_photo", "profiles.id", "=", "profile_photo.profile_id")
-	  .select("*")
+	  .select("profile_info.name", "profile_info.headline", "profile_photo.image")
 	  .then(users => {
 	  	res.json(users);
 	  })
@@ -540,7 +540,7 @@ app.post("/signup", (req, res) => {
 
 db("profiles")
   .select("*")
-  .where({ email: req.session.email }) // Check if email exists
+  .where({ email}) // Check if email exists
   .then((existingProfiles) => {
     console.log(existingProfiles);
     if (existingProfiles.length > 0) {
@@ -549,19 +549,25 @@ db("profiles")
 
     // Insert into "profiles" table if the email does not exist
     db("profiles")
-      .insert({ email: req.session.email, password: req.session.password })
+      .insert({ email, password})
       .returning("*")
       .then((profile) => {
         const profileId = profile[0].id;
+        console.log("users profile", profile);
         console.log("Profile ID:", profileId);
-
+        req.session.user_id = profileId;
+        req.session.email = email;
+        req.session.password = password;
         // Insert into "profile_info" table
         db("profile_info")
-          .insert({ name: req.session.name, headline: req.session.headline, profile_id: profileId, profile_email: req.session.email })
+          .insert({ name, headline, profile_id: profileId, profile_email: email })
           .returning("*")
           .then((profileInfo) => {
+          	const headline = profileInfo[0].headline;
+          	const name = profileInfo[0].name;
             console.log("Profile Info:", profileInfo);
-
+            req.session.headline = headline;
+            req.session.name = name;
             // Insert into "skills" table
             db("skills")
               .insert({
